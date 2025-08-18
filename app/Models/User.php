@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'fakultas',
         'is_admin',
         'is_rektorat',
         'is_feb',
@@ -53,5 +54,15 @@ class User extends Authenticatable
     public function pengajuan()
     {
         return $this->hasMany(Pengajuan::class);
+    }
+
+    public function publikasi()
+    {
+        return $this->hasMany(Publikasi::class);
+    }
+
+    public function laporanPublikasi()
+    {
+        return $this->hasMany(LaporanPublikasi::class);
     }
 }

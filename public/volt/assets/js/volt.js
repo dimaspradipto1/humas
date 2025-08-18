@@ -1,20 +1,3 @@
-/*
-
-=========================================================
-* Volt Pro - Premium Bootstrap 5 Dashboard
-=========================================================
-
-* Product Page: https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard
-* Copyright 2021 Themesberg (https://www.themesberg.com)
-
-* Designed and coded by https://themesberg.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal. Contact us if you want to remove it.
-
-*/
-
 "use strict";
 const d = document;
 d.addEventListener("DOMContentLoaded", function(event) {
@@ -172,11 +155,14 @@ d.addEventListener("DOMContentLoaded", function(event) {
     //Chartist
 
     if(d.querySelector('.ct-chart-sales-value')) {
-        //Chart 5
+       
           new Chartist.Line('.ct-chart-sales-value', {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
             series: [
-                [0, 10, 30, 40, 80, 60, 100]
+                // 
+                [12, 9, 7, 8, 5],
+                [2, 1, 3.5, 7, 3],
+                [1, 3, 4, 5, 6]
             ]
           }, {
             low: 0,
@@ -200,6 +186,7 @@ d.addEventListener("DOMContentLoaded", function(event) {
             }
         });
     }
+
 
     if(d.querySelector('.ct-chart-ranking')) {
         var chart = new Chartist.Bar('.ct-chart-ranking', {

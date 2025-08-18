@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('fakultas');
             $table->boolean('is_admin');
             $table->boolean('is_rektorat');
             $table->boolean('is_feb');

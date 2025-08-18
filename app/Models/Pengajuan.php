@@ -13,6 +13,7 @@ class Pengajuan extends Model
         'tgl_awal',
         'tgl_selesai',
         'deskripsi_kegiatan',
+        'perlengkapan',
         'link_zoom',
         'unit_kegiatan',
         'pic',

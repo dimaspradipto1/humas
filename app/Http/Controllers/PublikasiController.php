@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\PublikasiDataTable;
 use App\Models\Publikasi;
 use Illuminate\Http\Request;
+use App\Models\TahunAkademik;
+use App\Models\LaporanPublikasi;
+use App\DataTables\PublikasiDataTable;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PublikasiController extends Controller
 {
@@ -21,7 +24,8 @@ class PublikasiController extends Controller
      */
     public function create()
     {
-        return view('pages.publikasi.create');
+        $tahunAkademik = TahunAkademik::all();
+        return view('pages.publikasi.create', compact('tahunAkademik'));
     }
 
     /**
@@ -36,17 +40,30 @@ class PublikasiController extends Controller
         $data['link_dokumentasi'] = $request->link_dokumentasi;
         $data['link_publikasi'] = $request->link_publikasi;
         $data['user_id'] = auth()->user()->id;
+        $data['tahun_akademik_id'] = $request->tahun_akademik_id;
 
-        Publikasi::create($data);
+        // Membuat Publikasi terlebih dahulu
+        $publikasi = Publikasi::create($data);
+
+        // Kemudian buat LaporanPublikasi dengan menggunakan ID dari Publikasi yang sudah dibuat
+        LaporanPublikasi::create([
+            'publikasi_id' => $publikasi->id,
+            'user_id' => auth()->user()->id,
+            'nama_kegiatan' => $request->nama_kegiatan,
+            'link_dokumentasi' => $request->link_dokumentasi,
+        ]);
+
+        Alert::success('Success, Data Successfully added')->toToast()->autoclose();
         return redirect()->route('publikasi.index');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Publikasi $publikasi)
     {
-        //
+        return view('pages.publikasi.show', compact('publikasi'));
     }
 
     /**
@@ -70,6 +87,7 @@ class PublikasiController extends Controller
         $data['link_publikasi'] = $request->link_publikasi;
 
         $publikasi->update($data);
+        // Alert::success('Success, Data Successfully Updated')->toToast()->autoclose(3000);
         return redirect()->route('publikasi.index');
     }
 
@@ -79,6 +97,7 @@ class PublikasiController extends Controller
     public function destroy(Publikasi $publikasi)
     {
         $publikasi->delete();
+        Alert::success('Success, Data Successfully Deleted')->toToast()->autoclose(3000);
         return redirect()->route('publikasi.index');
     }
 }

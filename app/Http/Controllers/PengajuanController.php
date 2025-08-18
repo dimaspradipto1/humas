@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\PengajuanDataTable;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
+use App\DataTables\PengajuanDataTable;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PengajuanController extends Controller
 {
@@ -34,15 +35,17 @@ class PengajuanController extends Controller
         $data['tgl_awal'] = $request->tgl_awal;
         $data['tgl_selesai'] = $request->tgl_selesai;
         $data['deskripsi_kegiatan'] = $request->deskripsi_kegiatan;
-        $data['link_zoom'] = $request->link_zoom;
+        $data['perlengkapan'] = $request->perlengkapan;
+        $data['link_zoom'] = $request->link_zoom ?? '-';
         $data['jam_kegiatan'] = $request->jam_kegiatan;
         $data['waktu_selesai'] = $request->waktu_selesai;
         $data['unit_kegiatan'] = $request->unit_kegiatan;
-        $data['pic'] = $request->pic;
+        // $data['pic'] = $request->pic;
         $data['tempat_kegiatan'] = $request->tempat_kegiatan;
         $data['user_id'] = auth()->user()->id;
 
         Pengajuan::create($data);
+        Alert::success('Success', 'Data berhasil ditambahkan')->toToast()->autoclose(3000);
         return redirect()->route('pengajuan.index');
     }
 
@@ -70,6 +73,7 @@ class PengajuanController extends Controller
 
         $data = $request->all();
         $pengajuan->update($data);
+        Alert::success('SUCCESS', 'data updated successfully')->autoclose(2000)->toToast();
         return redirect()->route('pengajuan.index');
     }
 
@@ -79,6 +83,7 @@ class PengajuanController extends Controller
     public function destroy(Pengajuan $pengajuan)
     {
         $pengajuan->delete();
+        Alert::success('SUSSCESS', 'data deleted successfully')->autoclose(2000)->toToast();
         return redirect()->route('pengajuan.index');
     }
 }

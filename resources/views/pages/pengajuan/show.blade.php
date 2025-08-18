@@ -36,27 +36,27 @@
       <div class="table-responsive" >
         <table class="table table-bordered">
           <tr>
-            <th>Judul</th>
+            <th>Nama Kegiatan</th>
             <td>{{ $pengajuan->nama_kegiatan }}</td>
           </tr>
           <tr>
             <th>Tanggal Kegiatan</th>
-            <td>{{ $pengajuan->tgl_awal }}</td>
+            <td>{{ \Carbon\Carbon::parse($pengajuan->tgl_awal)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
           </tr>
           <tr>
             <th>Tanggal Selesai</th>
-            <td>{{ $pengajuan->tgl_selesai }}</td>
+            <td>{{ \Carbon\Carbon::parse($pengajuan->tgl_selesai)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
           </tr>
           <tr>
-            <th>Person In Charge (PIC)</th>
-            <td>{{ $pengajuan->pic }}</td>
+            <th>Waktu Kegiatan</th>
+            <td>{{ $pengajuan->jam_kegiatan }} WIB</td>
           </tr>
           <tr>
-            <th>Jam Kegiatan</th>
-            <td>{{ $pengajuan->jam_kegiatan }}WIB</td>
+            <th>Waktu Selesai</th>
+            <td>{{ $pengajuan->waktu_selesai }} WIB</td>
           </tr>
           <tr>
-            <th>Lokasi</th>
+            <th>Link Zoom</th>
             <td>{{ $pengajuan->link_zoom }}</td>
           </tr>
           <tr>
@@ -64,12 +64,22 @@
             <td>{{ $pengajuan->deskripsi_kegiatan }}</td>
           </tr>
           <tr>
+            <th>Kebutuhan Perlengkapan</th>
+            <td>{{ $pengajuan->perlengkapan }}</td>
+          </tr>
+          <tr>
             <th>Unit Kegiatan</th>
             <td>{{ $pengajuan->unit_kegiatan }}</td>
           </tr>
           <tr>
             <th>Status Pengajuan</th>
-            <td>{{ $pengajuan->status }}</td>
+            <td>
+                @if($pengajuan->status == 'pending')
+                    <span class="badge bg-warning badge-xl px-3 py-2">{{ $pengajuan->status }} <i class="fa-solid fa-spinner"></i></span>
+                @elseif($pengajuan->status == 'approved') 
+                    <span class="badge bg-success badge-xl px-3 py-2">{{ $pengajuan->status }} <i class="fa-solid fa-check"></i></span>
+                @endif
+            </td>
           </tr>
         </table>
       </div>

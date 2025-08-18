@@ -4,8 +4,10 @@ use App\Models\Aktivitas;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LaporanPublikasiController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PublikasiController;
+use App\Http\Controllers\TahunAkademikController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -22,7 +24,6 @@ use App\Http\Controllers\UserController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-// Route::get('/', [LoginController::class, 'login'])->name('login');
 
 Route::controller(LoginController::class)->group(function () {
     Route::get('/', 'login')->name('login');
@@ -36,4 +37,10 @@ Route::middleware(['auth', 'checkrole'])->group(function () {
     Route::resource('/publikasi', PublikasiController::class);
     Route::resource('/pengajuan', PengajuanController::class);
     Route::resource('/users', UserController::class);
+    Route::resource('/laporan-publikasi', LaporanPublikasiController::class);
+    Route::resource('/tahun-akademik', TahunAkademikController::class);
+    Route::get('/user/{id}/update-password',[UserController::class, 'showUpdatePasswordForm'])->name('users.showUpdatePasswordForm');
+    Route::put('/user/{id}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
+    Route::get('/laporan-publikasi', [LaporanPublikasiController::class, 'index'])->name('laporan-publikasi.index');
+    Route::get('/laporan-publikasi/show', [LaporanPublikasiController::class, 'show'])->name('laporan-publikasi.show');
 });

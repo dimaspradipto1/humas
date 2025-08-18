@@ -15,11 +15,21 @@ class Publikasi extends Model
         'upload_laporan',
         'link_dokumentasi',
         'link_publikasi',
+        'tahun_akademik_id',
         'user_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function laporanPublikasi()
+    {
+        return $this->hasMany(LaporanPublikasi::class);
+    }
+    public function tahunAkademik()
+    {
+        return $this->belongsTo(TahunAkademik::class);
     }
 }

@@ -62,10 +62,17 @@
                                                 rows="3"></textarea>
                                         </div>
                                     </div>
+                                    <div class="mb-4">
+                                        <div class="form-group">
+                                            <label for="deskripsi_kegiatan" class="text-capitalize">Kebutuhan perlengkapan</label>
+                                            <textarea class="form-control" name="perlengkapan" value="{{ old('perlengkapan') }}" id=""
+                                                rows="3"></textarea>
+                                        </div>
+                                    </div>
 
                                     <div class="mb-4">
                                         <div class="form-group">
-                                            <label for="link_zoom" class="text-capitalize">link zoom</label>
+                                            <label for="link_zoom" class="text-capitalize">link zoom (jika ada)</label>
                                             <textarea class="form-control" name="link_zoom" value="{{ old('link_zoom') }}" id="" rows="3"></textarea>
                                         </div>
                                     </div>
@@ -93,19 +100,19 @@
                                             value="{{ old('unit_kegiatan') }}">
                                     </div>
 
-                                    <div class="mb-4">
+                                    {{-- <div class="mb-4">
                                         <label for="pic" class="text-capitalize">Person in Charge (PIC)</label>
                                         <input type="text" name="pic" class="form-control"
                                             value="{{ old('pic') }}">
-                                    </div>
+                                    </div> --}}
 
                                     @if (Auth::user()->is_admin)
                                     <div class="mb-4">
                                         <label for="status" class="text-uppercase">status</label>
                                         <div class="form-group">
                                           <select class="form-control form-control-sm" name="status" id="status">
-                                            <option value="pending" {{ $pengajuan->status == 'pending' ? 'selected' : '' }}>pending</option>
-                                            <option value="approved" {{ $pengajuan->status == 'approved' ? 'selected' : '' }}>disetujui</option>
+                                            <option value="pending">pending</option>
+                                            <option value="approved">disetujui</option>
                                           </select>
                                         </div>
                                     </div>

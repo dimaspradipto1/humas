@@ -34,9 +34,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- Sweet Alert -->
-    <link type="text/css" href="{{ asset('volt/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
-
     <!-- Notyf -->
     <link type="text/css" href="{{ asset('volt/vendor/notyf/notyf.min.css') }}" rel="stylesheet">
 
@@ -48,6 +45,7 @@
 
     @stack('style')
 
+
 </head>
 
 <body>
@@ -55,8 +53,8 @@
     <!-- navbar -->
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="{{ route('dashboard') }}">
-            <img class="navbar-brand-dark" src="{{ asset('/volt/assets/img/brand/camera.svg') }}" alt="Volt logo" /> <img
-                class="navbar-brand-light" src="{{ asset('/volt/assets/img/brand/dark.svg') }}" alt="Volt logo" />
+            <img class="navbar-brand-dark" src="{{ asset('/volt/assets/img/brand/camera.svg') }}" alt="camera" />
+            <img class="navbar-brand-light" src="{{ asset('/volt/assets/img/brand/dark.svg') }}" alt="camera" />
         </a>
         <div class="d-flex align-items-center">
             <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
@@ -69,17 +67,19 @@
     <!-- end navbar -->
 
     @include('layouts.dashboard.sidebar')
-    
+
     <main class="content">
         {{-- @include('layouts.dashboard.navbar') --}}
+        @include('sweetalert::alert')
 
         @yield('content')
 
         @include('layouts.dashboard.footer')
     </main>
+    
+    {{--  fontawesome  --}}
+     <script src="https://kit.fontawesome.com/63b8672806.js" crossorigin="anonymous"></script>
 
-  
- 
     <!-- Core -->
     <script src="{{ asset('/volt/vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
     <script src="{{ asset('/volt/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -96,6 +96,7 @@
     <!-- Charts -->
     <script src="{{ asset('/volt/vendor/chartist/dist/chartist.min.js') }}"></script>
     <script src="{{ asset('/volt/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
+
 
     <!-- Datepicker -->
     <script src="{{ asset('/volt/vendor/vanillajs-datepicker/dist/js/datepicker.min.js') }}"></script>
@@ -115,9 +116,6 @@
     <!-- Simplebar -->
     <script src="{{ asset('/volt/vendor/simplebar/dist/simplebar.min.js') }}"></script>
 
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-
     <!-- Volt JS -->
     <script src="{{ asset('/volt/assets/js/volt.js') }}"></script>
 
@@ -128,6 +126,63 @@
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
 
     @stack('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#yourTableId').DataTable({
+                "scrollX": true, // Mengaktifkan scroll horizontal
+            });
+        });
+    </script>
+
+    <script>
+        new Chartist.Line('.line-chart', {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            series: [
+                [12, 9, 7, 8, 5],
+                [2, 1, 3.5, 7, 3],
+                [1, 3, 4, 5, 6],
+                [10, 30, 43, 25, 16],
+            ]
+        }, {
+            fullWidth: true,
+            chartPadding: {
+                right: 40
+            },
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
+        });
+    </script>
+
+    <script>
+        var data = {
+            series: [10, 40, 10, 20], // Data yang digunakan pada chart
+        };
+
+        var sum = function(a, b) {
+            return a + b;
+        };
+
+        new Chartist.Pie('.pie-chart', data, {
+            labelInterpolationFnc: function(value) {
+                return Math.round(value / data.series.reduce(sum) * 100) +
+                '%'; // Menampilkan persentase pada label
+            },
+            low: 0,
+            high: 8,
+            donut: true, // Menambahkan efek donut (lubang di tengah)
+            donutSolid: true, // Lubang donut solid
+            fullWidth: false, // Tidak menggunakan full width
+            showLabel: true, // Menampilkan label
+            plugins: [
+                Chartist.plugins.tooltip() // Tooltip untuk menampilkan info saat hover
+            ],
+            chartPadding: 0, // Menghilangkan padding agar lebih pas
+
+        });
+    </script>
+   
+
 </body>
 
 </html>

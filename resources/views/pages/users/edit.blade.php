@@ -50,10 +50,10 @@
 
                 </div>
 
-                <div class="mb-4">
+                {{-- <div class="mb-4">
                   <label for="password" class="text-uppercase">password</label>
                   <input type="text" class="form-control" name="password" value="{{old('password') ?? $user->password }}">
-                </div>
+                </div> --}}
 
               </div>
             </div>

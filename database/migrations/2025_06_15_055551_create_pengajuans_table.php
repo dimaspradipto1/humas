@@ -19,10 +19,11 @@ return new class extends Migration
             $table->date('tgl_selesai');
             $table->string('jam_kegiatan');
             $table->string('waktu_selesai');
-            $table->text('deskripsi_kegiatan');
+            $table->text('deskripsi_kegiatan')->nullable();
+            $table->text('perlengkapan')->nullable();
             $table->text('link_zoom')->nullable();
             $table->string('unit_kegiatan');
-            $table->string('pic');
+            // $table->string('pic');
             $table->string('status')->default('pending');
             $table->string('tempat_kegiatan');
             $table->timestamps();

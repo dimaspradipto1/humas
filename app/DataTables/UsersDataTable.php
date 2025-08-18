@@ -26,11 +26,12 @@ class UsersDataTable extends DataTable
             ->addColumn('DT_RowIndex', '')
             ->addColumn('action', function($user){
                 return '
-                    <a href="'.route('users.edit', $user->id).'" class="btn btn-sm btn-warning text-white px-3 fa-solid fa-pen-to-square" ><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                    <a href="'.route('users.updatePassword', $user->id).'" class="btn btn-sm btn-info text-white px-3 "><i class="fa-solid fa-key"></i></a>
+                    <a href="'.route('users.edit', $user->id).'" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i></a>
                     <form action="'.route('users.destroy', $user->id).'" method="POST" style="display: inline">
                         '.csrf_field().'
                         '.method_field('DELETE').'
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i> delete</button>
+                        <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash"></i></button>
                     </form>
                 ';
             })
@@ -77,6 +78,7 @@ class UsersDataTable extends DataTable
             Column::make('DT_RowIndex')->title('No'),
             Column::make('name')->title('Nama Pengguna'),
             Column::make('email')->title('email'),
+            Column::make('fakultas')->title('fakultas'),
             Column::computed('action')
                 ->title('Aksi')
                 ->exportable(false)

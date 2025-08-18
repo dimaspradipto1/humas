@@ -48,6 +48,19 @@
                 </div>
 
                 <div class="mb-4">
+                  <label for="email" class="text-uppercase">fakultas</label>
+                  <select name="fakultas" class="form-control" id="fakultas">
+                    <option >PILIH</option>
+                    <option >==================</option>
+                    <option value="UNIVERSITAS IBNU SINA">UNIVERSITAS IBNU SINA</option>
+                    <option value="REKTORAT">REKTORAT</option>
+                    <option value="FAKULTAS EKONOMI DAN BISNIS">FAKULTAS EKONOMI DAN BISNIS</option>
+                    <option value="FAKULTAS SAINS DAN TEKNOLOGI">FAKULTAS SAINS DAN TEKNOLOGI</option>
+                    <option value="FAKULTAS ILMU KESEHATAN">FAKULTAS ILMU KESEHATAN</option>
+                  </select>
+                </div>
+
+                <div class="mb-4">
                   <label for="password" class="text-uppercase">password</label>
                   <input type="text" class="form-control" name="password" value="{{old('password')}}">
                 </div>

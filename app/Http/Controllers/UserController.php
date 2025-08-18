@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\DataTables\UsersDataTable;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -33,14 +34,38 @@ class UserController extends Controller
     {
         $data['name'] = $request->name;
         $data['email'] = $request->email;
+        $data['fakultas'] = $request->fakultas;
         $data['is_admin'] = false;
         $data['is_rektorat'] = false;
         $data['is_feb'] = false;
         $data['is_fst'] = false;
         $data['is_fikes'] = false;
-        $data['is_users'] = true;
+        $data['is_users'] = false;
         $data['password'] = bcrypt($request->password);
         $data['remember_token']=Str::random(60);
+
+        // Set fakultas status
+    switch ($request->fakultas) {
+        case 'UNIVERISTAS IBNU SINA':
+            $data['is_admin'] = true;
+            break;
+        case 'FAKULTAS SAINS DAN TEKNOLOGI':
+            $data['is_fst'] = true;
+            break;
+        case 'FAKULTAS EKONOMI DAN BISNIS':
+            $data['is_feb'] = true; // Assuming Fakultas Ilmu Komputer is in FST
+            break;
+        case 'FAKULTAS ILMU KESEHATAN':
+            $data['is_fikes'] = true; // Assuming Sastra is for rectorate
+            break;
+        case 'REKTORAT':
+            $data['is_rektorat'] = true; // Assuming Hukum is for rectorate
+            break;
+        default:
+            $data['is_users'] = true; // Set to default if no match
+            break;
+    }
+
         User::create($data);
         return redirect()->route('users.index');
     }
@@ -83,7 +108,7 @@ class UserController extends Controller
        ];
 
        if($request->has('password')){
-            $updateData['password'] = bcrypt($request->password);
+            $updateData['password'] = $request->password;
        }
 
        $user->update($updateData);
@@ -97,6 +122,23 @@ class UserController extends Controller
     {
         $user = User::findOrfail($id);
         $user->delete();
+        Alert::success('success', 'data deleted successfully')->autoclose(2000)->toToast();
+        return redirect()->route('users.index');
+    }
+
+    public function showUpdatePasswordForm($id)
+    {
+        $users = User::findOrFail($id);
+        return view('pages.users.updatePassword', compact('users'));
+    }
+    
+    public function updatePassword(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        Alert::success('success', 'data updated successfully')->autoclose(2000)->toToast();
         return redirect()->route('users.index');
     }
 }

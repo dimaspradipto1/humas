@@ -31,15 +31,18 @@ class PublikasiDataTable extends DataTable
             ->addIndexColumn()
             ->addColumn('DT_RowIndex', '')
             ->addColumn('tgl_awal', function($publikasi){
-                return date('d M Y', strtotime($publikasi->tgl_awal));
+                return date('d-m-Y', strtotime($publikasi->tgl_awal));
             })
             ->addColumn('tgl_akhir', function($publikasi){
-                return date('d M Y', strtotime($publikasi->tgl_akhir));
+                return date('d-m-Y', strtotime($publikasi->tgl_akhir));
             })
             ->editColumn('upload_laporan', function($publikasi){
                 return $publikasi->upload_laporan ? '
                     <a href="'.$publikasi->upload_laporan.'" target="_blank" class="text-success px-3 me-1" ><i class="fa-solid fa-eye"></i> Lihat Laporan</a>
                 ' : '-';
+            })
+            ->editColumn('tahun_akademik_id', function($item){
+                return $item->tahun_akademik ? $item->tahun_akademik->tahun_akademik : '-';
             })
             ->addColumn('user_id', function($publikasi){
                 return $publikasi->user->name;
@@ -52,15 +55,16 @@ class PublikasiDataTable extends DataTable
             })
             ->addColumn('action', function($publikasi){
                 return '
-                    <a href="'.route('publikasi.edit', $publikasi->id).'" class="btn btn-sm btn-warning text-white px-3 fa-solid fa-pen-to-square" ><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                    <a href="'.route('publikasi.show', $publikasi->id).'" class="btn btn-sm btn-info text-white px-3" ><i class="fa-solid fa-eye"></i> Detail</a>
+                    <a href="'.route('publikasi.edit', $publikasi->id).'" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                     <form action="'.route('publikasi.destroy', $publikasi->id).'" method="POST" style="display: inline">
                         '.csrf_field().'
                         '.method_field('DELETE').'
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i> delete</button>
+                        <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i> Delete</button>
                     </form>
                 ';
             })
-            ->rawColumns(['action', 'tgl_awal', 'tgl_akhir', 'upload_laporan', 'link_dokumentasi', 'link_publikasi', 'user_id'])
+            ->rawColumns(['action', 'tgl_awal', 'tgl_akhir', 'upload_laporan', 'link_dokumentasi', 'link_publikasi', 'user_id', 'tahun_akademik_id'])
             ->setRowId('DT_RowIndex');
     }
 
@@ -84,6 +88,9 @@ class PublikasiDataTable extends DataTable
                     //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
+                    ->parameters([
+                        'scrollX' => true,
+                    ])
                     ->buttons([
                         Button::make('excel'),
                         Button::make('csv'),
@@ -105,9 +112,9 @@ class PublikasiDataTable extends DataTable
             Column::make('nama_kegiatan')->title('Nama Kegiatan'),
             Column::make('tgl_awal')->title('Tanggal Awal'),
             Column::make('tgl_akhir')->title('Tanggal Akhir'),
-            Column::make('upload_laporan')->title('Upload Laporan'),
-            Column::make('link_dokumentasi')->title('Link Dokumentasi'),
-            Column::make('link_publikasi')->title('Link Publikasi'),
+            // Column::make('upload_laporan')->title('Upload Laporan'),
+            // Column::make('link_dokumentasi')->title('Link Dokumentasi'),
+            // Column::make('link_publikasi')->title('Link Publikasi'),
             Column::make('user_id')->title('Submit Pengguna'),
             Column::computed('action')
                 ->title('Aksi')

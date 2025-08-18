@@ -1,234 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!-- Primary Meta Tags -->
-    <title>Humas - Sign in page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="title" content="Volt Premium Bootstrap Dashboard - Sign in page">
-    <meta name="author" content="Themesberg">
+  <head>
+    <meta charset="UTF-8">
+    <title>sistem humas dan publikasi</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta name="description"
-        content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
-    <meta name="keywords"
-        content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, themesberg, themesberg dashboard, themesberg admin dashboard" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Volt Premium Bootstrap Dashboard - Sign in page">
-    <meta property="og:description"
-        content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Humas - Sign in page">
-    <meta property="twitter:description"
-        content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
+      content="siAkad Cloud solusi terbaik Perguruan Tinggi. Langsung Bisa Digunakan, Tidak Ribet dan Pelaporan Beres.">
+    <meta name="keywords" content="">
+    <meta name="author" content="siAkad Cloud">
+    <!-- font Awesome -->
+    <link href="https://assets.siakadcloud.com/assets/v1/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="https://assets.siakadcloud.com/assets/v1/css/customs/login-v2.css?240723" rel="stylesheet"
+      type="text/css" />
+    <link rel="icon" type="img/png" href="https://assets.siakadcloud.com/public/uis-favicon.png" sizes="16x16" />
 
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('volt/assets/img/favicon/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32"
-        href="{{ asset('volt/assets/img/favicon/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="{{ asset('volt/assets/img/favicon/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ asset('volt/assets/img/favicon/site.webmanifest') }}">
-    <link rel="mask-icon" href="{{ asset('volt/assets/img/favicon/safari-pinned-tab.svg') }}" color="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <style type="text/css">
+      html,
+      body {
+        background: #f2f2f2 url('https://assets.siakadcloud.com/assets/v1/img/pattern/pat_04.png') repeat;
+      }
 
-    <!-- Sweet Alert -->
-    <link type="text/css" href="{{ asset('volt/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+      .password {
+        position: relative;
+      }
 
-    <!-- Notyf -->
-    <link type="text/css" href="{{ asset('volt/vendor/notyf/notyf.min.css') }}" rel="stylesheet">
+      .showbtn {
+        cursor: pointer;
+        overflow: hidden;
+        right: 15px;
+        position: absolute;
+        top: 10px;
+        cursor: pointer;
+      }
 
-    <!-- Volt CSS -->
-    <link type="text/css" href="{{ asset('volt/css/volt.css') }}" rel="stylesheet">
+      .login-page .form-box .form-login img.logo {
+        max-width: 90%;
+      }
+
+      .login-page .form-box {
+        border-radius: 10px;
+        box-shadow: 0 0 35px 0 rgb(154 161 171 / 20%);
+      }
+
+      .btn {
+        border-radius: .3rem;
+      }
+
+      .btn-login {
+        font-size: 14px;
+      }
+
+      .login a {
+        font-size: 14px;
+      }
+
+      .title-login-email {
+        display: flex;
+        position: relative;
+        padding: 1.25rem 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .title-line {
+        display: flex;
+        width: 100%;
+        border-top: 1px solid #E0E3E7;
+      }
+
+      .title-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+        line-height: 1.25rem;
+        font-weight: 500;
+        color: #99A1AE;
+        background-color: #ffffff;
+        width: 165px;
+        text-align: center;
+      }
+
+      .form-group {
+        font-size: 14px;
+      }
+
+      .form-group strong {
+        font-weight: 500;
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      .input-line {
+        font-size: 13px;
+      }
+
+      @media (max-width: 768px) {
 
 
-</head>
-
-<body>
-
-    <main>
-
-        <!-- Section -->
-        <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
-            <div class="container">
-                {{-- <p class="text-center">
-                    <a href="../dashboard/dashboard.html" class="d-flex align-items-center justify-content-center">
-                        <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        Back to homepage
-                    </a>
-                </p> --}}
-                <div class="row justify-content-center form-bg-image"
-                    data-background-lg="{{ asset('volt/assets/img/illustrations/signin.svg') }}">
-                    <div class="col-12 d-flex align-items-center justify-content-center">
-                        <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-                            <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h3">Sign in to our Humas</h1>
-                            </div>
-                            <form action="{{ route('loginproses') }}" class="mt-4" method="POST">
-                                @csrf
-
-                                <!-- Form -->
-                                <div class="form-group mb-4">
-                                    <label for="email">Your Email</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon1">
-                                            <svg class="icon icon-xs text-gray-600" fill="currentColor"
-                                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z">
-                                                </path>
-                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                        <input type="email" name="email" value="{{ old('email') }}"
-                                            class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="example@gmail.com" id="email" autofocus required>
-                                        @error('email')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <!-- End of Form -->
-                                <div class="form-group">
-                                    <!-- Form -->
-                                    <div class="form-group mb-4">
-                                        <label for="password">Your Password</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon2">
-                                                <svg class="icon icon-xs text-gray-600" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                            </span>
-                                            <input type="password" name="password" placeholder="Password"
-                                                class="form-control" id="myInput" required>
-                                        </div>
-                                    </div>
-
-                                    <!-- End of Form -->
-                                    <div class="d-flex justify-content-between align-items-top mb-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" onclick="myFunction()" type="checkbox">
-                                            <label class="form-check-label mb-0" for="remember">
-                                                show password
-                                        </div>
-                                        {{-- <div><a href="{{route('forgotpassword')}}" class="small text-right">Lost password?</a></div> --}}
-                                    </div>
-                                </div>
-
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-gray-800">Sign in</button>
-                                </div>
-                            </form>
-                            <div class="mt-3 mb-4 text-center">
-                                <span class="fw-normal">or login with</span>
-                            </div>
-                            <div class="d-flex justify-content-center my-4">
-                                <a href="#" class="btn btn-icon-only btn-pill btn-outline-gray-500 me-2"
-                                    aria-label="facebook button" title="facebook button">
-                                    <svg class="icon icon-xxs" aria-hidden="true" focusable="false"
-                                        data-prefix="fab" data-icon="facebook-f" role="img"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                                        <path fill="currentColor"
-                                            d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
-                                        </path>
-                                    </svg>
-                                </a>
-                                <a href="#" class="btn btn-icon-only btn-pill btn-outline-gray-500 me-2"
-                                    aria-label="twitter button" title="twitter button">
-                                    <svg class="icon icon-xxs" aria-hidden="true" focusable="false"
-                                        data-prefix="fab" data-icon="twitter" role="img"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                        <path fill="currentColor"
-                                            d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
-                                        </path>
-                                    </svg>
-                                </a>
-                                <a href="#" class="btn btn-icon-only btn-pill btn-outline-gray-500"
-                                    aria-label="github button" title="github button">
-                                    <svg class="icon icon-xxs" aria-hidden="true" focusable="false"
-                                        data-prefix="fab" data-icon="github" role="img"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
-                                        <path fill="currentColor"
-                                            d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
-                                        </path>
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center mt-4">
-                                <span class="fw-normal">
-                                    Not registered?
-                                    <a href="./sign-up.html" class="fw-bold">Create account</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        function myFunction() {
-            var x = document.getElementById("myInput");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
+        .div_loading {
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 999;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
+    </style>
+    
+  </head>
+  
+  <body class="login-page">
+    @include('sweetalert::alert')
+    
+    <div class="container">
+      <div class="row">
+        <div class="form-box col-md-4 col-sm-10 col-xs-12">
+
+          
+          <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 form-login" align="center">
+            <img src="https://assets.siakadcloud.com/uploads/uis/logoaplikasi/156.jpg" class="logo"
+              style="margin-bottom: 30px;">
+            <b>
+              <span class="text-center" style="font-size:20px; font-weight: 600; display: block">Masuk dan
+                Verifikasi</span>
+            </b>
+            <p style="margin-bottom: 15px;">
+              Baru! Nikmati kemudahan mengakses semua layanan Humas dan Publikasi Universitas Ibnu Sina dengan satu akun melalui sistem autentikasi tunggal
+            </p>
+            <form action="{{ route('loginproses') }}" method="POST">
+              @csrf
+
+              <div class="alert alert-danger alert-dismissable temp-error-xhr" style="display:none;">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <span id="error-msg"></span>
+              </div>
+
+              <div class="login">
+                {{--  <a href="#" class="btn btn-default btn-block" style="font-weight: 600;">
+                  <img src="https://quantum.sevima.com/assets/images/logo-google.svg" alt=""> Masuk dengan
+                  Google
+                </a>  --}}
+                
+                <div class="title-login-email">
+                  <span class="title-line"></span>
+                  {{--  <p class="title-text">atau lanjutkan dengan</p>  --}}
+                </div>
+
+                <div class="form-group" style="text-align: left">
+                  <span><strong>Email</strong></span><span style="color:red">*</span>
+
+                  <input type="text" name="login" value="{{ old('login') }}" id="email" class="form-control input-line"
+                    placeholder="Masukkan email yang terdaftar" required="true" autocomplete="off" />
+                </div>
+
+                <div class="form-group" style="text-align: left; margin-bottom: -5px;">
+                  <span><strong>Password</strong></span><span style="color:red">*</span>
+                  <div class="password">
+
+                    <input type="password" id="password" name="password" class="form-control input-line"
+                      placeholder="Masukkan password" required="true" autocomplete="off" />
+                    <span id="iconshow" name="iconshow" onClick="showPass()" class=" showbtn fa fa-eye-slash"></span>
+                  </div>
+                </div>
+
+                {{--  <a style="font-size: 13px; padding: 0px 0px 25px 0px;text-decoration-line: underline;font-weight: 600;"
+                  href="{{ route('forgotpassword') }}" class="text-center pull-right">Lupa kata sandi?</a>  --}}
+                <div class="form-group" style="margin-top: 20pt;" align="center">
+                  <button type="submit" data-type="login"
+                    class="btn btn-flat btn-primary btn-block btn-login">Masuk</button>
+                </div>
+
+            </form>
+            {{-- <div style="margin-top: 30px; font-size: 14px">
+              <div class="form-group" align="center" style="margin-top: 10px;">
+                <p>Belum punya akun? <a href="#" style="font-weight: 600;">Daftar Sekarang</a></p>
+              </div>
+            </div> --}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery 2.0.2 -->
+    <script src="https://assets.siakadcloud.com/assets/v1/js/external/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://assets.siakadcloud.com/assets/v1/js/bootstrap.min.js" type="text/javascript"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-91361426-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('set', {
+        'user_id': 'Universitas Ibnu Sina :  - '
+      });
+      gtag('config', 'UA-91361426-5', {
+        'custom_map': {
+          'dimension1': 'PerguruanTinggi',
+          'dimension2': 'Pengguna',
+          'dimension3': 'HakAkses',
+          'dimension4': 'UnitKerja',
+          'metric1': 'Pageviews'
+        }
+      });
+
+      gtag('event', 'push_custom_var', {
+        'PerguruanTinggi': 'Universitas Ibnu Sina',
+        'Pengguna': 'Universitas Ibnu Sina :  - ',
+        'HakAkses': '',
+        'UnitKerja': ' - ',
+        'Pageviews': 1
+      });
     </script>
 
-    <!-- Core -->
-    <script src="{{ asset('volt/vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset('volt/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+    <script>
+      if (firebaseConfig == undefined) {
+        var firebaseConfig = {
+          apiKey: "AIzaSyBE85GSM4dBUZ8m9aoJZVpSOQltwQZttDc",
+          authDomain: "siakad-cloud-2.firebaseapp.com",
+          databaseURL: "https://siakad-cloud-2.firebaseio.com",
+          projectId: "siakad-cloud-2",
+          storageBucket: "siakad-cloud-2.appspot.com",
+          messagingSenderId: "735352312839",
+          appId: "1:735352312839:web:9aa5508b27862f29a146a2",
+          measurementId: "G-9GSZKDCXHL"
+        };
+        firebase.initializeApp(firebaseConfig);
+      }
+    </script>
+    <script>
+      firebase.analytics();
+    </script>
 
-    <!-- Vendor JS -->
-    <script src="{{ asset('volt/vendor/onscreen/dist/on-screen.umd.min.js') }}"></script>
+    <script type="text/javascript">
+      function showPass() {
+        if (document.getElementById("password").type == 'password') {
+          document.getElementById("password").type = 'text';
+          document.getElementById("iconshow").classList.remove('fa-eye-slash');
+          document.getElementById("iconshow").classList.add('fa-eye');
+        } else {
+          document.getElementById("password").type = 'password';
+          document.getElementById("iconshow").classList.remove('fa-eye');
+          document.getElementById("iconshow").classList.add('fa-eye-slash');
+        }
+      }
 
-    <!-- Slider -->
-    <script src="{{ asset('volt/vendor/nouislider/distribute/nouislider.min.js') }}"></script>
+      $('[data-type="login"]').click(function() {
+        var formlogin = $(this).parents().find('form');
+        formlogin.submit();
+      });
 
-    <!-- Smooth scroll -->
-    <script src="{{ asset('volt/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js') }}"></script>
+      // cek login
+      $(function() {
+        $('#email').keypress(function(e) {
+          // Enter pressed?
+          if (e.which == 10 || e.which == 13) {
+            $('[data-type="login"]').trigger('click');
+          }
+        });
+        $('#password').keypress(function(e) {
+          // Enter pressed?
+          if (e.which == 10 || e.which == 13) {
+            $('[data-type="login"]').trigger('click');
+          }
+        });
+      });
+    </script>
 
-    <!-- Charts -->
-    <script src="{{ asset('volt/vendor/chartist/dist/chartist.min.js') }}"></script>
-    <script src="{{ asset('volt/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
-
-    <!-- Datepicker -->
-    <script src="{{ asset('volt/vendor/vanillajs-datepicker/dist/js/datepicker.min.js') }}"></script>
-
-    <!-- Sweet Alerts 2 -->
-    <script src="{{ asset('volt/vendor/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
-
-    <!-- Vanilla JS Datepicker -->
-    <script src="{{ asset('volt/vendor/vanillajs-datepicker/dist/js/datepicker.min.js') }}"></script>
-
-    <!-- Notyf -->
-    <script src="{{ asset('volt/vendor/notyf/notyf.min.js') }}"></script>
-
-    <!-- Simplebar -->
-    <script src="{{ asset('volt/vendor/simplebar/dist/simplebar.min.js') }}"></script>
-
-    <!-- Volt JS -->
-    <script src="{{ asset('volt/assets/js/volt.js') }}"></script>
+    <script type="text/javascript">
+      (function(c, l, a, r, i, t, y) {
+        c[a] = c[a] || function() {
+          (c[a].q = c[a].q || []).push(arguments)
+        };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "ofu5vu16qk");
+    </script>
 
 
-</body>
+    <script type="module" src="https://navigation.sevima.com/build/assets/navigation.js"></script>
+    <script>
+      $(document).ready(function() {
+        window.addEventListener("navigation:load", ({
+          detail
+        }) => {
+          detail?.flush();
+        })
+      });
+    </script>
+  </body>
 
 </html>

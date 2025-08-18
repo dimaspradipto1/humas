@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
     public function login()
     {
-        return view('layouts.auth.login');
+        return view('layouts.auth.login3');
     }
 
     public function logout()
@@ -21,19 +22,19 @@ class LoginController extends Controller
     public function loginproses(Request $request)
     {
 
-        // Validasi input
+        $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email': 'no_unik';
+
         $validatedData = $request->validate([
-            'email' => 'required|email', // Validasi email
-            'password' => 'required|min:6', // Validasi password
+            'login' => 'required',
+             'password' => 'required'
         ]);
 
-        // Proses login
-        if (Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']])) {
-            // Jika login berhasil, redirect ke dashboard
-            return redirect()->route('dashboard');
+        if (Auth::attempt([$loginField=>$validatedData['login'], 'password'=>$validatedData['password']])) {
+            Alert::success('Success', 'Anda berhasil login')->autoclose(2000)->toToast();
+            return redirect(route('dashboard'));
         } else {
-            // Jika login gagal, redirect kembali ke halaman login dengan error
-            return redirect()->route('login')->withErrors(['email' => 'Email atau password salah.']);
+            Alert::error('Error', 'Username atau Password Salah')->autoclose(2000)->toToast();
+            return redirect(route('login'));
         }
     }
 }

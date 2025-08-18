@@ -39,6 +39,22 @@
                                 <div class="col-lg-6 col-sm-6">
 
                                     <div class="mb-4">
+                                        <label for="tahun_akademik" class="text-capitalize">Tahun Akademik</label>
+                                         {{-- <input type="text" name="tahun_akademik_id" value="{{ old('tahun_akademik') }}"
+                                            class="form-control" id="tahun_akademik"> --}}
+                                        <select name="tahun_akademik_id" id="tahun_akademik" class="form-control">
+                                            <option value="">Pilih Tahun Akademik</option>
+                                            @foreach($tahunAkademik as $tahun)
+                                                <option value="{{ $tahun->id }}" {{ old('tahun_akademik_id') == $tahun->id ? 'selected' : '' }}>
+                                                    {{ $tahun->tahun_akademik }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
+
+                                    <div class="mb-4">
                                         <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
                                         <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
                                             class="form-control" id="nama_kegiatan">
@@ -56,13 +72,13 @@
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for="laporan" class="text-capitalize">upload laporan</label>
+                                        <label for="laporan" class="text-capitalize">link laporan</label>
                                         <textarea class="form-control" name="upload_laporan" id="" rows="3">{{ old('upload_laporan') }}</textarea>
                                     </div>
 
                                     <div class="mb-4">
                                         <label for="laporan" class="text-capitalize">link dokumentasi</label>
-                                        <textarea class="form-control" name="link_dokumentasi"  id="" rows="3">{{ old('link_dokumentasi') }}</textarea>
+                                        <textarea class="form-control" name="link_dokumentasi" id="" rows="3">{{ old('link_dokumentasi') }}</textarea>
                                     </div>
 
                                     <div class="mb-4">

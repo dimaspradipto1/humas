@@ -90,11 +90,11 @@
                                             value="{{ old('unit_kegiatan', $pengajuan->unit_kegiatan) }}">
                                     </div>
 
-                                    <div class="mb-4">
+                                    {{-- <div class="mb-4">
                                         <label for="pic" class="text-uppercase">Person in Charge (PIC)</label>
                                         <input type="text" name="pic" class="form-control"
                                             value="{{ old('pic', $pengajuan->pic) }}">
-                                    </div>
+                                    </div> --}}
 
                                     @if (Auth::user()->is_admin)
                                         <div class="mb-4">

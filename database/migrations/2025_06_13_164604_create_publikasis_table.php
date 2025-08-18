@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('publikasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('tahun_akademik_id')->constrained()->cascadeOnDelete();
             $table->string('nama_kegiatan');
             $table->date('tgl_awal');
             $table->date('tgl_akhir');

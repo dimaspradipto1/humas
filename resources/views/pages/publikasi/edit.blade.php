@@ -1,7 +1,7 @@
 @extends('layouts.dashboard.template')
 
 @section('content')
-    <div class="py-4">
+    <div class="py-4">                                                               
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                 <li class="breadcrumb-item">
@@ -60,7 +60,7 @@
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for="laporan" class="text-uppercase">upload laporan</label>
+                                        <label for="laporan" class="text-uppercase">link laporan</label>
                                         <input type="text" name="upload_laporan" class="form-control"
                                             value="{{ old('upload_laporan') ?? $publikasi->upload_laporan }}">
                                     </div>

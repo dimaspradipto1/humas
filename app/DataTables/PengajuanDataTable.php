@@ -33,8 +33,8 @@ class PengajuanDataTable extends DataTable
             ->editColumn('tgl_selesai', function($pengajuan){
                 return date('d M Y', strtotime($pengajuan->tgl_selesai));
             })
-            ->editColumn('user_id', function($pengajuan){
-                return $pengajuan->user->name;
+            ->editColumn('user_id', function($pengajuan) use ($user) {
+                return $user->is_admin ? $pengajuan->user->name : '';
             })
             ->editColumn('status', function($pengajuan){
                 if($pengajuan->status == 'pending'){
@@ -109,7 +109,9 @@ class PengajuanDataTable extends DataTable
             Column::make('tgl_selesai')->title('Tanggal Selesai'),
             // Column::make('pic')->title('Person In Charge (PIC)'),
             Column::make('status')->title('Status Pengajuan'),
-            Column::make('user_id')->title('Submit Pengguna'),
+            Column::make('user_id')
+                ->title('Submit Pengguna')
+                ->visible(auth()->user()->is_admin),
             Column::computed('action')
             ->title('Aksi')
             ->exportable(false)

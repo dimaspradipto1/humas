@@ -44,15 +44,40 @@
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for=date" class="text-capitalize">tanggal awal</label>
+                                        <label for=date" class="text-capitalize">tanggal mulai kegiatan</label>
                                         <input type="date" name="tgl_awal" value="{{ old('tgl_awal') }}"
                                             class="form-control" id="tgl_awal">
                                     </div>
                                     <div class="mb-4">
-                                        <label for=date" class="text-capitalize">tanggal Selesai</label>
+                                        <label for="unit_kegiatan" class="text-capitalize">jam kegiatan</label>
+                                        <input type="time" name="jam_kegiatan" class="form-control"
+                                            value="{{ old('unit_kegiatan') }}">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for=date" class="text-capitalize">tanggal Selesai kegiatan</label>
                                         <input type="date" name="tgl_selesai" value="{{ old('tgl_selesai') }}"
                                             class="form-control" id="tgl_selesai">
                                     </div>
+
+                                    
+                                    <div class="mb-4">
+                                        <label for="waktu_selesai" class="text-capitalize">waktu selesai</label>
+                                        <input type="time" name="waktu_selesai" class="form-control"
+                                            value="{{ old('unit_kegiatan') }}">
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="unit_kegiatan" class="text-capitalize">tempat kegiatan</label>
+                                        <input type="text" name="tempat_kegiatan" class="form-control"
+                                            value="{{ old('unit_kegiatan') }}">
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="unit_kegiatan" class="text-capitalize">unit kegiatan</label>
+                                        <input type="text" name="unit_kegiatan" class="form-control"
+                                            value="{{ old('unit_kegiatan') }}">
+                                    </div>
+
 
                                     <div class="mb-4">
                                         <div class="form-group">
@@ -77,29 +102,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-4">
-                                        <label for="unit_kegiatan" class="text-capitalize">jam kegiatan</label>
-                                        <input type="time" name="jam_kegiatan" class="form-control"
-                                            value="{{ old('unit_kegiatan') }}">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="waktu_selesai" class="text-capitalize">waktu selesai</label>
-                                        <input type="time" name="waktu_selesai" class="form-control"
-                                            value="{{ old('unit_kegiatan') }}">
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <label for="unit_kegiatan" class="text-capitalize">tempat kegiatan</label>
-                                        <input type="text" name="tempat_kegiatan" class="form-control"
-                                            value="{{ old('unit_kegiatan') }}">
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <label for="unit_kegiatan" class="text-capitalize">unit kegiatan</label>
-                                        <input type="text" name="unit_kegiatan" class="form-control"
-                                            value="{{ old('unit_kegiatan') }}">
-                                    </div>
-
+                                    
                                     {{-- <div class="mb-4">
                                         <label for="pic" class="text-capitalize">Person in Charge (PIC)</label>
                                         <input type="text" name="pic" class="form-control"

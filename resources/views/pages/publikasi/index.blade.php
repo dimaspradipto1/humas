@@ -32,7 +32,7 @@
 
     <div class="card border-0 shadow mb-4">
         <div class="card-body">
-            {!! $dataTable->table(['class' => 'table table-striped table-bordered w-100'], true) !!}
+            {!! $dataTable->table(['class' => 'table table-striped table-bordered w-100']) !!}
         </div>
     </div>
 @endsection

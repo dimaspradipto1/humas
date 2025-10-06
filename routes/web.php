@@ -32,7 +32,7 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 
-Route::middleware(['auth', 'checkrole'])->group(function () {
+Route::middleware(['auth', 'checkrole'])->group(function () { 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/publikasi', PublikasiController::class);
     Route::resource('/pengajuan', PengajuanController::class);

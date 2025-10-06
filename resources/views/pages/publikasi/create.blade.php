@@ -61,7 +61,7 @@
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for=date" class="text-capitalize">tanggal awal</label>
+                                        <label for=date" class="text-capitalize">tanggal mulai kegiatan</label>
                                         <input type="date" name="tgl_awal" value="{{ old('tgl_awal') }}"
                                             class="form-control" id="tgl_awal">
                                     </div>

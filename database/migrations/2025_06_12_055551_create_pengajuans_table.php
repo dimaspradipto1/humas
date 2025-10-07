@@ -23,7 +23,6 @@ return new class extends Migration
             $table->text('perlengkapan')->nullable();
             $table->text('link_zoom')->nullable();
             $table->string('unit_kegiatan');
-            // $table->string('pic');
             $table->string('status')->default('pending');
             $table->string('tempat_kegiatan');
             $table->timestamps();

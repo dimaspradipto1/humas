@@ -30,10 +30,9 @@ class Pengajuan extends Model
         return $this->belongsTo(User::class);
     }
 
-    // pilih salah satu: hasOne atau hasMany
     public function publikasi()
     {
-        return $this->hasOne(Publikasi::class, 'pengajuan_id'); // one-to-one
-        // return $this->hasMany(Publikasi::class, 'pengajuan_id'); // jika one-to-many
+        return $this->hasOne(Publikasi::class, 'pengajuan_id'); 
+
     }
 }

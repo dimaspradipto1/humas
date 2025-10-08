@@ -22,11 +22,6 @@
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4 text-capitalize">pelaporan kegiatan</h1>
             </div>
-            <div>
-                <a href="{{ route('publikasi.create') }}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">
-                    + tambah data
-                </a>
-            </div>
         </div>
     </div>
 

@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Publikasi extends Model
 {
     use HasFactory;
-
-    // Isi hanya kolom yang benar-benar ada di tabel publikasis
+    // protected $appends = ['nama_kegiatan'];
     protected $fillable = [
         'user_id',
-        'tahun_akademik_id', // boleh nullable di migrasi
+        'tahun_akademik_id',
         'pengajuan_id',
         'upload_laporan',
         'link_dokumentasi',
@@ -34,11 +33,8 @@ class Publikasi extends Model
         return $this->belongsTo(Pengajuan::class, 'pengajuan_id');
     }
 
-    // ACCESSOR opsional — memudahkan DataTables menampilkan nama_kegiatan
-    protected $appends = ['nama_kegiatan_pengajuan'];
-
-    public function getNamaKegiatanPengajuanAttribute()
-    {
-        return optional($this->pengajuan)->nama_kegiatan;
-    }
+    // public function getNamaKegiatanPengajuanAttribute()
+    // {
+    //     return optional($this->pengajuan)->nama_kegiatan;
+    // }
 }

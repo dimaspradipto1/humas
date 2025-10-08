@@ -1,7 +1,7 @@
 @extends('layouts.dashboard.template')
 
 @section('content')
-    <div class="py-4">                                                               
+    <div class="py-4">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                 <li class="breadcrumb-item">
@@ -36,49 +36,82 @@
                         @method('PUT')
 
                         <div class="card-body">
+
                             <div class="row mb-4">
                                 <div class="col-lg-6 col-sm-6">
-
+                                    <!-- Nama Kegiatan -->
                                     <div class="mb-4">
-                                        <label for="nama_mahasiswa" class="text-uppercase">nama kegiatan</label>
+                                        <label for="nama_kegiatan" class="text-uppercase">Nama Kegiatan</label>
                                         <input type="text" name="nama_kegiatan"
-                                            value="{{ old('nama_kegiatan') ?? $publikasi->nama_kegiatan }}"
-                                            class="form-control" id="nama_kegiatan">
+                                            value="{{ old('nama_kegiatan') ?? ($pengajuan->nama_kegiatan ?? '') }}"
+                                            class="form-control" id="nama_kegiatan" readonly>
                                     </div>
 
-                                    <div class="mb-4">
-                                        <label for=date" class="text-uppercase">tanggal awal</label>
-                                        <input type="date" name="tgl_awal"
-                                            value="{{ old('tgl_awal') ?? $publikasi->tgl_awal }}" class="form-control"
-                                            id="tgl_awal">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for=date" class="text-uppercase">tanggal akhir</label>
-                                        <input type="date" name="tgl_akhir"
-                                            value="{{ old('tgl_akhir') ?? $publikasi->tgl_akhir }}" class="form-control"
-                                            id="tgl_akhir">
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+
+                                            <div class="mb-4 mb-md-0">
+                                                <label for="tgl_awal" class="text-uppercase">Tanggal Awal</label>
+                                                <input type="date" name="tgl_awal"
+                                                    value="{{ old('tgl_awal') ?? \Carbon\Carbon::parse($pengajuan->tgl_awal)->translatedFormat('l, d F Y') }}"
+                                                    class="form-control" id="tgl_awal" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="mb-4 mb-md-0">
+                                                <label for="tgl_akhir" class="text-uppercase">Tanggal Akhir</label>
+                                                <input type="date" name="tgl_akhir"
+                                                    value="{{ old('tgl_selesai') ?? $pengajuan->tgl_selesai }}"
+                                                    class="form-control" id="tgl_akhir" readonly>
+                                            </div>
+                                        </div>
                                     </div>
 
+                                    {{-- <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="mb-4 mb-md-0">
+                                                <label for="tgl_awal" class="text-uppercase">Tanggal Awal</label>
+                                                <input type="date" name="tgl_awal"
+                                                    value="{{ old('tgl_awal') ?? (isset($pengajuan->tgl_awal) ? \Carbon\Carbon::parse($pengajuan->tgl_awal)->format('Y-m-d') : '') }}"
+                                                    class="form-control" id="tgl_awal" readonly>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-md-6">
+                                            <div class="mb-4 mb-md-0">
+                                                <label for="tgl_akhir" class="text-uppercase">Tanggal Akhir</label>
+                                                <input type="date" name="tgl_akhir"
+                                                    value="{{ old('tgl_selesai') ?? (isset($pengajuan->tgl_selesai) ? \Carbon\Carbon::parse($pengajuan->tgl_selesai)->format('Y-m-d') : '') }}"
+                                                    class="form-control" id="tgl_akhir" readonly>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    
+
+                                    <!-- Link Laporan -->
                                     <div class="mb-4">
-                                        <label for="laporan" class="text-uppercase">link laporan</label>
+                                        <label for="upload_laporan" class="text-uppercase">Link Laporan</label>
                                         <input type="text" name="upload_laporan" class="form-control"
-                                            value="{{ old('upload_laporan') ?? $publikasi->upload_laporan }}">
+                                            value="{{ old('upload_laporan') ?? $pengajuan->upload_laporan }}">
                                     </div>
 
+                                    <!-- Link Dokumentasi -->
                                     <div class="mb-4">
-                                        <label for="laporan" class="text-uppercase">link dokumentasi</label>
+                                        <label for="link_dokumentasi" class="text-uppercase">Link Dokumentasi</label>
                                         <input type="text" name="link_dokumentasi" class="form-control"
-                                            value="{{ old('link_dokumentasi') ?? $publikasi->link_dokumentasi }}">
+                                            value="{{ old('link_dokumentasi') ?? $pengajuan->link_dokumentasi }}">
                                     </div>
 
+                                    <!-- Link Publikasi -->
                                     <div class="mb-4">
-                                        <label for="laporan" class="text-uppercase">link publikasi</label>
+                                        <label for="link_publikasi" class="text-uppercase">Link Publikasi</label>
                                         <input type="text" name="link_publikasi" class="form-control"
-                                            value="{{ old('link_publikasi') ?? $publikasi->link_publikasi }}">
+                                            value="{{ old('link_publikasi') ?? $pengajuan->link_publikasi }}">
                                     </div>
-
                                 </div>
                             </div>
+
 
                             <button class="btn btn-gray-800 d-inline-flex align-items-center me-2 aria-haspopup="true"
                                 aria-expanded="false">

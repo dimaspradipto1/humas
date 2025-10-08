@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\TahunAkademik;
 use App\Models\LaporanPublikasi;
 use App\DataTables\PublikasiDataTable;
+use App\Models\Pengajuan;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PublikasiController extends Controller
@@ -89,7 +90,8 @@ class PublikasiController extends Controller
      */
     public function show(Publikasi $publikasi)
     {
-        return view('pages.publikasi.show', compact('publikasi'));
+        $pengajuan = $publikasi->pengajuan;
+        return view('pages.publikasi.show', compact('publikasi', 'pengajuan'));
     }
 
     /**
@@ -97,8 +99,12 @@ class PublikasiController extends Controller
      */
     public function edit(Publikasi $publikasi)
     {
-        return view('pages.publikasi.edit', compact('publikasi'));
+       
+        $pengajuan = $publikasi->pengajuan;  
+        return view('pages.publikasi.edit', compact('publikasi', 'pengajuan'));
     }
+
+
 
     /**
      * Update the specified resource in storage.

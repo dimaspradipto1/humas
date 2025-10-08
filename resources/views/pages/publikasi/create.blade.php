@@ -52,19 +52,19 @@
                                         </select>
                                     </div>
 
-
-
                                     <div class="mb-4">
                                         <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
                                         <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
                                             class="form-control" id="nama_kegiatan">
                                     </div>
 
+                                    
                                     <div class="mb-4">
                                         <label for=date" class="text-capitalize">tanggal mulai kegiatan</label>
                                         <input type="date" name="tgl_awal" value="{{ old('tgl_awal') }}"
                                             class="form-control" id="tgl_awal">
                                     </div>
+                                    
                                     <div class="mb-4">
                                         <label for=date" class="text-capitalize">tanggal akhir</label>
                                         <input type="date" name="tgl_akhir" value="{{ old('tgl_akhir') }}"

@@ -37,25 +37,25 @@
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
                                 <tbody>
-                                    <tr>
+                                    {{-- <tr>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 w-40">tahun akademik</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->tahunAkademik->tahun_akademik }}</td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 w-40">nama kegiatan</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->nama_kegiatan }}</td>
+                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->pengajuan->nama_kegiatan }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">tanggal awal</td>
+                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">tanggal kegiatan</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ \Carbon\Carbon::parse($publikasi->tgl_awal)->translatedFormat('l, d F y') }}</td>
+                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ \Carbon\Carbon::parse($publikasi->pengajuan->tgl_awal)->translatedFormat('l, d F y') }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">tanggal akor</td>
+                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">tanggal selesai</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7"> {{ \Carbon\Carbon::parse($publikasi->tgl_akhir)->translatedFormat('l, d F Y') }}</td>
+                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7"> {{ \Carbon\Carbon::parse($publikasi->pengajuan->tgl_selesai)->translatedFormat('l, d F Y') }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">link laporan</td>

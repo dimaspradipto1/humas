@@ -27,11 +27,11 @@ class PengajuanDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addIndexColumn()
             ->addColumn('DT_RowIndex', '')
-            ->editColumn('tgl_kegiatan', function($pengajuan){
-                return date('d M Y', strtotime($pengajuan->tgl_kegiatan));
+            ->addColumn('tgl_awal', function($pengajuan){
+                return \Carbon\Carbon::parse($pengajuan->tgl_awal)->translatedFormat('l, d F Y');
             })
             ->editColumn('tgl_selesai', function($pengajuan){
-                return date('d M Y', strtotime($pengajuan->tgl_selesai));
+                return \Carbon\Carbon::parse($pengajuan->tgl_selesai)->translatedFormat('l, d F Y');
             })
             ->editColumn('user_id', function($pengajuan) use ($user) {
                 return $user->is_admin ? $pengajuan->user->name : '';
@@ -60,7 +60,7 @@ class PengajuanDataTable extends DataTable
                 <a href="'.route('pengajuan.show', $pengajuan->id).'" class="btn btn-sm btn-primary text-white px-3" ><i class="fa-solid fa-eye"></i> Detail</a>
                 ';
             })
-            ->rawColumns(['action', 'tgl_kegiatan', 'tgl_selesai', 'status', 'user_id'])
+            ->rawColumns(['action', 'tgl_awal', 'tgl_selesai', 'status', 'user_id'])
             ->setRowId('DT_RowIndex');
     }
 
@@ -105,7 +105,7 @@ class PengajuanDataTable extends DataTable
         return [
             Column::make('DT_RowIndex')->title('No'),
             Column::make('nama_kegiatan')->title('Nama Kegiatan'),
-            Column::make('tgl_kegiatan')->title('Tanggal Kegiatan'),
+            Column::make('tgl_awal')->title('Tanggal Kegiatan'),
             Column::make('tgl_selesai')->title('Tanggal Selesai'),
             // Column::make('pic')->title('Person In Charge (PIC)'),
             Column::make('status')->title('Status Pengajuan'),

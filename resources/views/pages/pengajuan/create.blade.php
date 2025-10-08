@@ -43,27 +43,41 @@
                                             class="form-control" id="nama_kegiatan">
                                     </div>
 
-                                    <div class="mb-4">
-                                        <label for=date" class="text-capitalize">tanggal mulai kegiatan</label>
-                                        <input type="date" name="tgl_awal" value="{{ old('tgl_awal') }}"
-                                            class="form-control" id="tgl_awal">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="unit_kegiatan" class="text-capitalize">jam kegiatan</label>
-                                        <input type="time" name="jam_kegiatan" class="form-control"
-                                            value="{{ old('unit_kegiatan') }}">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for=date" class="text-capitalize">tanggal Selesai kegiatan</label>
-                                        <input type="date" name="tgl_selesai" value="{{ old('tgl_selesai') }}"
-                                            class="form-control" id="tgl_selesai">
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="mb-4 mb-md-0">
+                                                <label for="date" class="text-capitalize">tanggal mulai kegiatan</label>
+                                                <input type="date" name="tgl_awal" value="{{ old('tgl_awal') }}"
+                                                    class="form-control" id="tgl_awal">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-4 mb-md-0">
+                                                <label for="jam_kegiatan" class="text-capitalize">jam kegiatan</label>
+                                                <input type="time" name="jam_kegiatan" class="form-control"
+                                                    value="{{ old('jam_kegiatan') }}">
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    
-                                    <div class="mb-4">
-                                        <label for="waktu_selesai" class="text-capitalize">waktu selesai</label>
-                                        <input type="time" name="waktu_selesai" class="form-control"
-                                            value="{{ old('unit_kegiatan') }}">
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+
+                                            <div class="mb-4 mb-md-0">
+                                                <label for="date" class="text-capitalize">tanggal Selesai
+                                                    kegiatan</label>
+                                                <input type="date" name="tgl_selesai" value="{{ old('tgl_selesai') }}"
+                                                    class="form-control" id="tgl_selesai">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="mb-4 mb-md-0">
+                                                <label for="waktu_selesai" class="text-capitalize">waktu selesai</label>
+                                                <input type="time" name="waktu_selesai" class="form-control"
+                                                    value="{{ old('unit_kegiatan') }}">
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="mb-4">
@@ -89,7 +103,8 @@
                                     </div>
                                     <div class="mb-4">
                                         <div class="form-group">
-                                            <label for="deskripsi_kegiatan" class="text-capitalize">Kebutuhan perlengkapan</label>
+                                            <label for="deskripsi_kegiatan" class="text-capitalize">Kebutuhan
+                                                perlengkapan</label>
                                             <textarea class="form-control" name="perlengkapan" value="{{ old('perlengkapan') }}" id=""
                                                 rows="3"></textarea>
                                         </div>
@@ -102,7 +117,7 @@
                                         </div>
                                     </div>
 
-                                    
+
                                     {{-- <div class="mb-4">
                                         <label for="pic" class="text-capitalize">Person in Charge (PIC)</label>
                                         <input type="text" name="pic" class="form-control"
@@ -110,16 +125,17 @@
                                     </div> --}}
 
                                     @if (Auth::user()->is_admin)
-                                    <div class="mb-4">
-                                        <label for="status" class="text-uppercase">status</label>
-                                        <div class="form-group">
-                                          <select class="form-control form-control-sm" name="status" id="status">
-                                            <option value="pending">pending</option>
-                                            <option value="approved">disetujui</option>
-                                          </select>
+                                        <div class="mb-4">
+                                            <label for="status" class="text-uppercase">status</label>
+                                            <div class="form-group">
+                                                <select class="form-control form-control-sm" name="status"
+                                                    id="status">
+                                                    <option value="pending">pending</option>
+                                                    <option value="approved">disetujui</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endif
+                                    @endif
 
                                 </div>
                             </div>

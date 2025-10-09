@@ -76,7 +76,7 @@
             <td>
                 @if($pengajuan->status == 'pending')
                     <span class="badge bg-warning badge-xl px-3 py-2">{{ $pengajuan->status }} <i class="fa-solid fa-spinner"></i></span>
-                @elseif($pengajuan->status == 'approved') 
+                @elseif($pengajuan->status == 'diterima') 
                     <span class="badge bg-success badge-xl px-3 py-2">{{ $pengajuan->status }} <i class="fa-solid fa-check"></i></span>
                 @endif
             </td>

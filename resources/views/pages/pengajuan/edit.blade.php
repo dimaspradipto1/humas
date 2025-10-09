@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.template')
+ @extends('layouts.dashboard.template')
 
 
 @section('content')
@@ -102,7 +102,7 @@
                                             <div class="form-group">
                                               <select class="form-control form-control-sm" name="status" id="status">
                                                 <option value="pending" {{ $pengajuan->status == 'pending' ? 'selected' : '' }}>pending</option>
-                                                <option value="disetujui" {{ $pengajuan->status == 'diterima' ? 'selected' : '' }}>diterima</option>
+                                                <option value="diterima" {{ $pengajuan->status == 'diterima' ? 'selected' : '' }}>diterima</option>
                                               </select>
                                             </div>
                                         </div>

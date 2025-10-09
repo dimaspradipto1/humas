@@ -1,6 +1,5 @@
 @extends('layouts.dashboard.template')
 
-
 @section('content')
     <div class="py-4">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
@@ -20,7 +19,6 @@
             </ol>
         </nav>
         
-        
         <div class="d-flex justify-content-between w-100 flex-wrap">
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4 text-capitalize">Pengajuan Berita</h1>
@@ -33,9 +31,9 @@
         </div>
     </div>
 
-  <div class="card border-0 shadow mb-4">
+    <div class="card border-0 shadow mb-4">
         <div class="card-body">
-            {!! $dataTable->table(['class' => 'table table-striped table-bordered w-100'], true) !!}
+            {!! $dataTable->table(['class' => 'table table-striped table-bordered w-100', 'id' => 'pengajuan-table']) !!}
         </div>
     </div>
 @endsection

@@ -38,6 +38,17 @@
                                 <div class="col-lg-6 col-sm-6">
 
                                     <div class="mb-4">
+                                       <select name="tahun_akademik_id" id="tahun_akademik_id" class="form-select single">
+                                            @foreach ($tahunAkademik as $tahun)
+                                                <option value="{{ $tahun->id }}"
+                                                    {{ request('tahun_akademik_id') == $tahun->id ? 'selected' : '' }}>
+                                                    {{ $tahun->tahun_akademik }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4">
                                         <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
                                         <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
                                             class="form-control" id="nama_kegiatan">

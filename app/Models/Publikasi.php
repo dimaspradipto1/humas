@@ -1,14 +1,14 @@
 <?php
-// app/Models/Publikasi.php
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Publikasi extends Model
 {
     use HasFactory;
-    // protected $appends = ['nama_kegiatan'];
+
     protected $fillable = [
         'user_id',
         'tahun_akademik_id',
@@ -18,23 +18,25 @@ class Publikasi extends Model
         'link_publikasi',
     ];
 
+    public function pengajuan()
+    {
+        // PK pengajuans.id  — FK publikasis.pengajuan_id
+        return $this->belongsTo(Pengajuan::class, 'pengajuan_id');
+    }
+
+    public function tahunAkademik()
+    {
+        // PK tahun_akademiks.id — FK publikasis.tahun_akademik_id
+        return $this->belongsTo(TahunAkademik::class, 'tahun_akademik_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function tahunAkademik()
+    public function laporanPublikasi()
     {
-        return $this->belongsTo(TahunAkademik::class);
+        return $this->hasOne(LaporanPublikasi::class, 'publikasi_id');
     }
-
-    public function pengajuan()
-    {
-        return $this->belongsTo(Pengajuan::class, 'pengajuan_id');
-    }
-
-    // public function getNamaKegiatanPengajuanAttribute()
-    // {
-    //     return optional($this->pengajuan)->nama_kegiatan;
-    // }
 }

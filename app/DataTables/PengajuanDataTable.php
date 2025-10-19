@@ -52,7 +52,7 @@ class PengajuanDataTable extends DataTable
                 }
             })
             ->addColumn('action', function($pengajuan) use ($user){
-                if($user->is_admin){
+                
                     return '
                     <a href="'.route('pengajuan.show', $pengajuan->id).'" class="btn btn-sm btn-primary text-white px-3" ><i class="fa-solid fa-eye"></i> Detail</a>
                     <a href="'.route('pengajuan.edit', $pengajuan->id).'" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i> Edit</a>
@@ -62,7 +62,7 @@ class PengajuanDataTable extends DataTable
                         <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i> delete</button>
                     </form>
                     ';
-                }
+                
                 return '
                 <a href="'.route('pengajuan.show', $pengajuan->id).'" class="btn btn-sm btn-primary text-white px-3" ><i class="fa-solid fa-eye"></i> Detail</a>
                 ';
@@ -97,7 +97,7 @@ class PengajuanDataTable extends DataTable
                             [
                                 'targets' => 1, 
                                 'width' => '200px', 
-                                'render' => 'function(data, type, row, meta) { return "<div style=\'word-wrap: break-word; word-break: break-word; white-space: normal; overflow-wrap: break-word;\' >" + data + "</div>"; }' // Menambahkan pembungkus pada teks
+                                'render' => 'function(data, type, row, meta) { return "<div style=\'word-wrap: break-word; word-break: break-word; white-space: normal; overflow-wrap: break-word;\' >" + data + "</div>"; }'
                             ],
                             [
                                 'targets' => 0, 

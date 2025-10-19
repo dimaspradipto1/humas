@@ -1,69 +1,64 @@
+{{-- resources/views/pages/laporanPublikasi/index.blade.php --}}
 @extends('layouts.dashboard.template')
 
 @section('content')
-    <div class="py-4">
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                <li class="breadcrumb-item">
-                    <a href="#">
-                        <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                            </path>
-                        </svg>
-                    </a>
-                </li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active text-capitalize" aria-current="page">data pelaporan kegiatan</li>
-            </ol>
-        </nav>
-        <div class="d-flex justify-content-between w-100 flex-wrap">
-            <div class="mb-3 mb-lg-0">
-                <h1 class="h4 text-capitalize">pelaporan kegiatan</h1>
-            </div>
-            <div>
-                {{-- <a href="{{ route('publikasi.create') }}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">
-                    + tambah data
-                </a> --}}
+  <div class="py-4"></div>
 
+  <div class="card border-0 shadow mb-4">
+    <div class="card-body">
+      <div class="card-block table-border-style">
+        <form class="row g-3" action="{{ route('laporan-publikasi.show') }}" method="GET">
+            <div class="row my-4">
+              <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="PERIODE" disabled>
+              </div>
+  
+              <div class="col-md-3">
+                <select name="tahun_akademik" id="tahun_akademik" class="form-select single">
+                  <option value="">Pilih Tahun Akademik</option>
+                  @foreach ($tahunAkademik as $tahun)
+                    <option value="{{ $tahun->tahun_akademik }}"
+                      {{ ($selectedPeriode ?? request('tahun_akademik')) == $tahun->tahun_akademik ? 'selected' : '' }}>
+                      {{ $tahun->tahun_akademik }}
+                    </option>
+                  @endforeach
+                </select>
+              </div>
+  
+              <div class="col-md-1">
+                <button type="submit" class="btn btn-secondary">CETAK</button>
+              </div>
             </div>
-        </div>
+          </form>
+      </div>
+
+      {!! $dataTable->table(['class' => 'table table-striped table-bordered w-100', 'id' => 'laporanpublikasi-table'], true) !!}
     </div>
-
-    <div class="card border-0 shadow mb-4">
-        <div class="card-body">
-            <div class="card-block table-border-style">
-                <form class="row g-3" action="{{ route('laporan-publikasi.show') }}" method="GET">
-                    @csrf
-                    <div class="row my-4">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="PERIODE" disabled>
-                        </div>
-
-                        <div class="col-md-3">
-                            <select name="tahun_akademik" id="tahun_akademik" class="form-select single">
-                                @foreach ($tahunAkademik as $tahun)
-                                    <option value="{{ $tahun->tahun_akademik }}" 
-                                            {{ request('tahun_akademik') == $tahun->tahun_akademik ? 'selected' : '' }}>
-                                        {{ $tahun->tahun_akademik }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-secondary">CETAK</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-            {!! $dataTable->table(['class' => 'table table-striped table-bordered w-100'], true) !!}
-        </div>
-    </div>
+  </div>
 @endsection
 
 @push('scripts')
-    {!! $dataTable->scripts() !!}
+  {!! $dataTable->scripts() !!}
 @endpush
+
+{{-- @push('scripts')
+  {!! $dataTable->scripts() !!}
+  <script>
+    $(function () {
+      const dt = $('#laporanpublikasi-table').DataTable();
+
+      // reload otomatis saat dropdown berubah
+      $(document).on('change', '#tahun_akademik', function () {
+        if (!this.value) {
+          dt.clear().draw();    // kosongkan tampilan jika kembali ke placeholder
+        }
+        dt.ajax.reload();
+      });
+
+      // jika halaman dibuka dengan query tahun_akademik, langsung muat
+      if ($('#tahun_akademik').val()) {
+        dt.ajax.reload();
+      }
+    });
+  </script>
+@endpush --}}

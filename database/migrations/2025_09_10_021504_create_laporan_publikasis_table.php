@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('laporan_publikasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('publikasi_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->string('nama_kegiatan');
-            $table->string('link_dokumentasi');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('publikasi_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('pengajuan_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

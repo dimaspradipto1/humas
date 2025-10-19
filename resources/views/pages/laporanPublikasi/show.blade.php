@@ -96,32 +96,33 @@
         }
 
         .table-container {
-    width: 100%;
-    margin-top: 20px;
-    text-align: center;
-}
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
 
-.laporan-table {
-    width: 80%;
-    border: 2px solid #000;
-    border-collapse: collapse;
-    margin: 0 auto;
-}
+        .laporan-table {
+            width: 80%;
+            border: 2px solid #000;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
 
-.laporan-table th, .laporan-table td {
-    border: 1px solid #000;
-    padding: 8px;
-    text-align: left;
-}
+        .laporan-table th,
+        .laporan-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
 
-.laporan-table td a {
-    color: #007bff;
-    text-decoration: none;
-}
+        .laporan-table td a {
+            color: #007bff;
+            text-decoration: none;
+        }
 
-.laporan-table td a:hover {
-    text-decoration: underline;
-}
+        .laporan-table td a:hover {
+            text-decoration: underline;
+        }
 
 
         .footer {
@@ -211,7 +212,7 @@
 
     <div class="letter-header">
         <h3 class="text-uppercase">laporan kegiatan humas dan publikasi</h3>
-        <h4>periode 2024-2025 Gasal</h4>
+        <h4>periode {{ $selectedPeriode }}</h4>
         <h4>universitas ibnu sina</h4>
     </div>
 
@@ -220,23 +221,51 @@
         <table id="laporanPublikasi-table" class="laporan-table">
             <thead>
                 <tr>
+                <tr>
                     <th>No</th>
                     <th>Tahun Akademik</th>
                     <th>Fakultas</th>
                     <th>Nama Kegiatan</th>
-                    <th>Link Dokumen</th>
+                    <th>Tanggal Awal</th>
+                    <th>Tanggal Selesai</th>
+                    <th>Deskripsi Kegiatan</th>
+                    <th>Link Zoom</th>
+                    <th>Link Pelaporan, Dokumentasi & Publikasi</th>
+                </tr>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>tahun_akademik</td>
-                    <td>fakultas</td>
-                    <td>nama_kegiatan</td>
-                    <td>
-                        <a href="#" target="_blank">link dokumen</a>
-                    </td>
-                </tr>
+                @foreach ($laporanPublikasi as $key => $laporan)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $laporan->publikasi->tahunAkademik->tahun_akademik }}</td>
+                        <td>{{ $laporan->user->fakultas ?? 'N/A' }}</td>
+                        <td>{{ $laporan->pengajuan->nama_kegiatan }}</td>
+                        <td>{{ \Carbon\Carbon::parse($laporan->pengajuan->tgl_awal)->translatedFormat('l, d F Y') }}
+                        </td>
+                        <td>{{ \Carbon\Carbon::parse($laporan->pengajuan->tgl_selesai)->translatedFormat('l, d F Y') }}
+                        </td>
+                        <td>{{ $laporan->pengajuan->deskripsi_kegiatan }}</td>
+                        <td><a href="{{ $laporan->pengajuan->link_zoom }}" target="_blank">Zoom Link</a></td>
+                        <td>
+                            <!-- Link Pelaporan -->
+                            <a href="{{ $laporan->publikasi->upload_laporan ?? '#' }}" target="_blank">
+                                {{ $laporan->publikasi->upload_laporan ? 'Link Pelaporan' : 'No Link Available' }}
+                            </a><br>
+
+                            <!-- Link Dokumentasi -->
+                            <a href="{{ $laporan->publikasi->link_dokumentasi ?? '#' }}" target="_blank">
+                                {{ $laporan->publikasi->link_dokumentasi ? 'Link Dokumentasi' : 'No Link Available' }}
+                            </a><br>
+
+                            <!-- Link Publikasi -->
+                            <a href="{{ $laporan->publikasi->link_publikasi ?? '#' }}" target="_blank">
+                                {{ $laporan->publikasi->link_publikasi ? 'Link Publikasi' : 'No Link Available' }}
+                            </a>
+                        </td>
+
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -254,8 +283,8 @@
 
                 <!-- Cap and Signature -->
                 <div style="display: flex; justify-content: center; align-items: center; margin-bottom: -10px;">
-                    <img src="{{ asset('volt/assets/img/surat/sanusi.png') }}" alt="Tanda Tangan" class="stamp"
-                        style="width: 250px; position: absolute; z-index: 1; margin-top: 40px;">
+                    <img src="{{ asset('volt/assets/img/surat/babang.png') }}" alt="Tanda Tangan" class="stamp"
+                        style="width: 250px; position: absolute; z-index: 1; margin-top: 60px; margin-right: -100px;">
                     {{-- <img src="{{ asset('volt/assets/img/surat/cap_fst.png') }}" alt="Stempel" class="cap"
                         style="width: 110px; position: absolute; left: 40px; top: 50px; opacity: 0.8; z-index: 0;"> --}}
                 </div>
@@ -268,7 +297,7 @@
 
                     <!-- nama dekan -->
                     <div>
-                        <p style="margin: 0; font-weight: bold; text-decoration: underline;">Andi Akbar, SE., MM
+                        <p style="margin: 0; font-weight: bold; text-decoration: underline;">Andi Akbar, SE., M.M
                         </p>
                         <p style="margin: 0;">NUP. 777 0707 688</p>
                     </div>

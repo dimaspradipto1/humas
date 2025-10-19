@@ -37,11 +37,11 @@
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
                                 <tbody>
-                                    {{-- <tr>
+                                    <tr>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 w-40">tahun akademik</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->tahunAkademik->tahun_akademik }}</td>
-                                    </tr> --}}
+                                    </tr>
                                     <tr>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 w-40">nama kegiatan</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
@@ -60,17 +60,17 @@
                                     <tr>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">link laporan</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->upload_laporan }}</td>
+                                        <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->upload_laporan }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">link dokumentasi</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->link_dokumentasi }}</td>
+                                        <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->link_dokumentasi }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">link publikasi</td>
                                         <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->link_publikasi }}</td>
+                                        <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->link_publikasi }}</td>
                                     </tr>
                                     
                                 </tbody>

@@ -17,6 +17,7 @@
                 <li class="breadcrumb-item"><a href="#">Tables</a></li>
                 <li class="breadcrumb-item active text-capitalize" aria-current="page">Pengajuan Berita</li>
             </ol>
+            
         </nav>
         
         <div class="d-flex justify-content-between w-100 flex-wrap">

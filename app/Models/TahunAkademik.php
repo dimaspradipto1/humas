@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Publikasi;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TahunAkademik extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function publikasi()
+    public function laporanPublikasis()
     {
-        return $this->hasMany(Publikasi::class);
+        return $this->hasMany(LaporanPublikasi::class);
     }
+    
 }

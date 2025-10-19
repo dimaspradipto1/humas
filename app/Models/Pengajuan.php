@@ -2,8 +2,10 @@
 // app/Models/Pengajuan.php
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Models\Publikasi;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pengajuan extends Model
 {
@@ -23,6 +25,7 @@ class Pengajuan extends Model
         'waktu_selesai',
         'tempat_kegiatan',
         'user_id',
+        'tahun_akademik_id'
     ];
 
     public function user()
@@ -30,9 +33,16 @@ class Pengajuan extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function tahunAkdemik()
+    {
+        return $this->belongsTo(TahunAkademik::class);
+    }
+
     public function publikasi()
     {
-        return $this->hasOne(Publikasi::class, 'pengajuan_id'); 
-
+        return $this->hasOne(Publikasi::class, 'pengajuan_id');
     }
+
+    
+
 }

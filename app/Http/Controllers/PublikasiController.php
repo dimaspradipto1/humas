@@ -90,8 +90,10 @@ class PublikasiController extends Controller
      */
     public function show(Publikasi $publikasi)
     {
-        $pengajuan = $publikasi->pengajuan;
-        return view('pages.publikasi.show', compact('publikasi', 'pengajuan'));
+        $publikasi->loadMissing(['tahunAkademik', 'pengajuan', 'user']);
+        $tahunAkademik = TahunAkademik::all();
+
+        return view('pages.publikasi.show', compact('publikasi', 'tahunAkademik'));
     }
 
     /**

@@ -25,7 +25,7 @@
       <div>
         <a href="{{ route('pengajuan.index') }}"
           class="btn btn-danger text-white d-inline-flex align-items-center">
-            Back
+             <i class="fa-solid fa-right-from-bracket me-2"></i> BACK
         </a>
       </div>
     </div>
@@ -35,6 +35,16 @@
     <div class="card-body">
       <div class="table-responsive" >
         <table class="table table-bordered">
+          <tr>
+            <th>Tahun Akademik</th>
+            <td class="badge bg-primary text-uppercase font-weight-bolder text-white mx-3 my-2 badge-xl">
+                @foreach($tahunAkademik as $tahun)
+                    @if($tahun->id == $pengajuan->tahun_akademik_id)
+                        {{ $tahun->tahun_akademik }}
+                    @endif
+                @endforeach
+            </td>
+          </tr>
           <tr>
             <th>Nama Kegiatan</th>
             <td>{{ $pengajuan->nama_kegiatan }}</td>

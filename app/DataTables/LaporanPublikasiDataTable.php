@@ -8,88 +8,89 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class LaporanPublikasiDataTable extends DataTable
 {
-    /**
-     * Build the DataTable class.
-     *
-     * @param QueryBuilder $query Results from query() method.
-     */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        // if ($tahun_akademik = request('tahun_akademik')) {
-        //     $query->where('publikasi.tahun_akademik', $tahun_akademik); // Filter berdasarkan tahun akademik
-        // }
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->addColumn('DT_RowIndex', '')
-             ->editColumn('fakultas', function($row) {
-                return $row->user ? $row->user->fakultas : 'N/A'; 
-            })
-            ->editColumn('tahun_akademik', function($item){
-                return $item->publikasi ? $item->publikasi->tahunAkademik->tahun_akademik : 'N/A';  // Get academic year name from relation
-            })
-            // ->addColumn('action', 'laporanpublikasi.action')
-            ->rawColumns(['action',])
-            ->setRowId('DT_RowIndex');
+            ->addColumn('tahun_akademik', fn ($row) =>
+                $row->publikasi?->tahunAkademik?->tahun_akademik ?? '-'
+            )
+            ->addColumn('submit_pengguna', fn ($row) =>
+                $row->user?->name ?? '-'
+            )
+            ->addColumn('nama_kegiatan', fn ($row) =>
+                $row->publikasi?->pengajuan?->nama_kegiatan ?? '-'
+            )
+            ->addColumn('tgl_awal', fn ($row) =>
+                $row->publikasi?->pengajuan?->tgl_awal ?? '-'
+            )
+            ->addColumn('tgl_selesai', fn ($row) =>
+                $row->publikasi?->pengajuan?->tgl_selesai ?? '-'
+            )
+            ->addColumn('deskripsi_kegiatan', fn ($row) =>
+                $row->publikasi?->pengajuan?->deskripsi_kegiatan ?? '-'
+            )
+            ->addColumn('link_zoom', fn ($row) =>
+                $row->publikasi?->pengajuan?->link_zoom ?? '-'
+            )
+            ->addColumn('link_dokumen', fn ($row) =>
+                $row->publikasi?->pengajuan?->link_dokumen ?? '-'
+            )
+            ->setRowId('id');
     }
 
-    /**
-     * Get the query source of dataTable.
-     */
     public function query(LaporanPublikasi $model): QueryBuilder
     {
-        return $model->newQuery()->with('user', 'publikasi');
+        return $model->newQuery()
+            ->with([
+                'user',
+                'publikasi.tahunAkademik',
+                'publikasi.pengajuan',
+            ]);
     }
 
-    /**
-     * Optional method if you want to use the html builder.
-     */
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('laporanpublikasi-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(2)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('laporanpublikasi-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax(route('laporan-publikasi.index'))
+            ->parameters([
+                'scrollX' => true,
+                'processing' => true,
+                'serverSide' => true,
+                'order'      => [],
+                'lengthMenu' => [[10,25,50,-1],[10,25,50,'All']],
+            ])
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload'),
+            ]);
     }
 
-    /**
-     * Get the dataTable columns definition.
-     */
     public function getColumns(): array
     {
         return [
-            Column::make('DT_RowIndex')->title('No'),
-            Column::make('tahun_akademik')->title('tahun_akademik'),
-            Column::make('user.fakultas')->title('Fakultas'),
+            Column::computed('DT_RowIndex')->title('No'),
+            Column::make('tahun_akademik')->title('Tahun Akademik'),
+            Column::make('submit_pengguna')->title('Submit Pengguna'),
             Column::make('nama_kegiatan')->title('Nama Kegiatan'),
-            Column::make('link_dokumentasi')->title('Link Dokumen'),
-            // Column::computed('action')
-            //       ->exportable(false)
-            //       ->printable(false)
-            //       ->width(60)
-            //       ->addClass('text-center'),
+            Column::make('tgl_awal')->title('Tanggal Awal'),
+            Column::make('tgl_selesai')->title('Tanggal Selesai'),
+            Column::make('deskripsi_kegiatan')->title('Deskripsi Kegiatan'),
+            Column::make('link_zoom')->title('Link Zoom'),
+            Column::make('link_dokumen')->title('Link Dokumen'),
         ];
     }
 
-    /**
-     * Get the filename for export.
-     */
     protected function filename(): string
     {
         return 'LaporanPublikasi_' . date('YmdHis');

@@ -101,7 +101,27 @@ class PublikasiDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->parameters([
-                'scrollX' => true,
+                 'scrollX' => true,
+                        'columnDefs' => [
+                            [
+                                'targets' => 1, 
+                                'width' => '200px', 
+                                'render' => 'function(data, type, row, meta) { return "<div style=\'word-wrap: break-word; word-break: break-word; white-space: normal; overflow-wrap: break-word;\' >" + data + "</div>"; }'
+                            ],
+                            [
+                                'targets' => 0, 
+                                'width' => '5px', 
+                                'className' => 'text-start', 
+                                'render' => null 
+                            ],
+                            [
+                                'targets' => 4, 
+                                'width' => '10px', 
+                                'className' => 'text-center',
+                                'style' => 'text-align: text-left;',
+                                'render' => null 
+                            ]
+                        ],
             ])
             ->buttons([
                 Button::make('excel'),

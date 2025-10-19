@@ -14,11 +14,14 @@ class LaporanPublikasiController extends Controller
      */
     public function index(LaporanPublikasiDataTable $dataTable)
     {
-        $tahunAkademik = TahunAkademik::all();
-        $tahun_akademik = request('tahun_akademik');
-        return $dataTable->with('tahun_akademik', $tahun_akademik)
-                     ->render('pages.laporanPublikasi.index', compact('tahunAkademik'));
+        // $tahunAkademik = TahunAkademik::all();
         // return $dataTable->render('pages.laporanPublikasi.index', compact('tahunAkademik'));
+        $tahunAkademik = TahunAkademik::orderByDesc('id')->get();
+        $selectedPeriode = request('tahun_akademik'); // Jangan auto default
+
+        return $dataTable
+            ->with(['tahun_akademik' => $selectedPeriode])
+            ->render('pages.laporanPublikasi.index', compact('tahunAkademik', 'selectedPeriode'));
     }
 
     /**
@@ -40,13 +43,30 @@ class LaporanPublikasiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(LaporanPublikasiDataTable $dataTable)
+    // public function show(LaporanPublikasiDataTable $dataTable)
+    // {
+    //     $tahunAkademik = TahunAkademik::all();
+    //     $tahun_akademik = request('tahun_akademik');
+    //     return $dataTable->with('tahun_akademik', $tahun_akademik)
+    //         ->render('pages.laporanPublikasi.show', compact('tahunAkademik'));
+    // }
+
+    public function show(Request $request)
     {
         $tahunAkademik = TahunAkademik::all();
-        $tahun_akademik = request('tahun_akademik');
-        return $dataTable->with('tahun_akademik', $tahun_akademik)
-                        ->render('pages.laporanPublikasi.show', compact('tahunAkademik'));
-    
+        $selectedPeriode = $request->get('tahun_akademik'); // Ambil tahun akademik yang dipilih
+
+        // Mengambil data berdasarkan tahun yang dipilih
+        $laporanPublikasi = LaporanPublikasi::with([
+            'publikasi.tahunAkademik',
+            'publikasi.pengajuan'
+        ])
+        ->whereHas('publikasi.tahunAkademik', function($query) use ($selectedPeriode) {
+            $query->where('tahun_akademik', $selectedPeriode);
+        })
+        ->get();
+
+        return view('pages.laporanPublikasi.show', compact('laporanPublikasi', 'tahunAkademik', 'selectedPeriode'));
     }
 
     /**

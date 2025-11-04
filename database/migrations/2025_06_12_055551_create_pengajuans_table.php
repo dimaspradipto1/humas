@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('unit_kegiatan');
             $table->string('status')->default('pending');
             $table->string('tempat_kegiatan');
+            $table->text('alasan_ditolak')->nullable();
             $table->timestamps();
         });
     }

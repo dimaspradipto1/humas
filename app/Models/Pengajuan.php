@@ -42,7 +42,10 @@ class Pengajuan extends Model
     {
         return $this->hasOne(Publikasi::class, 'pengajuan_id');
     }
-
+ 
+    public function kotakMasukPengajuan()
+    {
+        return $this->hasOne(KotakMasukPengajuan::class, 'pengajuan_id');
+    }
     
-
 }

@@ -23,7 +23,7 @@
         <h1 class="h4 text-capitalize">detail pengajuan berita</h1>
       </div>
       <div>
-        <a href="{{ route('pengajuan.index') }}"
+        <a href="{{ route('kotakmasukpengajuan.index') }}"
           class="btn btn-danger text-white d-inline-flex align-items-center">
              <i class="fa-solid fa-right-from-bracket me-2"></i> BACK
         </a>
@@ -88,14 +88,8 @@
                     <span class="badge bg-warning badge-xl px-3 py-2">{{ $pengajuan->status }} <i class="fa-solid fa-spinner"></i></span>
                 @elseif($pengajuan->status == 'diterima') 
                     <span class="badge bg-success badge-xl px-3 py-2">{{ $pengajuan->status }} <i class="fa-solid fa-check"></i></span>
-                @elseif($pengajuan->status == 'ditolak')
-                    <span class="badge bg-danger badge-xl px-3 py-2">{{ $pengajuan->status }} <i class="fa-solid fa-xmark"></i></span>
                 @endif
             </td>
-          </tr>
-          <tr>
-            <th>Alasan Ditolak</th>
-            <td>{{ $pengajuan->alasan_ditolak }}</td>
           </tr>
         </table>
       </div>

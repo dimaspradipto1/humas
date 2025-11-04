@@ -4,6 +4,7 @@ use App\Models\Aktivitas;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KotakMasukPengajuanController;
 use App\Http\Controllers\LaporanPublikasiController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PublikasiController;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'checkrole'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/publikasi', PublikasiController::class);
     Route::resource('/pengajuan', PengajuanController::class);
+    Route::resource('kotak-masuk-pengajuan', KotakMasukPengajuanController::class);
     Route::resource('/users', UserController::class);
     Route::resource('/laporan-publikasi', LaporanPublikasiController::class);
     Route::resource('/tahun-akademik', TahunAkademikController::class);

@@ -7,6 +7,7 @@ use App\Models\Publikasi;
 use Illuminate\Http\Request;
 use App\Models\TahunAkademik;
 use App\Models\LaporanPublikasi;
+use App\Models\KotakMasukPengajuan;
 use App\DataTables\PengajuanDataTable;
 use App\Http\Requests\PengajuanRequest;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -18,7 +19,7 @@ class PengajuanController extends Controller
      */
     public function index(PengajuanDataTable $dataTable)
     {
-        
+
         return $dataTable->render('pages.pengajuan.index');
     }
 
@@ -39,7 +40,6 @@ class PengajuanController extends Controller
     {
         $data = $request->validated();
 
-        // 1) Buat Pengajuan
         $pengajuan = Pengajuan::create([
             'user_id'           => auth()->id(),
             'tahun_akademik_id' => $data['tahun_akademik_id'],
@@ -48,7 +48,7 @@ class PengajuanController extends Controller
             'tgl_selesai'       => $data['tgl_selesai'],
             'jam_kegiatan'      => $data['jam_kegiatan'],
             'waktu_selesai'     => $data['waktu_selesai'],
-            'deskripsi_kegiatan'=> $data['deskripsi_kegiatan'] ?? null,
+            'deskripsi_kegiatan' => $data['deskripsi_kegiatan'] ?? null,
             'perlengkapan'      => $data['perlengkapan'] ?? null,
             'link_zoom'         => $data['link_zoom'] ?? null, // simpan null; tampilkan '-' di view
             'unit_kegiatan'     => $data['unit_kegiatan'],
@@ -62,7 +62,7 @@ class PengajuanController extends Controller
             'upload_laporan'    => null,
             'link_dokumentasi'  => null,
             'link_publikasi'    => null,
-        ]); 
+        ]);
 
         // 3) Buat LaporanPublikasi terkait publikasi yang baru
         LaporanPublikasi::create([
@@ -71,48 +71,15 @@ class PengajuanController extends Controller
             'pengajuan_id'  => $pengajuan->id,
         ]);
 
+        // 4) Buat KotakMasukPengajuan terkait pengajuan yang baru
+        KotakMasukPengajuan::create([
+            'pengajuan_id'  => $pengajuan->id,
+        ]);
+
         Alert::success('Success', 'Data berhasil ditambahkan')->toToast()->autoclose(3000);
 
         return redirect()->route('pengajuan.index');
     }
-
-
-//    public function store(Request $request)
-//     {   
-//         // Data untuk tabel pengajuan
-//         $pengajuanData['nama_kegiatan'] = $request->nama_kegiatan;
-//         $pengajuanData['tgl_awal'] = $request->tgl_awal;
-//         $pengajuanData['tgl_selesai'] = $request->tgl_selesai;
-//         $pengajuanData['deskripsi_kegiatan'] = $request->deskripsi_kegiatan;
-//         $pengajuanData['perlengkapan'] = $request->perlengkapan;
-//         $pengajuanData['link_zoom'] = $request->link_zoom ?? '-';
-//         $pengajuanData['jam_kegiatan'] = $request->jam_kegiatan;
-//         $pengajuanData['waktu_selesai'] = $request->waktu_selesai;
-//         $pengajuanData['unit_kegiatan'] = $request->unit_kegiatan;
-//         $pengajuanData['tempat_kegiatan'] = $request->tempat_kegiatan;
-//         $pengajuanData['user_id'] = auth()->user()->id;
-//         $pengajuanData['tahun_akademik_id'] = $request->tahun_akadmeik_id;
-
-
-//         $pengajuan = Pengajuan::create($pengajuanData);
-
-//         // Create empty Publikasi record linked to the newly created Pengajuan
-//         $publikasi = new Publikasi();
-//         $publikasi->user_id = auth()->user()->id;
-//         $publikasi->pengajuan_id = $pengajuan->id;
-//         $publikasi->tahun_akademik_id = null;
-//         $publikasi->upload_laporan = null;
-//         $publikasi->link_dokumentasi = null;
-//         $publikasi->link_publikasi = null;
-//         $publikasi->save();
-
-//         Alert::success('Success', 'Data berhasil ditambahkan')->toToast()->autoclose(3000);
-
-//         // Redirect ke halaman pengajuan
-//         return redirect()->route('pengajuan.index');
-//     }
-
-
 
     /**
      * Display the specified resource.
@@ -128,7 +95,8 @@ class PengajuanController extends Controller
      */
     public function edit(Pengajuan $pengajuan)
     {
-        return view('pages.pengajuan.edit', compact('pengajuan'));
+        $tahunAkademik = TahunAkademik::all();
+        return view('pages.pengajuan.edit', compact('pengajuan', 'tahunAkademik'));
     }
 
     /**
@@ -136,12 +104,40 @@ class PengajuanController extends Controller
      */
     public function update(Request $request, Pengajuan $pengajuan)
     {
+        // Jika status pengajuan adalah 'ditolak', simpan alasan ditolak
+        if ($request->status == 'ditolak') {
+            $pengajuan->alasan_ditolak = $request->alasan_ditolak;
+        } else {
+            // Jika status bukan 'ditolak', set alasan ditolak menjadi null
+            $pengajuan->alasan_ditolak = null;
+        }
 
-        $data = $request->all();
-        $pengajuan->update($data);
-        Alert::success('SUCCESS', 'data updated successfully')->autoclose(2000)->toToast();
-        return redirect()->route('pengajuan.index');
+        // Cek jika pengguna adalah admin
+        if (auth()->user()->is_admin) {
+            $data = $request->all();
+            $pengajuan->update($data);
+            Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast();
+            return redirect()->route('kotak-masuk-pengajuan.index');
+        }
+        // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
+        elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
+            // Jika status bukan 'ditolak', ubah status menjadi 'pending'
+            if ($request->status != 'ditolak') {
+                $pengajuan->status = 'pending';
+            }
+
+            $data = $request->all();
+            $pengajuan->update($data);
+            Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast();
+
+            // Redirect ke halaman pengajuan berdasarkan role
+            return redirect()->route('pengajuan.index');
+        }
+
+        // Jika tidak ada role yang cocok
+        return redirect()->back()->with('error', 'Akses ditolak.');
     }
+
 
     /**
      * Remove the specified resource from storage.

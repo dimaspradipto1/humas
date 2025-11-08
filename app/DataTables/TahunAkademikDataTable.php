@@ -26,11 +26,11 @@ class TahunAkademikDataTable extends DataTable
             ->addColumn('DT_RowIndex', '')
             ->addColumn('action', function($item){
                 return '
-                     <a href="'.route('tahun-akademik.edit', $item->id).'" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                     <a href="'.route('tahun-akademik.edit', $item->id).'" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i></a>
                     <form action="'.route('tahun-akademik.destroy', $item->id).'" method="POST" style="display: inline">
                         '.csrf_field().'
                         '.method_field('DELETE').'
-                        <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                        <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i></button>
                     </form>
                 ';
             })

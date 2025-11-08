@@ -11,7 +11,7 @@
             <a href="#">About</a>
           </li>
           <li class="list-inline-item px-0 px-sm-2">
-            <a href="#">Contact</a>
+            <a href="https://wa.me/6281285879457" target="_blank">Contact</a>
           </li>
         </ul>
       </div>

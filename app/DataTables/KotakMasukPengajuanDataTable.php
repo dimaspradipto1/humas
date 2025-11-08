@@ -32,9 +32,11 @@ class KotakMasukPengajuanDataTable extends DataTable
                 return '<a href="'.route('pengajuan.edit', $kotakMasukPengajuan->pengajuan->id).'" class="text-decoration-none text-success">'.$kotakMasukPengajuan->pengajuan->nama_kegiatan.'</a>';
             })
             ->addColumn('pengajuan.tgl_awal', function($kotakMasukPengajuan){
+                Carbon::setLocale('id');
                 return Carbon::parse($kotakMasukPengajuan->pengajuan->tgl_awal)->translatedFormat('l, d F Y');
             })
             ->addColumn('pengajuan.tgl_selesai', function($kotakMasukPengajuan){
+                Carbon::setLocale('id');
                 return Carbon::parse($kotakMasukPengajuan->pengajuan->tgl_selesai)->translatedFormat('l, d F Y');
             })
             ->addColumn('pengajuan.status', function($kotakMasukPengajuan){
@@ -50,6 +52,21 @@ class KotakMasukPengajuanDataTable extends DataTable
             ->addColumn('pengajuan.user_id', function($kotakMasukPengajuan){
                 return $kotakMasukPengajuan->pengajuan->user->name;
             })
+            ->filter(function ($query) {
+                if (request()->has('search') && request()->input('search')['value']) {
+                    $search = request()->input('search')['value'];
+                    $query->whereHas('pengajuan', function($query) use ($search) {
+                        $query->where('nama_kegiatan', 'like', "%$search%")
+                              ->orWhere('tgl_awal', 'like', "%$search%")
+                              ->orWhere('tgl_selesai', 'like', "%$search%")
+                              ->orWhere('status', 'like', "%$search%")
+                              ->orWhereHas('user', function($query) use ($search) {
+                                  $query->where('name', 'like', "%$search%");
+                              });
+                    });
+                }
+            })
+
             ->rawColumns(['pengajuan.nama_kegiatan', 'pengajuan.tgl_awal', 'pengajuan.tgl_selesai', 'pengajuan.status', 'pengajuan.user_id'])
             ->setRowId('DT_RowIndex');
     }
@@ -68,20 +85,44 @@ class KotakMasukPengajuanDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('kotakmasukpengajuan-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+        ->setTableId('pengajuan-table')
+        ->columns($this->getColumns())
+        ->minifiedAjax()
+        ->dom('Bfrtip')
+        ->orderBy(1)
+        ->selectStyleSingle()
+        ->parameters([
+            'scrollX' => true,
+            'searching'=>true,
+            'columnDefs' => [
+                [
+                    'targets' => 1,
+                    'width' => '400px',
+                    'render' => 'function(data, type, row, meta) { return "<div style=\'word-wrap: break-word; word-break: break-word; white-space: normal; overflow-wrap: break-word;\' >" + data + "</div>"; }'
+                ],
+                [
+                    'targets' => 0,
+                    'width' => '5px',
+                    'className' => 'text-start',
+                    'render' => null
+                ],
+                [
+                    'targets' => 4,
+                    'width' => '10px',
+                    'className' => 'text-center',
+                    'style' => 'text-align: text-left;',
+                    'render' => null
+                ]
+            ],
+        ])
+        ->buttons([
+            Button::make('excel'),
+            Button::make('csv'),
+            Button::make('pdf'),
+            Button::make('print'),
+            Button::make('reset'),
+            Button::make('reload')
+        ]);
     }
 
     /**

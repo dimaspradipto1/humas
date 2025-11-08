@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'admin rektorat',
+                'name' => 'operator rektorat',
                 'email' => 'rektorat@gmail.com',
                 'password' => Hash::make('ubahsaya'),
                 'fakultas'=>'REKTORAT',
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'admin Feb',
+                'name' => 'operator Feb',
                 'email' => 'feb@gmail.com',
                 'password' => Hash::make('ubahsaya'),
                 'fakultas'=>'FAKULTAS EKONOMI DAN BISNIS',
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'admin FST',
+                'name' => 'operator FST',
                 'email' => 'fst@gmail.com',
                 'password' => Hash::make('ubahsaya'),
                 'fakultas'=>'FAKULTAS SAINS DAN TEKNOLOGI',
@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'admin Fikes',
+                'name' => 'operator Fikes',
                 'email' => 'fikes@gmail.com',
                 'password' => Hash::make('ubahsaya'),
                 'fakultas'=>'FAKULTAS ILMU KESEHATAN',

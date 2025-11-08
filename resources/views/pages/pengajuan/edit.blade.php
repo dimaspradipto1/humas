@@ -34,26 +34,27 @@
                          @csrf
                          @method('PUT')
 
-                         @if (Auth::user()->is_feb || Auth::user()->is_fst || Auth::user()->is_fikes)
+                         @if (Auth::user()->is_feb || Auth::user()->is_fst || Auth::user()->is_fikes || Auth::user()->is_rektorat)
                              <div class="card-body">
                                  <div class="row mb-4">
                                      <div class="col-lg-6 col-sm-6">
 
                                          <div class="mb-4">
-                                             <label for="nama_mahasiswa" class="text-uppercase">nama kegiatan</label>
-                                             <input type="text" name="nama_kegiatan"
+                                             <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
+                                             <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" rows="3">{{ old('nama_kegiatan', $pengajuan->nama_kegiatan) }}</textarea>
+                                             {{-- <input type="text" name="nama_kegiatan"
                                                  value="{{ old('nama_kegiatan', $pengajuan->nama_kegiatan) }}"
-                                                 class="form-control" id="nama_kegiatan">
+                                                 class="form-control" id="nama_kegiatan"> --}}
                                          </div>
 
                                          <div class="mb-4">
-                                             <label for="tgl_awal" class="text-uppercase">tanggal awal</label>
+                                             <label for="tgl_awal" class="text-capitalize">tanggal awal</label>
                                              <input type="date" name="tgl_awal"
                                                  value="{{ old('tgl_awal', $pengajuan->tgl_awal) }}" class="form-control"
                                                  id="tgl_awal">
                                          </div>
                                          <div class="mb-4">
-                                             <label for="tgl_selesai" class="text-uppercase">tanggal Selesai</label>
+                                             <label for="tgl_selesai" class="text-capitalize">tanggal Selesai</label>
                                              <input type="date" name="tgl_selesai"
                                                  value="{{ old('tgl_selesai', $pengajuan->tgl_selesai) }}"
                                                  class="form-control" id="tgl_selesai">
@@ -61,7 +62,7 @@
 
                                          <div class="mb-4">
                                              <div class="form-group">
-                                                 <label for="deskripsi_kegiatan" class="text-uppercase">deskripsi
+                                                 <label for="deskripsi_kegiatan" class="text-capitalize">deskripsi
                                                      kegiatan</label>
                                                  <textarea class="form-control" name="deskripsi_kegiatan" rows="3">{{ old('deskripsi_kegiatan', $pengajuan->deskripsi_kegiatan) }}</textarea>
                                              </div>
@@ -69,26 +70,26 @@
 
                                          <div class="mb-4">
                                              <div class="form-group">
-                                                 <label for="link_zoom" class="text-uppercase">link zoom</label>
+                                                 <label for="link_zoom" class="text-capitalize">link zoom</label>
                                                  <textarea class="form-control" name="link_zoom" rows="3">{{ old('link_zoom', $pengajuan->link_zoom) }}</textarea>
 
                                              </div>
                                          </div>
 
                                          <div class="mb-4">
-                                             <label for="jam_kegiatan" class="text-uppercase">jam kegiatan</label>
+                                             <label for="jam_kegiatan" class="text-capitalize">jam kegiatan</label>
                                              <input type="time" name="jam_kegiatan" class="form-control"
                                                  value="{{ old('jam_kegiatan', $pengajuan->jam_kegiatan) }}">
                                          </div>
 
                                          <div class="mb-4">
-                                             <label for="tempat_kegiatan" class="text-uppercase">tempat kegiatan</label>
+                                             <label for="tempat_kegiatan" class="text-capitalize">tempat kegiatan</label>
                                              <input type="text" name="tempat_kegiatan" class="form-control"
                                                  value="{{ old('tempat_kegiatan', $pengajuan->tempat_kegiatan) }}">
                                          </div>
 
                                          <div class="mb-4">
-                                             <label for="unit_kegiatan" class="text-uppercase">unit kegiatan</label>
+                                             <label for="unit_kegiatan" class="text-capitalize">unit kegiatan</label>
                                              <input type="text" name="unit_kegiatan" class="form-control"
                                                  value="{{ old('unit_kegiatan', $pengajuan->unit_kegiatan) }}">
                                          </div>
@@ -101,9 +102,17 @@
                                              </div>
                                          </div>
 
+                                         <div class="mb-4">
+                                             <div class="form-group">
+                                                 <label for="link_zoom" class="text-capitalize">link zoom <span
+                                                         class="text-danger">(jika ada)</span></label>
+                                                 <textarea class="form-control" name="link_zoom" id="" rows="3">{{ old('link_zoom', $pengajuan->link_zoom) }}</textarea>
+                                             </div>
+                                         </div>
+
                                          @if (Auth::user()->is_admin)
                                              <div class="mb-4">
-                                                 <label for="status" class="text-uppercase">status</label>
+                                                 <label for="status" class="text-capitalize">status</label>
                                                  <div class="form-group">
                                                      <select class="form-control form-control-sm" name="status"
                                                          id="status">
@@ -210,36 +219,37 @@
                                                  </td>
                                              </tr>
                                              <tr>
-                                                 @if (Auth::user()->is_admin)
-                                                     <th>Edit Status Pengajuan</th>
-                                                     <td>
-                                                         <div class="mb-4">
-                                                             <label for="status" class="text-uppercase">status</label>
-                                                             <div class="form-group">
-                                                                 <select class="form-control form-control-sm"
-                                                                     name="status" id="status">
-                                                                     <option value="pending"
-                                                                         {{ $pengajuan->status == 'pending' ? 'selected' : '' }}>
-                                                                         pending</option>
-                                                                     <option value="diterima"
-                                                                         {{ $pengajuan->status == 'diterima' ? 'selected' : '' }}>
-                                                                         diterima</option>
-                                                                     <option value="ditolak"
-                                                                         {{ $pengajuan->status == 'ditolak' ? 'selected' : '' }}>
-                                                                         ditolak</option>
-                                                                 </select>
-                                                             </div>
+                                            @if (Auth::user()->is_admin)
+                                                <th>Edit Status Pengajuan</th>
+                                                <td>
+                                                    <div class="mb-4">
+                                                        <label for="status" class="text-uppercase">status</label>
+                                                        <div class="form-group">
+                                                            <select class="form-control form-control-sm"
+                                                                name="status" id="status">
+                                                                <option value="pending"
+                                                                    {{ $pengajuan->status == 'pending' ? 'selected' : '' }}>
+                                                                    pending</option>
+                                                                <option value="diterima"
+                                                                    {{ $pengajuan->status == 'diterima' ? 'selected' : '' }}>
+                                                                    diterima</option>
+                                                                <option value="ditolak"
+                                                                    {{ $pengajuan->status == 'ditolak' ? 'selected' : '' }}>
+                                                                    ditolak</option>
+                                                            </select>
+                                                        </div>
 
-                                                         </div>
-                                                     </td>
-                                             <tr>
-                                                 <th>Alasan Ditolak</th>
-                                                 <td>
-                                                     <textarea class="form-control" name="alasan_ditolak" rows="3">{{ old('alasan_ditolak', $pengajuan->alasan_ditolak) }}</textarea>
-                                                 </td>
-                                             </tr>
-                         @endif
-                         </tr>
+                                                    </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Alasan Ditolak</th>
+                                                    <td>
+                                                        <textarea class="form-control" name="alasan_ditolak" rows="3">{{ old('alasan_ditolak', $pengajuan->alasan_ditolak) }}</textarea>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        </tr>
                          </table>
                          <button class="btn btn-gray-800 d-inline-flex align-items-center me-2 aria-haspopup="true"
                              onclick="return confirm('Yakin ingin mengubah status pengajuan?')">

@@ -34,6 +34,7 @@ class PengajuanRequest extends FormRequest
             'link_zoom' => 'nullable|string',
             'unit_kegiatan' => 'required|string|max:255',
             'tempat_kegiatan' => 'required|string|max:255',
+            'alasan_ditolak' => 'nullable|string',
         ];
     }
 }

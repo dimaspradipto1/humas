@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KotakMasukPengajuan;
+use App\Models\Pengajuan;
 use Illuminate\Http\Request;
+use App\Models\KotakMasukPengajuan;
 use App\DataTables\KotakMasukPengajuanDataTable;
 
 class KotakMasukPengajuanController extends Controller
@@ -11,10 +12,29 @@ class KotakMasukPengajuanController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index(KotakMasukPengajuanDataTable $dataTable)
     {
-        return $dataTable->render('pages.kotakMasukPengajuan.index');
+        // Hitung jumlah pengajuan dengan status 'pending'
+        $pendingPengajuan = Pengajuan::where('status', 'pending')->count();
+
+        // Hitung jumlah pengajuan dengan status 'ditolak'
+        $ditolakPengajuan = Pengajuan::where('status', 'ditolak')->count();
+
+        // Jika user adalah admin, simpan notifikasi di session
+        if (auth()->user()->is_admin) {
+            // Total notifikasi untuk admin (jumlah pengajuan pending + ditolak)
+            $totalNotifikasi = $pendingPengajuan;
+
+            // Simpan total notifikasi admin di session
+            session(['notifikasi_pengajuan_admin' => $totalNotifikasi]);
+        }
+
+
+        // Kirimkan jumlah pengajuan yang 'pending' dan 'ditolak' ke view
+        return $dataTable->render('pages.kotakMasukPengajuan.index', compact('pendingPengajuan', 'ditolakPengajuan'));
     }
+
 
     /**
      * Show the form for creating a new resource.

@@ -38,6 +38,7 @@
                                 <div class="col-lg-6 col-sm-6">
 
                                     <div class="mb-4">
+                                        <label for="tahun_akademik_id" class="text-capitalize">tahun akademik</label>
                                        <select name="tahun_akademik_id" id="tahun_akademik_id" class="form-select single">
                                             @foreach ($tahunAkademik as $tahun)
                                                 <option value="{{ $tahun->id }}"
@@ -50,8 +51,9 @@
 
                                     <div class="mb-4">
                                         <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
-                                        <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
-                                            class="form-control" id="nama_kegiatan">
+                                        <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" rows="3">{{ old('nama_kegiatan') }}</textarea>
+                                        {{-- <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
+                                            class="form-control" id="nama_kegiatan"> --}}
                                     </div>
 
                                     <div class="row mb-4">
@@ -123,17 +125,10 @@
 
                                     <div class="mb-4">
                                         <div class="form-group">
-                                            <label for="link_zoom" class="text-capitalize">link zoom (jika ada)</label>
+                                            <label for="link_zoom" class="text-capitalize">link zoom <span class="text-danger">(jika ada)</span></label>
                                             <textarea class="form-control" name="link_zoom" value="{{ old('link_zoom') }}" id="" rows="3"></textarea>
                                         </div>
                                     </div>
-
-
-                                    {{-- <div class="mb-4">
-                                        <label for="pic" class="text-capitalize">Person in Charge (PIC)</label>
-                                        <input type="text" name="pic" class="form-control"
-                                            value="{{ old('pic') }}">
-                                    </div> --}}
 
                                     @if (Auth::user()->is_admin)
                                         <div class="mb-4">

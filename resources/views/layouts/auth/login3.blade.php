@@ -38,9 +38,9 @@
     <style type="text/css">
         html,
         body {
-            background: #f2f2f2 url('{{ asset('volt/assets/img/humas2.jpg') }}') no-repeat center center fixed;
-            background-size: cover;
-            /* background: #f2f2f2 url('https://assets.siakadcloud.com/assets/v1/img/pattern/pat_04.png') repeat; */
+            /* background: #f2f2f2 url('{{ asset('volt/assets/img/humas2.jpg') }}') no-repeat center center fixed;
+            background-size: cover; */
+            background: #f2f2f2 url('https://assets.siakadcloud.com/assets/v1/img/pattern/pat_04.png') repeat;
         }
 
         .password {

@@ -94,7 +94,7 @@
             </td>
           </tr>
           <tr>
-            <th>Alasan Ditolak</th>
+            <th>Keterangan</th>
             <td>{{ $pengajuan->alasan_ditolak }}</td>
           </tr>
         </table>

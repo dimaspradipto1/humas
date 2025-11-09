@@ -40,12 +40,13 @@
                                     <div class="mb-4">
                                         <label for="tahun_akademik_id" class="text-capitalize">tahun akademik</label>
                                        <select name="tahun_akademik_id" id="tahun_akademik_id" class="form-select single">
+                                        <option>Pilih Tahun Akademik</option>
+                                        <option>====================================================</option>
                                             @foreach ($tahunAkademik as $tahun)
                                                 <option value="{{ $tahun->id }}"
-                                                    {{ request('tahun_akademik_id') == $tahun->id ? 'selected' : '' }}>
-                                                    {{ $tahun->tahun_akademik }}
-                                                </option>
+                                                    {{ request('tahun_akademik_id') == $tahun->id ? 'selected' : '' }}>{{ $tahun->tahun_akademik }}</option>
                                             @endforeach
+                                            <option>====================================================</option>
                                         </select>
                                     </div>
 

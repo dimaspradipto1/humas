@@ -32,32 +32,6 @@ class PublikasiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     $data['nama_kegiatan'] = $request->nama_kegiatan;
-    //     $data['tgl_awal'] = $request->tgl_awal;
-    //     $data['tgl_akhir'] = $request->tgl_akhir;
-    //     $data['upload_laporan'] = $request->upload_laporan;
-    //     $data['link_dokumentasi'] = $request->link_dokumentasi;
-    //     $data['link_publikasi'] = $request->link_publikasi;
-    //     $data['user_id'] = auth()->user()->id;
-    //     $data['tahun_akademik_id'] = $request->tahun_akademik_id;
-
-    //     // Membuat Publikasi terlebih dahulu
-    //     $publikasi = Publikasi::create($data);
-
-    //     // Kemudian buat LaporanPublikasi dengan menggunakan ID dari Publikasi yang sudah dibuat
-    //     LaporanPublikasi::create([
-    //         'publikasi_id' => $publikasi->id,
-    //         'user_id' => auth()->user()->id,
-    //         'nama_kegiatan' => $request->nama_kegiatan,
-    //         'link_dokumentasi' => $request->link_dokumentasi,
-    //     ]);
-
-    //     Alert::success('Success, Data Successfully added')->toToast()->autoclose();
-    //     return redirect()->route('publikasi.index');
-    // }
-
     public function store(Request $request)
     {
         // Data untuk tabel pengajuan
@@ -83,8 +57,6 @@ class PublikasiController extends Controller
         return redirect()->route('publikasi.index');
     }
 
-
-
     /**
      * Display the specified resource.
      */
@@ -105,8 +77,6 @@ class PublikasiController extends Controller
         $pengajuan = $publikasi->pengajuan;  
         return view('pages.publikasi.edit', compact('publikasi', 'pengajuan'));
     }
-
-
 
     /**
      * Update the specified resource in storage.

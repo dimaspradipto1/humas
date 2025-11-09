@@ -2,15 +2,16 @@
 
 namespace App\DataTables;
 
+use Carbon\Carbon;
 use App\Models\Publikasi;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class PublikasiDataTable extends DataTable
 {
@@ -20,64 +21,71 @@ class PublikasiDataTable extends DataTable
      * @param QueryBuilder $query Results from query() method.
      */
 
-     public function dataTable(QueryBuilder $query): EloquentDataTable
-     {
-         if (auth()->user()->is_admin) {
-             // When the user is an admin, ensure the query properly joins the 'pengajuan' table
-             $query = Publikasi::with('pengajuan');
-         } else {
-             // For non-admin users, filter the results based on the current user's ID
-             $query = Publikasi::with('pengajuan')
-                 ->where('publikasis.user_id', auth()->user()->id);
-         }
-     
-         return (new EloquentDataTable($query))
-             ->addIndexColumn()
-             ->addColumn('DT_RowIndex', '')
-             ->addColumn('tgl_awal', function ($publikasi) {
-                 return date('d-m-Y', strtotime($publikasi->tgl_awal));
-             })
-             ->editColumn('pengajuan_id', function ($publikasi) {
-                 // Use the 'pengajuan' relation to fetch 'nama_kegiatan'
-                 return $publikasi->pengajuan ? $publikasi->pengajuan->nama_kegiatan : '-';
-             })
-             ->addColumn('tgl_akhir', function ($publikasi) {
-                 return date('d-m-Y', strtotime($publikasi->tgl_akhir));
-             })
-             ->editColumn('upload_laporan', function ($publikasi) {
-                 return $publikasi->upload_laporan ? '<a href="' . $publikasi->upload_laporan . '" target="_blank" class="text-success px-3 me-1"><i class="fa-solid fa-eye"></i> Lihat Laporan</a>' : '-';
-             })
-             ->editColumn('tahun_akademik_id', function ($item) {
-                 return $item->tahun_akademik ? $item->tahun_akademik->tahun_akademik : '-';
-             })
-             ->addColumn('user_id', function ($publikasi) {
-                 if (auth()->user()->is_admin) {
-                     return $publikasi->user->name;
-                 }
-                 return '';
-             })
-             ->editColumn('link_dokumentasi', function ($publikasi) {
-                 return $publikasi->link_dokumentasi ? '<a href="' . $publikasi->link_dokumentasi . '" target="_blank" class="text-secondary px-3 me-1"><i class="fa-solid fa-eye"></i> Lihat Dokumentasi</a>' : '-';
-             })
-             ->editColumn('link_publikasi', function ($publikasi) {
-                 return $publikasi->link_publikasi ? '<a href="' . $publikasi->link_publikasi . '" target="_blank" class="text-success px-3 me-1"><i class="fa-solid fa-eye"></i> Lihat Publikasi</a>' : '-';
-             })
-             ->addColumn('action', function ($publikasi) {
-                 return '
-                     <a href="' . route('publikasi.show', $publikasi->id) . '" class="btn btn-sm btn-info text-white px-3"><i class="fa-solid fa-eye"></i> Detail</a>
-                     <a href="' . route('publikasi.edit', $publikasi->id) . '" class="btn btn-sm btn-warning text-white px-3"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+    public function dataTable(QueryBuilder $query): EloquentDataTable
+    {
+        if (auth()->user()->is_admin) {
+            // When the user is an admin, ensure the query properly joins the 'pengajuan' table
+            $query = Publikasi::with('pengajuan');
+        } else {
+            // For non-admin users, filter the results based on the current user's ID
+            $query = Publikasi::with('pengajuan')
+                ->where('publikasis.user_id', auth()->user()->id);
+        }
+
+        return (new EloquentDataTable($query))
+            ->addIndexColumn()
+            ->addColumn('DT_RowIndex', '')
+            ->addColumn('nama_kegiatan', function ($publikasi) {
+                return '<a href="' . route('pengajuan.edit', $publikasi->pengajuan->id) . '" class="text-decoration-none text-success">' . $publikasi->pengajuan->nama_kegiatan . '</a>';
+            })
+            ->addColumn('tgl_awal', function ($publikasi) {
+                Carbon::setlocale('id');
+                return Carbon::parse($publikasi->tgl_awal)->translatedFormat('l, d F Y');
+            })
+            ->addColumn('tgl_akhir', function ($publikasi) {
+                Carbon::setLocale('id');
+                return Carbon::parse($publikasi->tgl_akhir)->translatedFormat('l, d F Y');
+            })
+            ->editColumn('pengajuan_id', function ($publikasi) {
+                // Use the 'pengajuan' relation to fetch 'nama_kegiatan'
+                return $publikasi->pengajuan ? $publikasi->pengajuan->nama_kegiatan : '-';
+            })
+            ->editColumn('upload_laporan', function ($publikasi) {
+                return $publikasi->upload_laporan ? '<a href="' . $publikasi->upload_laporan . '" target="_blank" class="text-success px-3 me-1"><i class="fa-solid fa-eye"></i> Lihat Laporan</a>' : '-';
+            })
+            ->editColumn('tahun_akademik_id', function ($item) {
+                return $item->tahun_akademik ? $item->tahun_akademik->tahun_akademik : '-';
+            })
+            ->addColumn('user_id', function ($publikasi) {
+                if (auth()->user()->is_admin) {
+                    return $publikasi->user->name;
+                }
+                return '';
+            })
+            ->editColumn('upload_laporan', function ($publikasi) {
+                return $publikasi->upload_laporan ? '<a href="' . $publikasi->upload_laporan . '" target="_blank" class="text-success px-3 me-1"><i class="fa-solid fa-eye"></i> Lihat Laporan</a>' : '-';
+            })
+            ->editColumn('link_dokumentasi', function ($publikasi) {
+                return $publikasi->link_dokumentasi ? '<a href="' . $publikasi->link_dokumentasi . '" target="_blank" class="text-secondary px-3 me-1"><i class="fa-solid fa-eye"></i> Lihat Dokumentasi</a>' : '-';
+            })
+            ->editColumn('link_publikasi', function ($publikasi) {
+                return $publikasi->link_publikasi ? '<a href="' . $publikasi->link_publikasi . '" target="_blank" class="text-success px-3 me-1"><i class="fa-solid fa-eye"></i> Lihat Publikasi</a>' : '-';
+            })
+
+            ->addColumn('action', function ($publikasi) {
+                return '
+                     <a href="' . route('publikasi.show', $publikasi->id) . '" class="btn btn-sm btn-primary text-white px-3"><i class="fa-solid fa-eye"></i></a>
+                     <a href="' . route('publikasi.edit', $publikasi->id) . '" class="btn btn-sm btn-warning text-white px-3"><i class="fa-solid fa-pen-to-square"></i></a>
                      <form action="' . route('publikasi.destroy', $publikasi->id) . '" method="POST" style="display: inline">
                          ' . csrf_field() . '
                          ' . method_field('DELETE') . '
-                         <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                         <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i></button>
                      </form>
                  ';
-             })
-             ->rawColumns(['action', 'tgl_awal', 'tgl_akhir', 'upload_laporan', 'link_dokumentasi', 'link_publikasi', 'user_id', 'tahun_akademik_id', 'pengajuan_id'])
-             ->setRowId('DT_RowIndex');
-     }
-     
-
+            })
+            ->rawColumns(['action','nama_kegiatan', 'tgl_awal', 'tgl_akhir', 'upload_laporan', 'link_dokumentasi', 'link_publikasi', 'user_id', 'tahun_akademik_id', 'pengajuan_id'])
+            ->setRowId('DT_RowIndex');
+    }
 
     /**
      * Get the query source of dataTable.
@@ -101,27 +109,27 @@ class PublikasiDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->parameters([
-                 'scrollX' => true,
-                        'columnDefs' => [
-                            [
-                                'targets' => 1, 
-                                'width' => '200px', 
-                                'render' => 'function(data, type, row, meta) { return "<div style=\'word-wrap: break-word; word-break: break-word; white-space: normal; overflow-wrap: break-word;\' >" + data + "</div>"; }'
-                            ],
-                            [
-                                'targets' => 0, 
-                                'width' => '5px', 
-                                'className' => 'text-start', 
-                                'render' => null 
-                            ],
-                            [
-                                'targets' => 4, 
-                                'width' => '10px', 
-                                'className' => 'text-center',
-                                'style' => 'text-align: text-left;',
-                                'render' => null 
-                            ]
-                        ],
+                'scrollX' => true,
+                'columnDefs' => [
+                    [
+                        'targets' => 1,
+                        'width' => '300px',
+                        'render' => 'function(data, type, row, meta) { return "<div style=\'word-wrap: break-word; word-break: break-word; white-space: normal; overflow-wrap: break-word;\' >" + data + "</div>"; }'
+                    ],
+                    [
+                        'targets' => 0,
+                        'width' => '5px',
+                        'className' => 'text-start',
+                        'render' => null
+                    ],
+                    [
+                        'targets' => 4,
+                        'width' => '10px',
+                        'className' => 'text-center',
+                        'style' => 'text-align: text-left;',
+                        'render' => null
+                    ]
+                ],
             ])
             ->buttons([
                 Button::make('excel'),
@@ -147,20 +155,20 @@ class PublikasiDataTable extends DataTable
             Column::make('pengajuan.nama_kegiatan')
                 ->title('Nama Kegiatan'),
             Column::make('tgl_awal')
-                ->title('Tanggal Awal'),
+                ->title('Tanggal Kegiatan')
+                ->width(20),
             Column::make('tgl_akhir')
-                ->title('Tanggal Selesai'),
-            // Column::make('upload_laporan')->title('Upload Laporan'),
-            // Column::make('link_dokumentasi')->title('Link Dokumentasi'),
-            // Column::make('link_publikasi')->title('Link Publikasi'),
+                ->title('Tanggal Selesai')
+                ->width(20),
             Column::make('user_id')
                 ->title('Submit Pengguna')
-                ->visible(auth()->user()->is_admin),
+                ->visible(auth()->user()->is_admin)
+                ->width(5),
             Column::computed('action')
                 ->title('Aksi')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(40)
                 ->addClass('text-center'),
         ];
     }

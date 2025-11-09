@@ -2,13 +2,14 @@
 
 namespace App\DataTables;
 
+use Carbon\Carbon;
 use App\Models\LaporanPublikasi;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class LaporanPublikasiDataTable extends DataTable
 {
@@ -25,12 +26,14 @@ class LaporanPublikasiDataTable extends DataTable
             ->addColumn('nama_kegiatan', fn ($row) =>
                 $row->publikasi?->pengajuan?->nama_kegiatan ?? '-'
             )
-            ->addColumn('tgl_awal', fn ($row) =>
-                $row->publikasi?->pengajuan?->tgl_awal ?? '-'
-            )
-            ->addColumn('tgl_selesai', fn ($row) =>
-                $row->publikasi?->pengajuan?->tgl_selesai ?? '-'
-            )
+            ->addColumn('tgl_awal', function ($publikasi) {
+                Carbon::setlocale('id');
+                return Carbon::parse($publikasi->pengajuan->tgl_awal)->translatedFormat('l, d F Y');
+            })
+            ->addColumn('tgl_selesai', function ($publikasi) {
+                Carbon::setLocale('id');
+                return Carbon::parse($publikasi->pengajuan->tgl_selesai)->translatedFormat('l, d F Y');
+            })
             ->addColumn('deskripsi_kegiatan', fn ($row) =>
                 $row->publikasi?->pengajuan?->deskripsi_kegiatan ?? '-'
             )
@@ -40,6 +43,8 @@ class LaporanPublikasiDataTable extends DataTable
             ->addColumn('link_dokumen', fn ($row) =>
                 $row->publikasi?->pengajuan?->link_dokumen ?? '-'
             )
+            
+            ->rawColumns(['nama_kegiatan', 'tgl_awal', 'tgl_selesai', 'deskripsi_kegiatan', 'link_zoom', 'link_dokumen'])
             ->setRowId('id');
     }
 
@@ -60,11 +65,19 @@ class LaporanPublikasiDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax(route('laporan-publikasi.index'))
             ->parameters([
+                'columnDefs' => [
+                    [
+                        'targets' => 3,
+                        'width' => '300px',
+                        'render' => 'function(data, type, row, meta) { return "<div style=\'word-wrap: break-word; word-break: break-word; white-space: normal; overflow-wrap: break-word;\' >" + data + "</div>"; }'
+                    ],
+                ],
                 'scrollX' => true,
                 'processing' => true,
                 'serverSide' => true,
                 'order'      => [],
                 'lengthMenu' => [[10,25,50,-1],[10,25,50,'All']],
+                
             ])
             ->buttons([
                 Button::make('excel'),
@@ -86,8 +99,6 @@ class LaporanPublikasiDataTable extends DataTable
             Column::make('tgl_awal')->title('Tanggal Awal'),
             Column::make('tgl_selesai')->title('Tanggal Selesai'),
             Column::make('deskripsi_kegiatan')->title('Deskripsi Kegiatan'),
-            Column::make('link_zoom')->title('Link Zoom'),
-            Column::make('link_dokumen')->title('Link Dokumen'),
         ];
     }
 

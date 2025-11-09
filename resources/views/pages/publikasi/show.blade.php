@@ -1,6 +1,5 @@
 @extends('layouts.dashboard.template')
 
-
 @section('content')
     <div class="py-4">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
@@ -31,56 +30,104 @@
         <div class="row">
             <div class="col-12 mb-4">
                 <div class="card border-0 shadow components-section">
-                        <div class="card-body">
+                    <div class="card-body">
 
-                            <div class="card-body px-3 pt-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
-                                <tbody>
-                                    <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 w-40">tahun akademik</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->tahunAkademik->tahun_akademik }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 w-40">nama kegiatan</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->pengajuan->nama_kegiatan }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">tanggal kegiatan</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">{{ \Carbon\Carbon::parse($publikasi->pengajuan->tgl_awal)->translatedFormat('l, d F y') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">tanggal selesai</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7"> {{ \Carbon\Carbon::parse($publikasi->pengajuan->tgl_selesai)->translatedFormat('l, d F Y') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">link laporan</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->upload_laporan }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">link dokumentasi</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->link_dokumentasi }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">link publikasi</td>
-                                        <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">:</td>
-                                        <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">{{ $publikasi->link_publikasi }}</td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
+                        <div class="card-body px-3 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7"
+                                                style="width: 5%;">Tahun Akademik</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1"
+                                                style="width: 1%;">:</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 text-capitalize"
+                                                style="width: 95%;">{{ $publikasi->tahunAkademik->tahun_akademik }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">nama
+                                                kegiatan</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">
+                                                :</td>
+                                            <td
+                                                class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 text-capitalize">
+                                                {{ $publikasi->pengajuan->nama_kegiatan }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">
+                                                tanggal kegiatan</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">
+                                                :</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">
+                                                {{ \Carbon\Carbon::parse($publikasi->pengajuan->tgl_awal)->locale('id')->translatedFormat('l, d F y') }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">
+                                                tanggal selesai</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">
+                                                :</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">
+                                                {{ \Carbon\Carbon::parse($publikasi->pengajuan->tgl_selesai)->locale('id')->translatedFormat('l, d F Y') }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 text-capitalize">
+                                                link laporan</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">
+                                                :</td>
+                                            <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">
+                                                @if ($publikasi->upload_laporan)
+                                                    <a href="{{ $publikasi->upload_laporan }}" target="_blank"
+                                                        class="text-success px-3 me-1 text-capitalize"><i
+                                                            class="fa-solid fa-eye"></i> Lihat Laporan</a>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 text-capitalize">
+                                                link dokumentasi</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">
+                                                :</td>
+                                            <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">
+                                                @if ($publikasi->link_dokumentasi)
+                                                    <a href="{{ $publikasi->link_dokumentasi }}" target="_blank"
+                                                        class="text-success px-3 me-1 text-capitalize"><i
+                                                            class="fa-solid fa-eye"></i> Lihat Dokumentasi</a>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 text-capitalize">
+                                                link publikasi</td>
+                                            <td class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 px-1">
+                                                :</td>
+                                            <td class="text-lowercase text-dark text-xxs font-weight-bolder opacity-7">
+                                                @if ($publikasi->link_publikasi)
+                                                    <a href="{{ $publikasi->link_publikasi }}" target="_blank"
+                                                        class="text-success px-3 me-1 text-capitalize"><i
+                                                            class="fa-solid fa-eye"></i> Lihat Publikasi</a>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        <a href="{{ route('publikasi.index') }}" class="btn btn-sm btn-danger px-2 py-2">BACK <i
+                                class="fa-solid fa-right-from-bracket"></i></a>
                     </div>
-
-                            <a href="{{ route('publikasi.index') }}" class="btn btn-sm btn-danger px-2 py-2">BACK <i
-                                    class="fa-solid fa-right-from-bracket"></i></a>
-                        </div>
                 </div>
             </div>
         </div>

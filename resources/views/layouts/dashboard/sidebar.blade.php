@@ -84,7 +84,7 @@
                   </a>
               </li>
 
-               @if (AUth::user()->is_admin)
+              @if (AUth::user()->is_admin)
                   <li class="nav-item {{ request()->routeIs('kotak-masuk-pengajuan.index') ? 'active' : '' }}">
                       <a href="{{ route('kotak-masuk-pengajuan.index') }}" class="nav-link">
                           <span class="sidebar-icon">
@@ -118,36 +118,25 @@
 
                           </span>
                           <span class="sidebar-text text-capitalize">
-
                               Kotak Masuk
                           </span>
-                          {{-- <span class="sidebar-subtext text-capitalize"
+                          <span class="sidebar-subtext text-capitalize"
                               style="display: block; text-align: start; margin-left: 35px;">
                               Pengajuan kegiatan
-                              @if (isset($pendingPengajuan) && isset($ditolakPengajuan) && ($pendingPengajuan > 0 || $ditolakPengajuan > 0))
+                              @if (session('notifikasi_pengajuan_admin') > 0)
                                   <span class="badge-notification"
-                                      style="position: absolute; bottom: 45px; left: 140px; background-color: red; color: white; border-radius: 50%; padding: 5px 10px; font-size: 12px;">
-                                      {{ $pendingPengajuan + $ditolakPengajuan }}
+                                      style="position: absolute; bottom: 45px; left: 150px; background-color: red; color: white; 
+                                        border-radius: 50%; width: 20px; height: 20px; 
+                                        display: flex; justify-content: center; align-items: center; font-size: 12px;">
                                       {{ session('notifikasi_pengajuan_admin') }}
                                   </span>
                               @endif
-                          </span> --}}
-                          <span class="sidebar-subtext text-capitalize" style="display: block; text-align: start; margin-left: 35px;">
-                            Pengajuan kegiatan
-                            @if (session('notifikasi_pengajuan_admin') > 0)
-                                <span class="badge-notification"
-                                    style="position: absolute; bottom: 45px; left: 150px; background-color: red; color: white; 
-                                        border-radius: 50%; width: 20px; height: 20px; 
-                                        display: flex; justify-content: center; align-items: center; font-size: 12px;">
-                                    {{ session('notifikasi_pengajuan_admin') }}
-                                </span>
-                            @endif
-                        </span>
+                          </span>
                       </a>
                   </li>
               @endif
 
-              {{-- <li class="nav-item {{ request()->routeIs('pengajuan.index') ? 'active' : '' }}">
+              <li class="nav-item {{ request()->routeIs('pengajuan.index') ? 'active' : '' }}">
                   <a href="{{ route('pengajuan.index') }}" class="nav-link">
                       <span class="sidebar-icon">
                           <svg height="20" viewBox="-10 1 511 511.99998" width="20"
@@ -155,69 +144,78 @@
                               <path
                                   d="m303.4375 180.328125c0 15.984375-12.957031 28.945313-28.941406 28.945313h-183.019532c-15.988281 0-28.945312 12.957031-28.945312 28.945312v244.835938c0 15.988281 12.957031 28.945312 28.945312 28.945312h371.917969c15.988281 0 28.945313-12.957031 28.945313-28.945312v-302.726563c0-15.988281-12.957032-28.945313-28.945313-28.945313h-131.011719c-15.984374 0-28.945312 12.957032-28.945312 28.945313zm0 0"
                                   fill="#e58e13"></path>
-                              <path d="m145.070312 77.71875h313.453126v400.554688h-313.453126zm0 0" fill="#b3b3b3">
-                              </path>
-                              <path d="m94.640625 0h313.453125v265.789062h-313.453125zm0 0" fill="#cbcbcb"></path>
-                              <path d="m94.640625 0h313.453125v56.707031h-313.453125zm0 0" fill="#e6e6e6"></path>
-                              <path d="m44.207031 77.71875h313.453125v188.070312h-313.453125zm0 0" fill="#e6e6e6">
-                              </path>
-                              <path
-                                  d="m430.308594 180.328125v302.726563c0 15.988281-12.957032 28.945312-28.945313 28.945312h-371.917969c-15.976562 0-28.945312-12.957031-28.945312-28.945312v-244.839844c0-15.988282 12.96875-28.945313 28.945312-28.945313h183.023438c15.984375 0 28.941406-12.957031 28.941406-28.941406 0-15.988281 12.957032-28.945313 28.945313-28.945313h131.007812c15.988281 0 28.945313 12.957032 28.945313 28.945313zm0 0"
-                                  fill="#e58e13"></path>
-                              <path
-                                  d="m417.769531 180.328125v302.726563c0 15.988281-12.957031 28.945312-28.945312 28.945312h-359.378907c-15.976562 0-28.945312-12.957031-28.945312-28.945312v-244.839844c0-15.988282 12.96875-28.945313 28.945312-28.945313h183.023438c15.984375 0 28.941406-12.957031 28.941406-28.941406 0-15.988281 12.957032-28.945313 28.945313-28.945313h118.46875c15.988281 0 28.945312 12.957032 28.945312 28.945313zm0 0"
-                                  fill="#f7d360"></path>
-                              <path
-                                  d="m281.421875 126.304688h-188.070313c-4.328124 0-7.839843-3.507813-7.839843-7.835938s3.511719-7.835938 7.839843-7.835938h188.070313c4.328125 0 7.835937 3.507813 7.835937 7.835938s-3.507812 7.835938-7.835937 7.835938zm0 0"
-                                  fill="#6198ce"></path>
-                              <path
-                                  d="m200.933594 165.488281h-107.582032c-4.328124 0-7.839843-3.507812-7.839843-7.835937s3.511719-7.839844 7.839843-7.839844h107.582032c4.328125 0 7.835937 3.511719 7.835937 7.839844s-3.507812 7.835937-7.835937 7.835937zm0 0"
-                                  fill="#6198ce"></path>
-                              <path
-                                  d="m381.917969 309.675781h-141.433594c-5.957031 0-10.78125-4.828125-10.78125-10.78125v-36.425781c0-5.953125 4.824219-10.78125 10.78125-10.78125h141.429687c5.957032 0 10.78125 4.828125 10.78125 10.78125v36.425781c.003907 5.957031-4.824218 10.78125-10.777343 10.78125zm0 0"
-                                  fill="#fc5f61"></path>
+                              <!-- other svg paths... -->
                           </svg>
                       </span>
                       <span class="sidebar-text text-capitalize">
-                          pengajuan kegiatan
-                          @if ((Auth::user()->is_feb || Auth::user()->is_fikes || Auth::user()->is_fst) &&
-                                  isset($pendingPengajuan) &&
-                                  isset($ditolakPengajuan) &&
-                                  ($pendingPengajuan > 0 || $ditolakPengajuan > 0))
+                          Pengajuan Kegiatan
+
+                          {{-- Notifikasi akan selalu tampil di semua halaman --}}
+                          @if ($notifikasiPengajuan > 0)
                               <span class="badge-notification"
-                                  style="position: absolute; bottom: 20px; left: 155px; background-color: red; color: white; border-radius: 50%; padding: 5px 10px; font-size: 12px;">
-                                  {{ $pendingPengajuan + $ditolakPengajuan }}
-                              </span>
-                          @endif
-
-                      </span>
-                  </a>
-              </li> --}}
-
-           <li class="nav-item {{ request()->routeIs('pengajuan.index') ? 'active' : '' }}">
-                <a href="{{ route('pengajuan.index') }}" class="nav-link">
-                    <span class="sidebar-icon">
-                        <svg height="20" viewBox="-10 1 511 511.99998" width="20"
-                            xmlns="http://www.w3.org/2000/svg" id="fi_1157026">
-                            <path d="m303.4375 180.328125c0 15.984375-12.957031 28.945313-28.941406 28.945313h-183.019532c-15.988281 0-28.945312 12.957031-28.945312 28.945312v244.835938c0 15.988281 12.957031 28.945312 28.945312 28.945312h371.917969c15.988281 0 28.945313-12.957031 28.945313-28.945312v-302.726563c0-15.988281-12.957032-28.945313-28.945313-28.945313h-131.011719c-15.984374 0-28.945312 12.957032-28.945312 28.945313zm0 0" fill="#e58e13"></path>
-                            <!-- other svg paths... -->
-                        </svg>
-                    </span>
-                    <span class="sidebar-text text-capitalize">
-                        Pengajuan Kegiatan
-                        
-                        {{-- Notifikasi akan selalu tampil di semua halaman --}}
-                        @if($notifikasiPengajuan > 0)
-                        <span class="badge-notification"
-                            style="position: absolute; bottom: 10px; left: 150px; background-color: red; color: white; 
+                                  style="position: absolute; bottom: 10px; left: 150px; background-color: red; color: white; 
                                 border-radius: 50%; padding: 5px; width: 20px; height: 20px; 
                                 display: flex; justify-content: center; align-items: center; font-size: 12px;">
-                            {{ $notifikasiPengajuan }}
-                        </span>
-                    @endif                    
-                    </span>
-                </a>
-            </li>
+                                  {{ $notifikasiPengajuan }}
+                              </span>
+                          @endif
+                      </span>
+                  </a>
+              </li>
+
+              <li class="nav-item {{ request()->routeIs('publikasi.index') ? 'active' : '' }}">
+                  <a href="{{ route('publikasi.index') }}" class="nav-link d-flex justify-content-between">
+                      <span>
+                          <span class="sidebar-icon"> <svg id="fi_9746243" height="20" viewBox="0 0 512 512"
+                                  width="20" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+                                  <g fill-rule="evenodd">
+                                      <path
+                                          d="m.516 189.341 142.043-164.257a2.066 2.066 0 0 1 2.89-.2l210.409 181.942a2.105 2.105 0 0 1 .2 2.92l-142.039 164.254a2.1 2.1 0 0 1 -2.92.205l-210.379-181.945a2.048 2.048 0 0 1 -.2-2.919z"
+                                          fill="#006694"></path>
+                                      <path
+                                          d="m94.773 112.014 99.162-45.214 161.923 140.026a2.105 2.105 0 0 1 .2 2.92l-142.039 164.254a2.1 2.1 0 0 1 -2.92.205l-10.07-8.728-110.459-242.224a8.5 8.5 0 0 1 4.2-11.239z"
+                                          fill="#005c85"></path>
+                                      <path
+                                          d="m97.43 117.852 197.593-90.083a2.063 2.063 0 0 1 2.715 1.022l115.392 253.086a2.05 2.05 0 0 1 -.992 2.744l-197.594 90.079a2.106 2.106 0 0 1 -2.744-1.022l-115.392-253.078a2.087 2.087 0 0 1 1.022-2.744z"
+                                          fill="#60b7ff"></path>
+                                      <path
+                                          d="m214.719 86.852h109.5l88.911 195.025a2.05 2.05 0 0 1 -.992 2.744l-197.594 90.079a2.106 2.106 0 0 1 -2.744-1.022l-5.546-12.2v-266.132a8.476 8.476 0 0 1 8.465-8.494z"
+                                          fill="#56a5e6"></path>
+                                      <path
+                                          d="m214.719 93.274h161.718l57.506 57.506v222.7a2.081 2.081 0 0 1 -2.072 2.073h-217.152a2.056 2.056 0 0 1 -2.043-2.073v-278.134a2.055 2.055 0 0 1 2.043-2.072z"
+                                          fill="#eaf6ff"></path>
+                                      <path d="m376.437 93.274v44.6a12.925 12.925 0 0 0 12.9 12.9h44.6z"
+                                          fill="#bec7cf"></path>
+                                      <path
+                                          d="m264.46 289.379h169.688a32.559 32.559 0 0 1 32.46 32.46v133.315a32.541 32.541 0 0 1 -32.46 32.461h-300.842a32.56 32.56 0 0 1 -32.461-32.461v-198.236a26.723 26.723 0 0 1 26.681-26.651h56.659c9.4 0 15.793 5.78 22.506 12.319l35.263 34.474c6.714 6.568 13.107 12.319 22.506 12.319z"
+                                          fill="#ffba57"></path>
+                                  </g>
+                                  <path
+                                      d="m248.026 149.992a7.211 7.211 0 0 1 0-14.421h95.338a7.211 7.211 0 0 1 0 14.421zm0 105.2a7.21 7.21 0 1 1 0-14.42h150.567a7.21 7.21 0 1 1 0 14.42zm0-35.058a7.211 7.211 0 0 1 0-14.421h150.567a7.211 7.211 0 1 1 0 14.421zm0-35.059a7.21 7.21 0 1 1 0-14.42h150.567a7.21 7.21 0 1 1 0 14.42z"
+                                      fill="#bec7cf"></path>
+                                  <path
+                                      d="m146.646 400.567a7.21 7.21 0 1 1 0-14.42h70.321a7.21 7.21 0 0 1 0 14.42zm0 49.245a7.21 7.21 0 1 1 0-14.42h274.161a7.21 7.21 0 1 1 0 14.42z"
+                                      fill="#cf9646"></path>
+                                  <path
+                                      d="m433.943 294.837a32.489 32.489 0 0 1 14.509 27v133.317a32.542 32.542 0 0 1 -32.461 32.461h18.157a32.541 32.541 0 0 0 32.46-32.461v-133.315a32.018 32.018 0 0 0 -2.481-12.406 32.6 32.6 0 0 0 -29.979-20.054h-18.157a32.239 32.239 0 0 1 17.952 5.458zm-191.989-17.777-29.278-28.607-5.985-5.867c-6.713-6.539-13.106-12.319-22.506-12.319h-18.127c9.37 0 15.763 5.78 22.477 12.319l24.141 23.586 11.151 10.888c6.684 6.568 13.077 12.319 22.477 12.319h18.156c-9.4 0-15.792-5.751-22.506-12.319z"
+                                      fill="#e6a74e" fill-rule="evenodd"></path>
+                                  <path
+                                      d="m450.553 385.213a61.447 61.447 0 1 0 -61.447-61.447 61.562 61.562 0 0 0 61.447 61.447z"
+                                      fill="#25c73b" fill-rule="evenodd"></path>
+                                  <path
+                                      d="m413.831 332.114a7.214 7.214 0 1 1 10.188-10.214l13.836 13.836 39.2-39.2a7.2 7.2 0 0 1 10.188 10.187l-44.309 44.307a7.223 7.223 0 0 1 -10.187 0z"
+                                      fill="#eaf6ff"></path>
+                                  <path
+                                      d="m445.328 262.523a61.46 61.46 0 0 1 3.124 122.135c-1.022.146-2.073.263-3.124.35 1.051.088 2.073.146 3.124.176.7.029 1.4.029 2.1.029a60.705 60.705 0 0 0 16.055-2.131 61.449 61.449 0 0 0 -16.055-120.763c-1.752 0-3.5.058-5.225.2z"
+                                      fill="#21b335" fill-rule="evenodd"></path>
+                                  <path d="m420.807 150.78v119.187a60.88 60.88 0 0 1 13.136-5.371v-113.816z"
+                                      fill="#d3dde6" fill-rule="evenodd"></path>
+                              </svg>
+                          </span>
+                          <span class="sidebar-text text-capitalize">pelaporan kegiatan</span>
+                      </span>
+                  </a>
+              </li>
 
               @if (Auth::user()->is_admin)
                   <li class="nav-item {{ request()->routeIs('tahun-akademik.index') ? 'active' : '' }}">
@@ -294,60 +292,6 @@
                       </a>
                   </li>
               @endif
-
-              <li class="nav-item {{ request()->routeIs('publikasi.index') ? 'active' : '' }}">
-                  <a href="{{ route('publikasi.index') }}" class="nav-link d-flex justify-content-between">
-                      <span>
-                          <span class="sidebar-icon"> <svg id="fi_9746243" height="20" viewBox="0 0 512 512"
-                                  width="20" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
-                                  <g fill-rule="evenodd">
-                                      <path
-                                          d="m.516 189.341 142.043-164.257a2.066 2.066 0 0 1 2.89-.2l210.409 181.942a2.105 2.105 0 0 1 .2 2.92l-142.039 164.254a2.1 2.1 0 0 1 -2.92.205l-210.379-181.945a2.048 2.048 0 0 1 -.2-2.919z"
-                                          fill="#006694"></path>
-                                      <path
-                                          d="m94.773 112.014 99.162-45.214 161.923 140.026a2.105 2.105 0 0 1 .2 2.92l-142.039 164.254a2.1 2.1 0 0 1 -2.92.205l-10.07-8.728-110.459-242.224a8.5 8.5 0 0 1 4.2-11.239z"
-                                          fill="#005c85"></path>
-                                      <path
-                                          d="m97.43 117.852 197.593-90.083a2.063 2.063 0 0 1 2.715 1.022l115.392 253.086a2.05 2.05 0 0 1 -.992 2.744l-197.594 90.079a2.106 2.106 0 0 1 -2.744-1.022l-115.392-253.078a2.087 2.087 0 0 1 1.022-2.744z"
-                                          fill="#60b7ff"></path>
-                                      <path
-                                          d="m214.719 86.852h109.5l88.911 195.025a2.05 2.05 0 0 1 -.992 2.744l-197.594 90.079a2.106 2.106 0 0 1 -2.744-1.022l-5.546-12.2v-266.132a8.476 8.476 0 0 1 8.465-8.494z"
-                                          fill="#56a5e6"></path>
-                                      <path
-                                          d="m214.719 93.274h161.718l57.506 57.506v222.7a2.081 2.081 0 0 1 -2.072 2.073h-217.152a2.056 2.056 0 0 1 -2.043-2.073v-278.134a2.055 2.055 0 0 1 2.043-2.072z"
-                                          fill="#eaf6ff"></path>
-                                      <path d="m376.437 93.274v44.6a12.925 12.925 0 0 0 12.9 12.9h44.6z"
-                                          fill="#bec7cf"></path>
-                                      <path
-                                          d="m264.46 289.379h169.688a32.559 32.559 0 0 1 32.46 32.46v133.315a32.541 32.541 0 0 1 -32.46 32.461h-300.842a32.56 32.56 0 0 1 -32.461-32.461v-198.236a26.723 26.723 0 0 1 26.681-26.651h56.659c9.4 0 15.793 5.78 22.506 12.319l35.263 34.474c6.714 6.568 13.107 12.319 22.506 12.319z"
-                                          fill="#ffba57"></path>
-                                  </g>
-                                  <path
-                                      d="m248.026 149.992a7.211 7.211 0 0 1 0-14.421h95.338a7.211 7.211 0 0 1 0 14.421zm0 105.2a7.21 7.21 0 1 1 0-14.42h150.567a7.21 7.21 0 1 1 0 14.42zm0-35.058a7.211 7.211 0 0 1 0-14.421h150.567a7.211 7.211 0 1 1 0 14.421zm0-35.059a7.21 7.21 0 1 1 0-14.42h150.567a7.21 7.21 0 1 1 0 14.42z"
-                                      fill="#bec7cf"></path>
-                                  <path
-                                      d="m146.646 400.567a7.21 7.21 0 1 1 0-14.42h70.321a7.21 7.21 0 0 1 0 14.42zm0 49.245a7.21 7.21 0 1 1 0-14.42h274.161a7.21 7.21 0 1 1 0 14.42z"
-                                      fill="#cf9646"></path>
-                                  <path
-                                      d="m433.943 294.837a32.489 32.489 0 0 1 14.509 27v133.317a32.542 32.542 0 0 1 -32.461 32.461h18.157a32.541 32.541 0 0 0 32.46-32.461v-133.315a32.018 32.018 0 0 0 -2.481-12.406 32.6 32.6 0 0 0 -29.979-20.054h-18.157a32.239 32.239 0 0 1 17.952 5.458zm-191.989-17.777-29.278-28.607-5.985-5.867c-6.713-6.539-13.106-12.319-22.506-12.319h-18.127c9.37 0 15.763 5.78 22.477 12.319l24.141 23.586 11.151 10.888c6.684 6.568 13.077 12.319 22.477 12.319h18.156c-9.4 0-15.792-5.751-22.506-12.319z"
-                                      fill="#e6a74e" fill-rule="evenodd"></path>
-                                  <path
-                                      d="m450.553 385.213a61.447 61.447 0 1 0 -61.447-61.447 61.562 61.562 0 0 0 61.447 61.447z"
-                                      fill="#25c73b" fill-rule="evenodd"></path>
-                                  <path
-                                      d="m413.831 332.114a7.214 7.214 0 1 1 10.188-10.214l13.836 13.836 39.2-39.2a7.2 7.2 0 0 1 10.188 10.187l-44.309 44.307a7.223 7.223 0 0 1 -10.187 0z"
-                                      fill="#eaf6ff"></path>
-                                  <path
-                                      d="m445.328 262.523a61.46 61.46 0 0 1 3.124 122.135c-1.022.146-2.073.263-3.124.35 1.051.088 2.073.146 3.124.176.7.029 1.4.029 2.1.029a60.705 60.705 0 0 0 16.055-2.131 61.449 61.449 0 0 0 -16.055-120.763c-1.752 0-3.5.058-5.225.2z"
-                                      fill="#21b335" fill-rule="evenodd"></path>
-                                  <path d="m420.807 150.78v119.187a60.88 60.88 0 0 1 13.136-5.371v-113.816z"
-                                      fill="#d3dde6" fill-rule="evenodd"></path>
-                              </svg>
-                          </span>
-                          <span class="sidebar-text text-capitalize">pelaporan kegiatan</span>
-                      </span>
-                  </a>
-              </li>
 
               @if (Auth::user()->is_admin)
                   <li class="nav-item {{ request()->routeIs('laporan-publikasi.index') ? 'active' : '' }}">
@@ -683,8 +627,6 @@
                       </a>
                   </li>
               @endif
-
-
               <li role="separator" class="dropdown-divider mt-4 mb-3 bs-white-rgb"></li>
           </ul>
       </div>

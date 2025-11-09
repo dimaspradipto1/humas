@@ -104,7 +104,7 @@ class PengajuanController extends Controller
      */
     public function create()
     {
-        $tahunAkademik = TahunAkademik::all();
+        $tahunAkademik = TahunAkademik::orderBy('tahun_akademik', 'desc')->get();
         return view('pages.pengajuan.create', compact('tahunAkademik'));
     }
 

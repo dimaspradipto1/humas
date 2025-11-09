@@ -26,7 +26,9 @@ class TahunAkademikSeeder extends Seeder
             '2023-2024 Gasal',
             '2023-2024 Genap',
             '2024-2025 Gasal',
-            '2024-2025 Genap'
+            '2024-2025 Genap',
+            '2025-2026 Gasal',
+            '2025-2026 Genap'
         ];
 
         // Insert each academic year into the database

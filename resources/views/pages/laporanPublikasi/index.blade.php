@@ -1,4 +1,3 @@
-{{-- resources/views/pages/laporanPublikasi/index.blade.php --}}
 @extends('layouts.dashboard.template')
 
 @section('content')

@@ -6,211 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kop Surat Universitas Ibnu Sina</title>
 
-    {{-- <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        .kop-surat {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .kop-surat img {
-            float: left;
-            width: 100px;
-            margin-right: 10px;
-        }
-
-        .kop-surat h1 {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 0;
-            color: green;
-        }
-
-        .kop-surat h2 {
-            font-size: 36px;
-            margin: 0;
-            color: green;
-        }
-
-        .kop-surat h3 {
-            font-size: 24px;
-            margin: 0;
-            color: red;
-        }
-
-        .kop-surat p {
-            font-size: 16px;
-            margin: 5px 0;
-            color: black;
-            margin-left: 110px;
-        }
-
-        .kop-surat .contact-info {
-            margin-top: 5px;
-            font-size: 14px;
-        }
-
-        .kop-surat hr {
-            border: none;
-            border-top: 3px solid green;
-            margin: 2px 0;
-        }
-
-        .kop-surat hr.thin {
-            border-top: 1px solid green;
-        }
-
-        .letter-header {
-            width: 100%;
-            margin: 20px auto;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        .letter-header h3,
-        .letter-header h4 {
-            margin: 0;
-        }
-
-        .letter-header h3 {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .letter-header h4 {
-            font-size: 16px;
-        }
-
-        .subject {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .content {
-            margin-top: 20px;
-            text-align: justify;
-        }
-
-        .table-container {
-            width: 100%;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .laporan-table {
-            width: 80%;
-            border: 2px solid #000;
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-
-        .laporan-table th,
-        .laporan-table td {
-            border: 1px solid #000;
-            padding: 8px;
-            text-align: left;
-            font-size: 12px;
-        }
-
-        .laporan-table td a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .laporan-table td a:hover {
-            text-decoration: underline;
-        }
-
-        .footer {
-            margin-top: 40px;
-        }
-
-        .signature-section {
-            margin-top: 40px;
-            position: relative;
-            width: 100%;
-            height: 150px;
-            text-align: left;
-        }
-
-        .signature-section img.stamp {
-            width: 230px;
-            opacity: 1;
-            position: relative;
-            margin-left: -130px;
-            margin-top: -20px;
-        }
-
-        .signature-section img.cap {
-            width: 150px;
-            opacity: 1;
-            position: relative;
-            margin-left: -80px;
-            margin-top: -30px;
-            margin-bottom: -10px;
-        }
-
-        .signature-section .text {
-            position: absolute;
-            top: 20px;
-            right: 0;
-            text-align: left;
-        }
-
-        .signature-section .text p {
-            margin: 0;
-            font-size: 14px;
-        }
-
-        .signature-section .text strong {
-            font-size: 14px;
-            margin-bottom: 200px;
-        }
-
-        .footer {
-            font-size: 14px;
-        }
-
-        .signature-section .tembusan {
-            float: left;
-            /* Tembusan di sebelah kiri */
-            margin-left: 0;
-            /* Menjaga tembusan di tepi kiri */
-            text-align: left;
-            /* Text di-align ke kiri */
-        }
-
-        /* Menyembunyikan tombol Download dan Kembali saat halaman dicetak */
-        @media print {
-            .print-buttons {
-                display: none;
-            }
-
-            /* Memperlebar tabel saat dicetak */
-            .laporan-table {
-                width: 100% !important;
-                /* Lebarkan tabel */
-            }
-
-            .laporan-table th,
-            .laporan-table td {
-                padding: 15px;
-                /* Tingkatkan padding untuk jarak antar kolom */
-                font-size: 14px;
-                /* Sesuaikan ukuran font agar lebih besar jika perlu */
-            }
-
-            .laporan-table th {
-                text-align: center;
-                /* Tengah kan header */
-            }
-        }
-    </style> --}}
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -315,22 +110,28 @@
 
         /* Menyesuaikan lebar kolom Fakultas dan ukuran font */
         .laporan-table td.fakultas {
-            width: 80px; /* Lebar kolom fakultas lebih kecil */
-            font-size: 8px; /* Ukuran font kecil untuk fakultas */
+            width: 80px;
+            /* Lebar kolom fakultas lebih kecil */
+            font-size: 8px;
+            /* Ukuran font kecil untuk fakultas */
         }
 
         .laporan-table th,
         .laporan-table td {
             border: 1px solid #000;
-            padding: 6px; /* Padding kecil untuk memperkecil jarak kolom */
-            font-size: 10px; /* Ukuran font lebih kecil untuk seluruh tabel */
+            padding: 6px;
+            /* Padding kecil untuk memperkecil jarak kolom */
+            font-size: 10px;
+            /* Ukuran font lebih kecil untuk seluruh tabel */
             text-align: left;
         }
 
         /* Perbesar lebar kolom Link Pelaporan */
         .laporan-table td.link-pelaporan {
-            width: 100px; /* Lebar kolom lebih besar untuk link pelaporan */
-            font-size: 10px; /* Ukuran font lebih besar agar mudah dibaca */
+            width: 100px;
+            /* Lebar kolom lebih besar untuk link pelaporan */
+            font-size: 10px;
+            /* Ukuran font lebih besar agar mudah dibaca */
         }
 
         .laporan-table td a {
@@ -384,12 +185,17 @@
             .print-buttons {
                 display: none;
             }
+            .hr {
+                display: none;
+            }
 
             /* Ukuran font kecil saat dicetak */
             .laporan-table th,
             .laporan-table td {
-                font-size: 8px !important;  /* Ukuran font lebih kecil saat dicetak */
-                padding: 5px; /* Menambah jarak antar kolom untuk kenyamanan saat dicetak */
+                font-size: 8px !important;
+                /* Ukuran font lebih kecil saat dicetak */
+                padding: 5px;
+                /* Menambah jarak antar kolom untuk kenyamanan saat dicetak */
             }
 
             /* Memastikan tabel lebar penuh saat dicetak */
@@ -406,10 +212,11 @@
 
 </head>
 
-<body>
+    
 
+<body>
     <!-- Tombol Download dan Kembali -->
-    <div class="print-buttons" style="text-align: center; margin-bottom: 20px;">
+    <div class="print-buttons" style="text-align: right; margin-bottom: 20px; margin-right: 20px; margin-top: 20px;">
         <!-- Tombol Download -->
         <a href="javascript:window.print();" class="btn btn-primary"
             style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
@@ -418,10 +225,11 @@
 
         <!-- Tombol Kembali -->
         <a href="{{ route('laporan-publikasi.index') }}" class="btn btn-secondary"
-            style="padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px; margin-left: 10px;">
+            style="padding: 10px 20px; background-color: #FF0101FF; color: white; text-decoration: none; border-radius: 5px; margin-left: 10px;">
             <i class="fa-solid fa-arrow-left"></i> Kembali
         </a>
     </div>
+    <hr class="hr">
 
     <!-- Kop Surat Section -->
     <div class="kop-surat">
@@ -502,7 +310,7 @@
                 <div style="display: flex; align-items: center; text-align: left; margin-top: 80px;">
                     <div>
                         <p style="margin: 0; font-weight: bold; text-decoration: underline;">Andi Akbar, SE., M.M</p>
-                        <p style="margin: 0;">NUP. 777 0707 688</p>
+                        <p style="margin: 0;">NUP. 7770707688</p>
                     </div>
                 </div>
             </div>

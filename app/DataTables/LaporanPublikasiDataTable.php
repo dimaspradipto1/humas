@@ -65,19 +65,28 @@ class LaporanPublikasiDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax(route('laporan-publikasi.index'))
             ->parameters([
+                'scrollX' => true,
+                'searching'=>true,
                 'columnDefs' => [
                     [
                         'targets' => 3,
                         'width' => '300px',
                         'render' => 'function(data, type, row, meta) { return "<div style=\'word-wrap: break-word; word-break: break-word; white-space: normal; overflow-wrap: break-word;\' >" + data + "</div>"; }'
                     ],
+                    [
+                        'targets' => 0,
+                        'width' => '5px',
+                        'className' => 'text-start',
+                        'render' => null
+                    ],
+                    [
+                        'targets' => 4,
+                        'width' => '10px',
+                        'className' => 'text-left',
+                        'style' => 'text-align: text-left;',
+                        'render' => null
+                    ]
                 ],
-                'scrollX' => true,
-                'processing' => true,
-                'serverSide' => true,
-                'order'      => [],
-                'lengthMenu' => [[10,25,50,-1],[10,25,50,'All']],
-                
             ])
             ->buttons([
                 Button::make('excel'),
@@ -94,7 +103,7 @@ class LaporanPublikasiDataTable extends DataTable
         return [
             Column::computed('DT_RowIndex')->title('No'),
             Column::make('tahun_akademik')->title('Tahun Akademik'),
-            Column::make('submit_pengguna')->title('Submit Pengguna'),
+            Column::make('submit_pengguna')->title('Pengguna'),
             Column::make('nama_kegiatan')->title('Nama Kegiatan'),
             Column::make('tgl_awal')->title('Tanggal Awal'),
             Column::make('tgl_selesai')->title('Tanggal Selesai'),

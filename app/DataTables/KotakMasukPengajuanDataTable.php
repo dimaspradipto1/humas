@@ -88,7 +88,7 @@ class KotakMasukPengajuanDataTable extends DataTable
         ->setTableId('pengajuan-table')
         ->columns($this->getColumns())
         ->minifiedAjax()
-        ->dom('Bfrtip')
+        // ->dom('Bfrtip')
         ->orderBy(1)
         ->selectStyleSingle()
         ->parameters([

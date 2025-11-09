@@ -39,25 +39,3 @@
 @push('scripts')
   {!! $dataTable->scripts() !!}
 @endpush
-
-{{-- @push('scripts')
-  {!! $dataTable->scripts() !!}
-  <script>
-    $(function () {
-      const dt = $('#laporanpublikasi-table').DataTable();
-
-      // reload otomatis saat dropdown berubah
-      $(document).on('change', '#tahun_akademik', function () {
-        if (!this.value) {
-          dt.clear().draw();    // kosongkan tampilan jika kembali ke placeholder
-        }
-        dt.ajax.reload();
-      });
-
-      // jika halaman dibuka dengan query tahun_akademik, langsung muat
-      if ($('#tahun_akademik').val()) {
-        dt.ajax.reload();
-      }
-    });
-  </script>
-@endpush --}}

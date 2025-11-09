@@ -69,7 +69,6 @@
     @include('layouts.dashboard.sidebar')
 
     <main class="content">
-        {{-- @include('layouts.dashboard.navbar') --}}
         
         <!-- navbar -->
         @include('layouts.dashboard.nav')
@@ -139,12 +138,12 @@
 
     <script>
         new Chartist.Line('.line-chart', {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
             series: [
-                [12, 9, 7, 8, 5],
-                [2, 1, 3.5, 7, 3],
-                [1, 3, 4, 5, 6],
-                [10, 30, 43, 25, 16],
+                [12, 9, 7, 8, 5, 10, 15],
+                [2, 1, 3.5, 7, 3, 5, 10],
+                [1, 3, 4, 5, 6, 7, 8],
+                [10, 30, 43, 25, 16, 20, 25],
             ]
         }, {
             fullWidth: true,
@@ -184,8 +183,7 @@
 
         });
     </script>
-
-
+        
 
 </body>
 

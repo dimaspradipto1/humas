@@ -184,8 +184,9 @@ class PengajuanController extends Controller
         // Jika status pengajuan adalah 'ditolak', simpan alasan ditolak
         if ($request->status == 'ditolak') {
             $pengajuan->alasan_ditolak = $request->alasan_ditolak;
+        } elseif ($request->status == 'diterima') {
+            $pengajuan->alasan_ditolak = $request->alasan_ditolak;
         } else {
-            // Jika status bukan 'ditolak', set alasan ditolak menjadi null
             $pengajuan->alasan_ditolak = null;
         }
 

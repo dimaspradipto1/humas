@@ -64,7 +64,7 @@
         <div class="col-12 mb-4">
             <div class="card border-0 shadow">
                 <div class="card-body">
-                    <p><b>Selamat datang di Sistem Humas dan Publikasi Rektorat</b>
+                    <p><b>Selamat datang di Sistem Humas dan Publikasi</b>
                         Sistem ini dirancang untuk memonitoring aktivitas seluruh bidang humas di masing-masing fakultas.
                         Kami berkomitmen untuk memastikan koordinasi yang efektif dan transparansi dalam setiap kegiatan
                         humas di seluruh unit</p>
@@ -91,7 +91,7 @@
             </div>
         </div> --}}
         
-        {{-- grafik monitoring pelaporan kegiatan --}}
+        {{-- grafik  monitoring pelaporan kegiatan --}}
         <div class="col-6 col-xl-6">
             <div class="card bg-yellow-100 border-0 shadow">
               <div class="card-header d-sm-flex flex-row align-items-center flex-0">
@@ -111,7 +111,9 @@
               </div>
             </div>
         </div>
+        {{-- end grafik monitoring pelaporan kegiatan --}}
         
+        {{-- grafik persentase monitoring pelaporan kegiatan --}}
         <div class="col-6 col-xl-6">
             <div class="col-12 px-0 mb-4">
                 <div class="card border-0 shadow">
@@ -247,6 +249,7 @@
                 </div>
             </div> --}}
         </div>
+        {{-- end grafik persentase monitoring pelaporan kegiatan --}}
 
         {{-- end grafik monitoring pelaporan kegiatan --}}
         
@@ -385,6 +388,8 @@
             </div>
         </div> --}}
     </div>
+
+    {{-- jumlah pelaporan kegiatan --}}
     <div class="row">
         <div class="col-12 col-xl-12">
             <div class="row">
@@ -402,8 +407,8 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="border-bottom" scope="col">HUMAS DAN PUBLIKASI</th>
-                                        <th class="border-bottom" scope="col">JUMLAH PENGAJUAN</th>
-                                        <th class="border-bottom" scope="col">JUMLAH PELAPORAN</th>
+                                        <th class="border-bottom text-center" scope="col">JUMLAH PENGAJUAN</th>
+                                        <th class="border-bottom text-center" scope="col">JUMLAH PELAPORAN</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -411,10 +416,10 @@
                                         <th class="text-gray-900" scope="row">
                                             Rektorat
                                         </th>
-                                        <td class="fw-bolder text-gray-500 text-left">
+                                        <td class="fw-bolder text-gray-500 text-center">
                                             {{ $pengajuan_rektorat ?? 0 }}
                                         </td>
-                                        <td class="fw-bolder text-gray-500 text-left">
+                                        <td class="fw-bolder text-gray-500 text-center">
                                             {{ $publikasi_rektorat ?? 0 }}
                                         </td>
                                         
@@ -423,10 +428,10 @@
                                         <th class="text-gray-900" scope="row">
                                             Fakultas Ekonomi dan Bisnis
                                         </th>
-                                        <td class="fw-bolder text-gray-500 text-left">
+                                        <td class="fw-bolder text-gray-500 text-center">
                                             {{ $pengajuan_feb ?? 0 }}
                                         </td>
-                                        <td class="fw-bolder text-gray-500 text-left">
+                                        <td class="fw-bolder text-gray-500 text-center">
                                             {{ $publikasi_feb ?? 0 }}
                                         </td>
                                        
@@ -435,34 +440,24 @@
                                         <th class="text-gray-900" scope="row">
                                             Fakultas Sains dan Teknologi
                                         </th>
-                                        <td class="fw-bolder text-gray-500 text-left">
+                                        <td class="fw-bolder text-gray-500 text-center">
                                             {{ $pengajuan_fst ?? 0 }}
                                         </td>
-                                        <td class="fw-bolder text-gray-500 text-left">
+                                        <td class="fw-bolder text-gray-500 text-center">
                                             {{ $publikasi_fst ?? 0 }}
                                         </td>
-                                        {{-- <td class="fw-bolder text-gray-500">
-                                            <div class="d-flex">
-                                                32,35%
-                                            </div>
-                                        </td> --}}
                                     </tr>
-                                    {{-- <tr>
+                                    <tr>
                                         <th class="text-gray-900" scope="row">
                                             Fakultas Ilmu Kesehatan
                                         </th>
-                                        <td class="fw-bolder text-gray-500 text-center">
+                                            <td class="fw-bolder text-gray-500 text-center">
                                             {{ $pengajuan_fikes ?? 0 }}
                                         </td>
                                         <td class="fw-bolder text-gray-500 text-center">
                                            {{ $publikasi_fikes ?? 0 }}
                                         </td>
-                                        <td class="fw-bolder text-gray-500">
-                                            <div class="d-flex">
-                                                50,87%
-                                            </div>
-                                        </td>
-                                    </tr> --}}
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -473,4 +468,5 @@
         
         
     </div>
+    {{-- end jumlah pelaporan kegiatan --}}
 @endsection

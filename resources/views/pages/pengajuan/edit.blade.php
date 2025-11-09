@@ -42,9 +42,6 @@
                                          <div class="mb-4">
                                              <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
                                              <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" rows="3">{{ old('nama_kegiatan', $pengajuan->nama_kegiatan) }}</textarea>
-                                             {{-- <input type="text" name="nama_kegiatan"
-                                                 value="{{ old('nama_kegiatan', $pengajuan->nama_kegiatan) }}"
-                                                 class="form-control" id="nama_kegiatan"> --}}
                                          </div>
 
                                          <div class="mb-4">
@@ -243,7 +240,7 @@
                                                 </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Alasan Ditolak</th>
+                                                    <th>Alasan Ditolak/Diterima</th>
                                                     <td>
                                                         <textarea class="form-control" name="alasan_ditolak" rows="3">{{ old('alasan_ditolak', $pengajuan->alasan_ditolak) }}</textarea>
                                                     </td>

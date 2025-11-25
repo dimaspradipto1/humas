@@ -16,12 +16,12 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active text-capitalize" aria-current="page">data pengajuan berita
+                <li class="breadcrumb-item active text-capitalize" aria-current="page">data pengajuan
             </ol>
         </nav>
         <div class="d-flex justify-content-between w-100 flex-wrap">
             <div class="mb-3 mb-lg-0">
-                <h1 class="h4 text-capitalize">form pengajuan berita</h1>
+                <h1 class="h4 text-capitalize">form pengajuan</h1>
                 <div>
                 </div>
             </div>
@@ -52,7 +52,16 @@
 
                                     <div class="mb-4">
                                         <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
-                                        <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" rows="3">{{ old('nama_kegiatan') }}</textarea>
+                                        <select name="nama_kegiatan" id="nama_kegiatan" class="form-select single">
+                                            <option>Pilih Nama Kegiatan</option>
+                                            <option>====================================================</option>
+                                            <option value="Desain">Desain</option>
+                                            <option value="Dokumentasi">Dokumentasi</option>
+                                            <option value="Publikasi">Publikasi</option>
+                                            <option value="Tamu Undangan">Tamu Undangan</option>
+                                            <option>====================================================</option>
+                                            </select>
+                                        {{-- <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" rows="3">{{ old('nama_kegiatan') }}</textarea> --}}
                                         {{-- <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
                                             class="form-control" id="nama_kegiatan"> --}}
                                     </div>

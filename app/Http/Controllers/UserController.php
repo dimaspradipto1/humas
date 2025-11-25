@@ -141,4 +141,12 @@ class UserController extends Controller
         Alert::success('success', 'data updated successfully')->autoclose(2000)->toToast();
         return redirect()->route('users.index');
     }
+
+    public function import(Request $request)
+    {
+        $file = $request->file('excel_file');
+        Excel::import(new UsersImport, $file);
+
+        return back()->with('success', 'Data telah berhasil diimpor!');
+    }
 }

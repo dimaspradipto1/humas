@@ -39,12 +39,12 @@
 
                 <div class="mb-4">
                   <label for="new_password" class="text-uppercase">password baru</label>
-                  <input type="password" name="new_password"  class="form-control" id="new_password">
+                  <input type="password" name="new_password" value="{{old('new_password')}}" class="form-control" id="new_password">
                 </div>
 
                 <div class="mb-4">
                   <label for="new_password" class="text-uppercase">Konfirmasi Password Baru</label>
-                  <input type="password" name="new_password_confirmation"  class="form-control" id="new_password_confirmation">
+                  <input type="password" name="new_password_confirmation" value="{{old('new_password_confirmation')}}" class="form-control" id="new_password_confirmation">
                 </div>
 
               </div>

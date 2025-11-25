@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\UnitKerja;
+use App\Models\UnitKegiatan;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UnitKerjaDataTable extends DataTable
+class UnitKegiatanDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -26,8 +26,8 @@ class UnitKerjaDataTable extends DataTable
             ->addColumn('DT_RowIndex', '')
             ->addColumn('action', function($item){
                 return '
-                     <a href="'.route('unit-kerja.edit', $item->id).'" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form action="'.route('unit-kerja.destroy', $item->id).'" method="POST" style="display: inline">
+                     <a href="'.route('unit-kegiatan.edit', $item->id).'" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form action="'.route('unit-kegiatan.destroy', $item->id).'" method="POST" style="display: inline">
                         '.csrf_field().'
                         '.method_field('DELETE').'
                         <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i></button>
@@ -41,7 +41,7 @@ class UnitKerjaDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(UnitKerja $model): QueryBuilder
+    public function query(UnitKegiatan $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -52,7 +52,7 @@ class UnitKerjaDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('unitkerja-table')
+                    ->setTableId('unitkegiatan-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -74,12 +74,12 @@ class UnitKerjaDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('DT_RowIndex')
+             Column::make('DT_RowIndex')
                 ->title('No')
                 ->width(5)
                 ->addClass('text-center'),
-            Column::make('nama_unit')
-                ->title('Nama Unit')
+            Column::make('unit_kegiatan')
+                ->title('Unit Kegiatan')
                 ->addClass('text-start'),
             Column::computed('action')
                   ->exportable(false)
@@ -94,6 +94,6 @@ class UnitKerjaDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'UnitKerja_' . date('YmdHis');
+        return 'UnitKegiatan_' . date('YmdHis');
     }
 }

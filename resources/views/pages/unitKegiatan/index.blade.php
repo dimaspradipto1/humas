@@ -26,7 +26,7 @@
                 <h1 class="h4 text-capitalize">unit kerja</h1>
             </div>
             <div>
-                <a href="{{ route('unit-kerja.create') }}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">
+                <a href="{{ route('unit-kegiatan.create') }}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">
                     + Tambah
                 </a>
             </div>

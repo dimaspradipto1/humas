@@ -30,17 +30,18 @@
         <div class="row">
             <div class="col-12 mb-4">
                 <div class="card border-0 shadow components-section">
-                    <form action="{{ route('unit-kerja.store') }}" method="POST">
+                    <form action="{{ route('unit-kegiatan.update', $unitKegiatan->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
 
                         <div class="card-body">
                             <div class="row mb-4">
                                 <div class="col-lg-6 col-sm-6">
 
                                     <div class="mb-4">
-                                        <label for="nama_unit" class="text-capitalize">nama unit</label>
-                                        <input type="text" name="nama_unit" value="{{ old('nama_unit') }}"
-                                            class="form-control" id="nama_unit">
+                                        <label for="unit_kegiatan" class="text-capitalize">nama unit</label>
+                                        <input type="text" name="unit_kegiatan" value="{{ old('unit_kegiatan') ?? $unitKegiatan->unit_kegiatan }}"
+                                            class="form-control" id="unit_kegiatan">
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +57,7 @@
                                 SUBMIT
                             </button>
 
-                            <a href="{{ route('unit-kerja.index') }}" class="btn btn-sm btn-danger px-2 py-2">BACK <i
+                            <a href="{{ route('unit-kegiatan.index') }}" class="btn btn-sm btn-danger px-2 py-2">BACK <i
                                     class="fa-solid fa-right-from-bracket"></i></a>
                         </div>
                     </form>

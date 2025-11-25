@@ -111,8 +111,15 @@
 
                                     <div class="mb-4">
                                         <label for="unit_kegiatan" class="text-capitalize">unit kegiatan</label>
-                                        <input type="text" name="unit_kegiatan" class="form-control"
-                                            value="{{ old('unit_kegiatan') }}">
+                                        <select name="unit_kegiatan" id="unit_kegiatan" class="form-select single">
+                                            <option>Pilih Unit Kegiatan</option>
+                                            <option>==========================</option>
+                                            @foreach ($unitKegiatan as $unit)      
+                                                <option value="{{ $unit->id }}"
+                                                    {{ request('unit_kegiatan') == $unit->id ? 'selected' : '' }}>{{ $unit->unit_kegiatan }}</option>
+                                            @endforeach
+                                            <option>==========================</option>
+                                        </select>
                                     </div>
 
 

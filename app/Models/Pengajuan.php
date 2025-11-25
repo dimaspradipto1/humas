@@ -47,5 +47,9 @@ class Pengajuan extends Model
     {
         return $this->hasOne(KotakMasukPengajuan::class, 'pengajuan_id');
     }
-    
+
+    public function unitKegiatan()
+    {
+        return $this->belongsTo(UnitKegiatan::class);
+    }
 }

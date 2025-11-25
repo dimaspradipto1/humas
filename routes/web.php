@@ -7,7 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PublikasiController;
-use App\Http\Controllers\UnitKerjaController;
+use App\Http\Controllers\UnitKegiatanController;
 use App\Http\Controllers\TahunAkademikController;
 use App\Http\Controllers\LaporanPublikasiController;
 use App\Http\Controllers\KotakMasukPengajuanController;
@@ -46,5 +46,5 @@ Route::middleware(['auth', 'checkrole'])->group(function () {
     Route::put('/user/{id}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::get('/laporan-publikasi', [LaporanPublikasiController::class, 'index'])->name('laporan-publikasi.index');
     Route::get('/laporan-publikasi/show', [LaporanPublikasiController::class, 'show'])->name('laporan-publikasi.show');
-    Route::resource('/unit-kerja', UnitKerjaController::class);
+    Route::resource('/unit-kegiatan', UnitKegiatanController::class);
 });

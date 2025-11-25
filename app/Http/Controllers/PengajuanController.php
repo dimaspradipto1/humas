@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
 use App\Models\Publikasi;
+use App\Models\UnitKerja;
+use App\Models\UnitKegiatan;
 use Illuminate\Http\Request;
 use App\Models\TahunAkademik;
 use App\Models\LaporanPublikasi;
@@ -17,17 +19,6 @@ class PengajuanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index(PengajuanDataTable $dataTable)
-    // {
-    //     // Hitung jumlah pengajuan dengan status 'pending'
-    //     $pendingPengajuan = Pengajuan::where('status', 'pending')->count();
-
-    //     // Hitung jumlah pengajuan dengan status 'ditolak'
-    //     $ditolakPengajuan = Pengajuan::where('status', 'ditolak')->count();
-
-    //     return $dataTable->render('pages.pengajuan.index', compact('pendingPengajuan', 'ditolakPengajuan'));
-    // }
-
     public function index(PengajuanDataTable $dataTable)
     {
         $user = auth()->user();
@@ -104,8 +95,9 @@ class PengajuanController extends Controller
      */
     public function create()
     {
+        $unitKegiatan = UnitKegiatan::all();
         $tahunAkademik = TahunAkademik::orderBy('tahun_akademik', 'desc')->get();
-        return view('pages.pengajuan.create', compact('tahunAkademik'));
+        return view('pages.pengajuan.create', compact('tahunAkademik', 'unitKegiatan'));
     }
 
     /**
@@ -153,8 +145,7 @@ class PengajuanController extends Controller
             'pengajuan_id'  => $pengajuan->id,
         ]);
 
-        Alert::success('Success', 'Data berhasil ditambahkan')->toToast()->autoclose(3000);
-
+        Alert::success('Success', 'Data berhasil ditambahkan')->toToast()->autoclose(3000)->timerProgressBar();
         return redirect()->route('pengajuan.index');
     }
 
@@ -206,7 +197,7 @@ class PengajuanController extends Controller
 
             $data = $request->all();
             $pengajuan->update($data);
-            Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast();
+            Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast()->timerProgressBar();
 
             // Redirect ke halaman pengajuan berdasarkan role
             return redirect()->route('pengajuan.index');
@@ -223,7 +214,7 @@ class PengajuanController extends Controller
     public function destroy(Pengajuan $pengajuan)
     {
         $pengajuan->delete();
-        Alert::success('SUSSCESS', 'data deleted successfully')->autoclose(2000)->toToast();
+        Alert::success('SUSSCESS', 'data deleted successfully')->autoclose(2000)->toToast()->timerProgressBar();
         return redirect()->route('pengajuan.index');
     }
 }

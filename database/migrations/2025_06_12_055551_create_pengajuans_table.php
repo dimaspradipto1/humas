@@ -16,13 +16,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('tahun_akademik_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('unit_kegiatan_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('unit_kegiatan_id')->constrained()->cascadeOnDelete();
             $table->string('nama_kegiatan');
             $table->date('tgl_awal');
             $table->date('tgl_selesai');
             $table->string('jam_kegiatan');
             $table->string('waktu_selesai');
             $table->text('deskripsi_kegiatan')->nullable();
+            $table->string('unit_kegiatan');
             $table->text('perlengkapan')->nullable();
             $table->text('link_zoom')->nullable();
             $table->string('status')->default('pending');

@@ -115,8 +115,8 @@
                                             <option>Pilih Unit Kegiatan</option>
                                             <option>==========================</option>
                                             @foreach ($unitKegiatan as $unit)      
-                                                <option value="{{ $unit->id }}"
-                                                    {{ request('unit_kegiatan') == $unit->id ? 'selected' : '' }}>{{ $unit->unit_kegiatan }}</option>
+                                                <option value="{{ $unit->unit_kegiatan }}"
+                                                    {{ request('unit_kegiatan') == $unit->unit_kegiatan ? 'selected' : '' }}>{{ $unit->unit_kegiatan }}</option>
                                             @endforeach
                                             <option>==========================</option>
                                         </select>

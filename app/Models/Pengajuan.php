@@ -11,22 +11,7 @@ class Pengajuan extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nama_kegiatan',
-        'tgl_awal',
-        'tgl_selesai',
-        'deskripsi_kegiatan',
-        'perlengkapan',
-        'link_zoom',
-        'unit_kegiatan',
-        'pic',
-        'status',
-        'jam_kegiatan',
-        'waktu_selesai',
-        'tempat_kegiatan',
-        'user_id',
-        'tahun_akademik_id'
-    ];
+   protected $guarded = [];
 
     public function user()
     {

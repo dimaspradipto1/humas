@@ -40,7 +40,7 @@
                                     <div class="mb-4">
                                         <label for="unit_kegiatan" class="text-capitalize">nama unit</label>
                                         <input type="text" name="unit_kegiatan" value="{{ old('unit_kegiatan') }}"
-                                            class="form-control" id="unit_kegiatan" placeholder="prodi...">
+                                            class="form-control" id="unit_kegiatan" placeholder="masukkan nama unit yang melaksanakan kegiatan">
                                     </div>
                                 </div>
                             </div>

@@ -23,7 +23,7 @@ class PengajuanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tahun_akademik_id' => 'required|exists:tahun_akademiks,id',
+            // 'tahun_akademik_id' => 'required|exists:tahun_akademiks,id',
             'nama_kegiatan' => 'required|string|max:255',
             'tgl_awal' => 'required|date',
             'tgl_selesai' => 'required|date',

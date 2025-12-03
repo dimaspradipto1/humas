@@ -8,8 +8,11 @@ use App\Models\UnitKerja;
 use App\Models\UnitKegiatan;
 use Illuminate\Http\Request;
 use App\Models\TahunAkademik;
+use App\Mail\PengajuanSubmitted;
 use App\Models\LaporanPublikasi;
+use App\Mail\PengajuanUpdatedMail;
 use App\Models\KotakMasukPengajuan;
+use Illuminate\Support\Facades\Mail;
 use App\DataTables\PengajuanDataTable;
 use App\Http\Requests\PengajuanRequest;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -27,10 +30,14 @@ class PengajuanController extends Controller
         $pendingPengajuanFEB = 0;
         $pendingPengajuanFIKES = 0;
         $pendingPengajuanFST = 0;
+        $pendingPengajuanRektorat = 0;
+        $diterimaPengajuanFEB = 0;
+        $diterimaPengajuanFIKES = 0;
+        $diterimaPengajuanFST = 0;   
+        $diterimaPengajuanRektorat = 0;
         $ditolakPengajuanFEB = 0;
         $ditolakPengajuanFIKES = 0;
         $ditolakPengajuanFST = 0;   
-        $pendingPengajuanRektorat = 0;
         $ditolakPengajuanRektorat = 0;
         
         // Cek fakultas user dan hitung pengajuan
@@ -41,6 +48,10 @@ class PengajuanController extends Controller
                 })->count();
                 
             $ditolakPengajuanFEB = Pengajuan::where('status', 'ditolak')
+                ->whereHas('user', function ($query) {
+                    $query->where('is_feb', true);
+                })->count();
+            $diterimaPengajuanFEB = Pengajuan::where('status', 'diterima')
                 ->whereHas('user', function ($query) {
                     $query->where('is_feb', true);
                 })->count();
@@ -55,14 +66,21 @@ class PengajuanController extends Controller
                 ->whereHas('user', function ($query) {
                     $query->where('is_fikes', true);
                 })->count();
+            $diterimaPengajuanFIKES = Pengajuan::where('status', 'diterima')
+                ->whereHas('user', function ($query) {
+                    $query->where('is_fikes', true);
+                })->count();
                 
         } elseif ($user->is_fst) {
             $pendingPengajuanFST = Pengajuan::where('status', 'pending')
                 ->whereHas('user', function ($query) {
                     $query->where('is_fst', true);
                 })->count();
-                
             $ditolakPengajuanFST = Pengajuan::where('status', 'ditolak')
+                ->whereHas('user', function ($query) {
+                    $query->where('is_fst', true);
+                })->count();
+            $diterimaPengajuanFST = Pengajuan::where('status', 'diterima')
                 ->whereHas('user', function ($query) {
                     $query->where('is_fst', true);
                 })->count();
@@ -76,17 +94,25 @@ class PengajuanController extends Controller
                 ->whereHas('user', function ($query) {
                     $query->where('is_rektorat', true);
                 })->count();
+            $diterimaPengajuanRektorat = Pengajuan::where('status', 'diterima')
+                ->whereHas('user', function ($query) {
+                    $query->where('is_rektorat', true);
+                })->count();
         }
         // Kirim data ke view
         return $dataTable->render('pages.pengajuan.index', compact(
             'pendingPengajuanFEB', 
             'ditolakPengajuanFEB',
+            'diterimaPengajuanFEB',
             'pendingPengajuanFIKES', 
             'ditolakPengajuanFIKES',
+            'diterimaPengajuanFIKES',
             'pendingPengajuanFST', 
             'ditolakPengajuanFST',
+            'diterimaPengajuanFST', 
             'pendingPengajuanRektorat',
-            'ditolakPengajuanRektorat'
+            'ditolakPengajuanRektorat',
+            'diterimaPengajuanRektorat'
         ));
     }
 
@@ -110,7 +136,6 @@ class PengajuanController extends Controller
 
         $pengajuan = Pengajuan::create([
             'user_id'           => auth()->id(),
-            'tahun_akademik_id' => $data['tahun_akademik_id'],
             'nama_kegiatan'     => $data['nama_kegiatan'],
             'tgl_awal'          => $data['tgl_awal'],
             'tgl_selesai'       => $data['tgl_selesai'],
@@ -118,36 +143,43 @@ class PengajuanController extends Controller
             'waktu_selesai'     => $data['waktu_selesai'],
             'deskripsi_kegiatan' => $data['deskripsi_kegiatan'] ?? null,
             'perlengkapan'      => $data['perlengkapan'] ?? null,
-            'link_zoom'         => $data['link_zoom'] ?? null, // simpan null; tampilkan '-' di view
+            'link_zoom'         => $data['link_zoom'] ?? null,
             'unit_kegiatan'     => $data['unit_kegiatan'],
             'tempat_kegiatan'   => $data['tempat_kegiatan'],
             'alasan_ditolak'    => $data['alasan_ditolak'] ?? null,
+            'email_tujuan'      => $data['email_tujuan'] ?? null,
         ]);
 
-        // 2) Buat Publikasi terkait pengajuan yang baru
+        // Buat Publikasi terkait pengajuan yang baru
         $pengajuan->publikasi()->create([
             'user_id'           => auth()->id(),
-            'tahun_akademik_id' => $data['tahun_akademik_id'],
             'upload_laporan'    => null,
             'link_dokumentasi'  => null,
             'link_publikasi'    => null,
         ]);
 
-        // 3) Buat LaporanPublikasi terkait publikasi yang baru
+        // Buat LaporanPublikasi terkait publikasi yang baru
         LaporanPublikasi::create([
             'user_id'       => auth()->id(),
             'publikasi_id'  => $pengajuan->publikasi->id,
             'pengajuan_id'  => $pengajuan->id,
         ]);
 
-        // 4) Buat KotakMasukPengajuan terkait pengajuan yang baru
+        // Buat KotakMasukPengajuan terkait pengajuan yang baru
         KotakMasukPengajuan::create([
             'pengajuan_id'  => $pengajuan->id,
         ]);
 
-        Alert::success('Success', 'Data berhasil ditambahkan')->toToast()->autoclose(3000)->timerProgressBar();
+       config(['mail.from.address' => auth()->user()->email]);
+
+        // Kirim email setelah pengajuan berhasil
+        Mail::to('nepsterdms@gmail.com') // Ganti dengan alamat email tujuan
+            ->send(new PengajuanSubmitted($pengajuan));
+
+        Alert::success('Success', 'Data berhasil ditambahkan dan email telah dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
         return redirect()->route('pengajuan.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -170,42 +202,90 @@ class PengajuanController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // public function update(Request $request, Pengajuan $pengajuan)
+    // {
+    //     // Jika status pengajuan adalah 'ditolak', simpan alasan ditolak
+    //     if ($request->status == 'ditolak') {
+    //         $pengajuan->alasan_ditolak = $request->alasan_ditolak;
+    //     } elseif ($request->status == 'diterima') {
+    //         $pengajuan->alasan_ditolak = $request->alasan_ditolak;
+    //     } else {
+    //         $pengajuan->alasan_ditolak = null;
+    //     }
+
+    //     // Cek jika pengguna adalah admin
+    //     if (auth()->user()->is_admin) {
+    //         $data = $request->all();
+    //         $pengajuan->update($data);
+    //         Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast();
+    //         return redirect()->route('kotak-masuk-pengajuan.index');
+    //     }
+    //     // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
+    //     elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
+    //         // Jika status bukan 'ditolak', ubah status menjadi 'pending'
+    //         if ($request->status != 'ditolak') {
+    //             $pengajuan->status = 'pending';
+    //         }
+
+    //         $data = $request->all();
+    //         $pengajuan->update($data);
+    //         Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast()->timerProgressBar();
+
+    //         // Redirect ke halaman pengajuan berdasarkan role
+    //         return redirect()->route('pengajuan.index');
+    //     }
+
+    //     // Jika tidak ada role yang cocok
+    //     return redirect()->back()->with('error', 'Akses ditolak.');
+    // }
+
     public function update(Request $request, Pengajuan $pengajuan)
-    {
-        // Jika status pengajuan adalah 'ditolak', simpan alasan ditolak
-        if ($request->status == 'ditolak') {
-            $pengajuan->alasan_ditolak = $request->alasan_ditolak;
-        } elseif ($request->status == 'diterima') {
-            $pengajuan->alasan_ditolak = $request->alasan_ditolak;
-        } else {
-            $pengajuan->alasan_ditolak = null;
-        }
-
-        // Cek jika pengguna adalah admin
-        if (auth()->user()->is_admin) {
-            $data = $request->all();
-            $pengajuan->update($data);
-            Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast();
-            return redirect()->route('kotak-masuk-pengajuan.index');
-        }
-        // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
-        elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
-            // Jika status bukan 'ditolak', ubah status menjadi 'pending'
-            if ($request->status != 'ditolak') {
-                $pengajuan->status = 'pending';
-            }
-
-            $data = $request->all();
-            $pengajuan->update($data);
-            Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast()->timerProgressBar();
-
-            // Redirect ke halaman pengajuan berdasarkan role
-            return redirect()->route('pengajuan.index');
-        }
-
-        // Jika tidak ada role yang cocok
-        return redirect()->back()->with('error', 'Akses ditolak.');
+{
+    // Cek jika status pengajuan adalah 'ditolak', simpan alasan ditolak
+    if ($request->status == 'ditolak') {
+        $pengajuan->alasan_ditolak = $request->alasan_ditolak;
+    } elseif ($request->status == 'diterima') {
+        $pengajuan->alasan_ditolak = $request->alasan_ditolak;
+    } else {
+        $pengajuan->alasan_ditolak = null;
     }
+
+    // Mengambil email tujuan dari input admin
+    $emailTujuan = $request->email_tujuan;
+
+    // Cek jika pengguna adalah admin
+    if (auth()->user()->is_admin) {
+        $data = $request->all();
+        $pengajuan->update($data);
+
+        // Mengirimkan email ke email tujuan yang diinputkan
+        Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
+
+        Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast();
+        return redirect()->route('kotak-masuk-pengajuan.index');
+    }
+    // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
+    elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
+        // Jika status bukan 'ditolak', ubah status menjadi 'pending'
+        if ($request->status != 'ditolak') {
+            $pengajuan->status = 'pending';
+        }
+
+        $data = $request->all();
+        $pengajuan->update($data);
+
+        // Mengirimkan email ke email tujuan yang diinputkan
+        Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
+
+        Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast()->timerProgressBar();
+
+        // Redirect ke halaman pengajuan berdasarkan role
+        return redirect()->route('pengajuan.index');
+    }
+
+    // Jika tidak ada role yang cocok
+    return redirect()->back()->with('error', 'Akses ditolak.');
+}
 
 
     /**

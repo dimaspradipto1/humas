@@ -37,7 +37,7 @@
                             <div class="row mb-4">
                                 <div class="col-lg-6 col-sm-6">
 
-                                    <div class="mb-4">
+                                    {{-- <div class="mb-4">
                                         <label for="tahun_akademik_id" class="text-capitalize">tahun akademik</label>
                                        <select name="tahun_akademik_id" id="tahun_akademik_id" class="form-select single">
                                         <option>Pilih Tahun Akademik</option>
@@ -48,7 +48,7 @@
                                             @endforeach
                                             <option>====================================================</option>
                                         </select>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="mb-4">
                                         <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
@@ -106,7 +106,7 @@
                                     <div class="mb-4">
                                         <label for="unit_kegiatan" class="text-capitalize">tempat kegiatan</label>
                                         <input type="text" name="tempat_kegiatan" class="form-control"
-                                            value="{{ old('unit_kegiatan') }}">
+                                            value="{{ old('unit_kegiatan') }}" placeholder="Masukkan Tempat Kegiatan">
                                     </div>
 
                                     <div class="mb-4">
@@ -128,7 +128,7 @@
                                             <label for="deskripsi_kegiatan" class="text-capitalize">deskripsi
                                                 kegiatan</label>
                                             <textarea class="form-control" name="deskripsi_kegiatan" value="{{ old('deskripsi_kegiatan') }}" id=""
-                                                rows="3"></textarea>
+                                                rows="3" placeholder="Masukkan Deskripsi Kegiatan"></textarea>
                                         </div>
                                     </div>
                                     <div class="mb-4">
@@ -136,14 +136,14 @@
                                             <label for="deskripsi_kegiatan" class="text-capitalize">Kebutuhan
                                                 perlengkapan</label>
                                             <textarea class="form-control" name="perlengkapan" value="{{ old('perlengkapan') }}" id=""
-                                                rows="3"></textarea>
+                                                rows="3" placeholder="Masukkan Kebutuhan Perlengkapan"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="mb-4">
                                         <div class="form-group">
                                             <label for="link_zoom" class="text-capitalize">link zoom <span class="text-danger">(jika ada)</span></label>
-                                            <textarea class="form-control" name="link_zoom" value="{{ old('link_zoom') }}" id="" rows="3"></textarea>
+                                            <textarea class="form-control" name="link_zoom" value="{{ old('link_zoom') }}" id="" rows="3" placeholder="Masukkan Link Zoom"></textarea>
                                         </div>
                                     </div>
 
@@ -153,13 +153,19 @@
                                             <div class="form-group">
                                                 <select class="form-control form-control-sm" name="status"
                                                     id="status">
+                                                    <option value="">Pilih Status</option>
                                                     <option value="pending">pending</option>
                                                     <option value="approved">disetujui</option>
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="mb-4">
+                                            <label for="email_tujuan" class="text-uppercase">email tujuan</label>
+                                            <input type="email" class="form-control" name="email_tujuan" value="{{ old('email_tujuan') }}">
+                                        </div>
                                     @endif
 
+                                    
                                 </div>
                             </div>
 

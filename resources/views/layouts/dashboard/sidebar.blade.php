@@ -134,9 +134,12 @@
                           </span>
                       </a>
                   </li>
+
+
+
               @endif
 
-              <li class="nav-item {{ request()->routeIs('pengajuan.index') ? 'active' : '' }}">
+              {{-- <li class="nav-item {{ request()->routeIs('pengajuan.index') ? 'active' : '' }}">
                   <a href="{{ route('pengajuan.index') }}" class="nav-link">
                       <span class="sidebar-icon">
                           <svg height="20" viewBox="-10 1 511 511.99998" width="20"
@@ -150,7 +153,6 @@
                       <span class="sidebar-text text-capitalize">
                           Pengajuan Kegiatan
 
-                          {{-- Notifikasi akan selalu tampil di semua halaman --}}
                           @if ($notifikasiPengajuan > 0)
                               <span class="badge-notification"
                                   style="position: absolute; bottom: 10px; left: 150px; background-color: red; color: white; 
@@ -161,13 +163,59 @@
                           @endif
                       </span>
                   </a>
+              </li> --}}
+
+              <li class="nav-item {{ request()->routeIs('pengajuan.index') ? 'active' : '' }}">
+                  <a href="{{ route('pengajuan.index') }}" class="nav-link">
+                      <span class="sidebar-icon">
+                          <svg height="20" viewBox="-10 1 511 511.99998" width="20"
+                              xmlns="http://www.w3.org/2000/svg" id="fi_1157026">
+                              <path
+                                  d="m303.4375 180.328125c0 15.984375-12.957031 28.945313-28.941406 28.945313h-183.019532c-15.988281 0-28.945312 12.957031-28.945312 28.945312v244.835938c0 15.988281 12.957031 28.945312 28.945312 28.945312h371.917969c15.988281 0 28.945313-12.957031 28.945313-28.945312v-302.726563c0-15.988281-12.957032-28.945313-28.945313-28.945313h-131.011719c-15.984374 0-28.945312 12.957032-28.945312 28.945313zm0 0"
+                                  fill="#e58e13"></path>
+                          </svg>
+                      </span>
+                      <span class="sidebar-text text-capitalize">
+                          Pengajuan Kegiatan
+
+                          @if ($notifikasiPengajuan['pending'] ?? 0 > 0)
+                              <span class="badge-notification"
+                                  style="position: absolute; bottom: 10px; left: 150px; 
+                             background-color: orange; color: white; border-radius: 50%; 
+                             padding: 5px; width: 20px; height: 20px; display: flex; 
+                             justify-content: center; align-items: center; font-size: 12px;">
+                                  {{ $notifikasiPengajuan['pending'] }}
+                              </span>
+                          @elseif ($notifikasiPengajuan['ditolak'] ?? 0 > 0)
+                              <span class="badge-notification"
+                                  style="position: absolute; bottom: 10px; left: 150px; 
+                             background-color: red; color: white; border-radius: 50%; 
+                             padding: 5px; width: 20px; height: 20px; display: flex; 
+                             justify-content: center; align-items: center; font-size: 12px;">
+                                  {{ $notifikasiPengajuan['ditolak'] }}
+                              </span>
+                          @elseif ($notifikasiPengajuan['diterima'] ?? 0 > 0)
+                              <span class="badge-notification"
+                                  style="position: absolute; bottom: 10px; left: 150px; 
+                             background-color: green; color: white; border-radius: 50%; 
+                             padding: 5px; width: 20px; height: 20px; display: flex; 
+                             justify-content: center; align-items: center; font-size: 12px;">
+                                  {{ $notifikasiPengajuan['diterima'] }}
+                              </span>
+                          @endif
+                      </span>
+                  </a>
               </li>
+
+
+
 
               <li class="nav-item {{ request()->routeIs('publikasi.index') ? 'active' : '' }}">
                   <a href="{{ route('publikasi.index') }}" class="nav-link d-flex justify-content-between">
                       <span>
-                          <span class="sidebar-icon"> <svg id="fi_9746243" height="20" viewBox="0 0 512 512"
-                                  width="20" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+                          <span class="sidebar-icon">
+                              <svg id="fi_9746243" height="20" viewBox="0 0 512 512" width="20"
+                                  xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
                                   <g fill-rule="evenodd">
                                       <path
                                           d="m.516 189.341 142.043-164.257a2.066 2.066 0 0 1 2.89-.2l210.409 181.942a2.105 2.105 0 0 1 .2 2.92l-142.039 164.254a2.1 2.1 0 0 1 -2.92.205l-210.379-181.945a2.048 2.048 0 0 1 -.2-2.919z"
@@ -294,7 +342,69 @@
                   <li class="nav-item {{ request()->routeIs('unit-kegiatan.index') ? 'active' : '' }}">
                       <a href="{{ route('unit-kegiatan.index') }}" class="nav-link">
                           <span class="sidebar-icon">
-                              <svg id="fi_10647890" height="20" enable-background="new 0 0 64 64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><g stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"><path d="m45.5 63.5h-38c-2.8 0-5-2.2-5-5v-42c0-2.8 2.2-5 5-5h38c2.8 0 5 2.2 5 5v42c0 2.8-2.2 5-5 5z" fill="#455a64" stroke="#37474f"></path><path d="m45.5 59.5h-38c-2.8 0-5-2.2-5-5v-42c0-2.8 2.2-5 5-5h38c2.8 0 5 2.2 5 5v42c0 2.8-2.2 5-5 5z" fill="#78909c" stroke="#37474f"></path><path d="m44 55.5h-35c-1.4 0-2.5-1.1-2.5-2.5v-39c0-1.4 1.1-2.5 2.5-2.5h35c1.4 0 2.5 1.1 2.5 2.5v39c0 1.4-1.1 2.5-2.5 2.5z" fill="#eceff1" stroke="#37474f"></path><path d="m8.5 18v-4c0-.3.2-.5.5-.5h4" fill="none" stroke="#fff"></path><path d="m31.5 5.5c0-2.8-2.2-5-5-5s-5 2.2-5 5h-3c-.6 0-1 .4-1 1v6c0 .6.4 1 1 1h16c.6 0 1-.4 1-1v-6c0-.6-.4-1-1-1zm-5 2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" fill="#ffca28" stroke="#37474f"></path><path d="m25.5 21.5h11" fill="none" stroke="#37474f"></path><path d="m25.5 34.5h9" fill="none" stroke="#37474f"></path></g><g><path d="m18 26h-4c-1.4 0-2.5-1.1-2.5-2.5v-4c0-1.4 1.1-2.5 2.5-2.5h4c1.4 0 2.5 1.1 2.5 2.5v4c0 1.4-1.1 2.5-2.5 2.5z" fill="none" stroke="#37474f" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path></g><g><path d="m18 38h-4c-1.4 0-2.5-1.1-2.5-2.5v-4c0-1.4 1.1-2.5 2.5-2.5h4c1.4 0 2.5 1.1 2.5 2.5v4c0 1.4-1.1 2.5-2.5 2.5z" fill="none" stroke="#37474f" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path></g><g><path d="m18 50h-4c-1.4 0-2.5-1.1-2.5-2.5v-4c0-1.4 1.1-2.5 2.5-2.5h4c1.4 0 2.5 1.1 2.5 2.5v4c0 1.4-1.1 2.5-2.5 2.5z" fill="none" stroke="#37474f" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path></g><path d="m46 53v-21.5c-9.1.3-16.5 7.8-16.5 17 0 2.3.5 4.5 1.3 6.5h13.2c1.1 0 2-.9 2-2z" fill="#b0bec5"></path><g><path d="m45.5 60h-11.5c1.1 1.2 2.3 2.2 3.7 3h7.8c2.5 0 4.5-2 4.5-4.5v-.8c-1 1.4-2.6 2.3-4.5 2.3z" fill="#37474f"></path><path d="m50 54.5v-22.6c-1-.2-2-.3-3-.3v21.4c0 1.7-1.3 3-3 3h-12.7c.5 1.1 1.2 2.1 1.9 3h12.3c2.5 0 4.5-2 4.5-4.5z" fill="#455a64"></path></g><circle cx="46.5" cy="48.5" fill="#9ccc65" r="15" stroke="#37474f" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></circle><path d="m33.5 48.5c0-7.2 5.8-13 13-13" fill="none" stroke="#c5e1a5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path><g><path d="m37.8 49.7 4.9 4.9c.6.6 1.5.6 2.1 0l10.3-10.3c.6-.6.6-1.5 0-2.1s-1.5-.6-2.1 0l-9.2 9.2-3.8-3.8c-.6-.6-1.5-.6-2.1 0s-.6 1.6-.1 2.1z" fill="#eceff1" stroke="#37474f" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path></g></g></svg>
+                              <svg id="fi_10647890" height="20" enable-background="new 0 0 64 64"
+                                  viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                  <g>
+                                      <g stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+                                          <path
+                                              d="m45.5 63.5h-38c-2.8 0-5-2.2-5-5v-42c0-2.8 2.2-5 5-5h38c2.8 0 5 2.2 5 5v42c0 2.8-2.2 5-5 5z"
+                                              fill="#455a64" stroke="#37474f"></path>
+                                          <path
+                                              d="m45.5 59.5h-38c-2.8 0-5-2.2-5-5v-42c0-2.8 2.2-5 5-5h38c2.8 0 5 2.2 5 5v42c0 2.8-2.2 5-5 5z"
+                                              fill="#78909c" stroke="#37474f"></path>
+                                          <path
+                                              d="m44 55.5h-35c-1.4 0-2.5-1.1-2.5-2.5v-39c0-1.4 1.1-2.5 2.5-2.5h35c1.4 0 2.5 1.1 2.5 2.5v39c0 1.4-1.1 2.5-2.5 2.5z"
+                                              fill="#eceff1" stroke="#37474f"></path>
+                                          <path d="m8.5 18v-4c0-.3.2-.5.5-.5h4" fill="none" stroke="#fff"></path>
+                                          <path
+                                              d="m31.5 5.5c0-2.8-2.2-5-5-5s-5 2.2-5 5h-3c-.6 0-1 .4-1 1v6c0 .6.4 1 1 1h16c.6 0 1-.4 1-1v-6c0-.6-.4-1-1-1zm-5 2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+                                              fill="#ffca28" stroke="#37474f"></path>
+                                          <path d="m25.5 21.5h11" fill="none" stroke="#37474f"></path>
+                                          <path d="m25.5 34.5h9" fill="none" stroke="#37474f"></path>
+                                      </g>
+                                      <g>
+                                          <path
+                                              d="m18 26h-4c-1.4 0-2.5-1.1-2.5-2.5v-4c0-1.4 1.1-2.5 2.5-2.5h4c1.4 0 2.5 1.1 2.5 2.5v4c0 1.4-1.1 2.5-2.5 2.5z"
+                                              fill="none" stroke="#37474f" stroke-linecap="round"
+                                              stroke-linejoin="round" stroke-miterlimit="10"></path>
+                                      </g>
+                                      <g>
+                                          <path
+                                              d="m18 38h-4c-1.4 0-2.5-1.1-2.5-2.5v-4c0-1.4 1.1-2.5 2.5-2.5h4c1.4 0 2.5 1.1 2.5 2.5v4c0 1.4-1.1 2.5-2.5 2.5z"
+                                              fill="none" stroke="#37474f" stroke-linecap="round"
+                                              stroke-linejoin="round" stroke-miterlimit="10"></path>
+                                      </g>
+                                      <g>
+                                          <path
+                                              d="m18 50h-4c-1.4 0-2.5-1.1-2.5-2.5v-4c0-1.4 1.1-2.5 2.5-2.5h4c1.4 0 2.5 1.1 2.5 2.5v4c0 1.4-1.1 2.5-2.5 2.5z"
+                                              fill="none" stroke="#37474f" stroke-linecap="round"
+                                              stroke-linejoin="round" stroke-miterlimit="10"></path>
+                                      </g>
+                                      <path
+                                          d="m46 53v-21.5c-9.1.3-16.5 7.8-16.5 17 0 2.3.5 4.5 1.3 6.5h13.2c1.1 0 2-.9 2-2z"
+                                          fill="#b0bec5"></path>
+                                      <g>
+                                          <path
+                                              d="m45.5 60h-11.5c1.1 1.2 2.3 2.2 3.7 3h7.8c2.5 0 4.5-2 4.5-4.5v-.8c-1 1.4-2.6 2.3-4.5 2.3z"
+                                              fill="#37474f"></path>
+                                          <path
+                                              d="m50 54.5v-22.6c-1-.2-2-.3-3-.3v21.4c0 1.7-1.3 3-3 3h-12.7c.5 1.1 1.2 2.1 1.9 3h12.3c2.5 0 4.5-2 4.5-4.5z"
+                                              fill="#455a64"></path>
+                                      </g>
+                                      <circle cx="46.5" cy="48.5" fill="#9ccc65" r="15" stroke="#37474f"
+                                          stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+                                      </circle>
+                                      <path d="m33.5 48.5c0-7.2 5.8-13 13-13" fill="none" stroke="#c5e1a5"
+                                          stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+                                      </path>
+                                      <g>
+                                          <path
+                                              d="m37.8 49.7 4.9 4.9c.6.6 1.5.6 2.1 0l10.3-10.3c.6-.6.6-1.5 0-2.1s-1.5-.6-2.1 0l-9.2 9.2-3.8-3.8c-.6-.6-1.5-.6-2.1 0s-.6 1.6-.1 2.1z"
+                                              fill="#eceff1" stroke="#37474f" stroke-linecap="round"
+                                              stroke-linejoin="round" stroke-miterlimit="10"></path>
+                                      </g>
+                                  </g>
+                              </svg>
                           </span>
                           <span class="sidebar-text text-capitalize">Unit Kegiatan</span>
                       </a>

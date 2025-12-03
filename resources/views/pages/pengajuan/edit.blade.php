@@ -215,38 +215,55 @@
                                                      @endif
                                                  </td>
                                              </tr>
+                                             
                                              <tr>
-                                            @if (Auth::user()->is_admin)
-                                                <th>Edit Status Pengajuan</th>
-                                                <td>
-                                                    <div class="mb-4">
-                                                        <label for="status" class="text-uppercase">status</label>
-                                                        <div class="form-group">
-                                                            <select class="form-control form-control-sm"
-                                                                name="status" id="status">
-                                                                <option value="pending"
-                                                                    {{ $pengajuan->status == 'pending' ? 'selected' : '' }}>
-                                                                    pending</option>
-                                                                <option value="diterima"
-                                                                    {{ $pengajuan->status == 'diterima' ? 'selected' : '' }}>
-                                                                    diterima</option>
-                                                                <option value="ditolak"
-                                                                    {{ $pengajuan->status == 'ditolak' ? 'selected' : '' }}>
-                                                                    ditolak</option>
-                                                            </select>
-                                                        </div>
+                                                 @if (Auth::user()->is_admin)
+                                                     <th>Edit Status Pengajuan</th>
+                                                     <td>
+                                                         <div class="mb-4">
+                                                             <label for="status" class="text-uppercase">status</label>
+                                                             <div class="form-group">
+                                                                 <select class="form-control form-control-sm"
+                                                                     name="status" id="status">
+                                                                     <option value="pending"
+                                                                         {{ $pengajuan->status == 'pending' ? 'selected' : '' }}>
+                                                                         pending</option>
+                                                                     <option value="diterima"
+                                                                         {{ $pengajuan->status == 'diterima' ? 'selected' : '' }}>
+                                                                         diterima</option>
+                                                                     <option value="ditolak"
+                                                                         {{ $pengajuan->status == 'ditolak' ? 'selected' : '' }}>
+                                                                         ditolak</option>
+                                                                 </select>
+                                                             </div>
 
-                                                    </div>
-                                                </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Alasan Ditolak/Diterima</th>
-                                                    <td>
-                                                        <textarea class="form-control" name="alasan_ditolak" rows="3">{{ old('alasan_ditolak', $pengajuan->alasan_ditolak) }}</textarea>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        </tr>
+                                                         </div>
+                                                     </td>
+                                             </tr>
+                                             <tr>
+                                                 <th>Alasan Ditolak/Diterima</th>
+                                                 <td>
+                                                     <textarea class="form-control" name="alasan_ditolak" rows="3">{{ old('alasan_ditolak', $pengajuan->alasan_ditolak) }}</textarea>
+                                                 </td>
+                                             </tr>
+                                             <tr>
+    <th>Email Tujuan</th>
+    <td>
+        <input type="email" class="form-control" name="email_tujuan" value="{{ old('email_tujuan', $pengajuan->email_tujuan) }}">
+    </td>
+</tr>
+                                            {{-- Menampilkan tr hanya jika nama_kegiatan adalah 'desain' --}}
+@if ($pengajuan->nama_kegiatan == 'Desain')
+    <tr>
+        <th>Link Desain</th>
+        <td>
+            <textarea class="form-control" name="link_desain" rows="3">{{ old('link_desain', $pengajuan->link_desain) }}</textarea>
+        </td>
+    </tr>
+@endif
+
+                         @endif
+                         </tr>
                          </table>
                          <button class="btn btn-gray-800 d-inline-flex align-items-center me-2 aria-haspopup="true"
                              onclick="return confirm('Yakin ingin mengubah status pengajuan?')">
@@ -258,6 +275,10 @@
                              </svg>
                              UPDATE
                          </button>
+
+                         <a href="{{ route('pengajuan.index') }}" class="btn btn-danger d-inline-flex align-items-center me-2">
+                            BACK
+                         </a>
                          </tr>
                  </div>
              </div>

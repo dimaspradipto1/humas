@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'admin humas dan publikasi',
                 'email' => 'admin@gmail.com',
-                'password' => Hash::make('ubahsaya'),
+                'password' => Hash::make('password'),
                 'fakultas' => 'UNIVERSITAS IBNU SINA',
                 'is_admin' => true,
                 'is_rektorat' => false,
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'operator rektorat',
                 'email' => 'rektorat@gmail.com',
-                'password' => Hash::make('ubahsaya'),
+                'password' => Hash::make('password'),
                 'fakultas'=>'REKTORAT',
                 'is_admin' => false,
                 'is_rektorat' => true,
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'operator Feb',
                 'email' => 'feb@gmail.com',
-                'password' => Hash::make('ubahsaya'),
+                'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS EKONOMI DAN BISNIS',
                 'is_admin' => false,
                 'is_rektorat' => false,
@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'operator FST',
                 'email' => 'fst@gmail.com',
-                'password' => Hash::make('ubahsaya'),
+                'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS SAINS DAN TEKNOLOGI',
                 'is_admin' => false,
                 'is_rektorat' => false,
@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'operator Fikes',
                 'email' => 'fikes@gmail.com',
-                'password' => Hash::make('ubahsaya'),
+                'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS ILMU KESEHATAN',
                 'is_admin' => false,
                 'is_rektorat' => false,
@@ -88,7 +88,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'pengguna',
                 'email' => 'users@gmail.com',
-                'password' => Hash::make('ubahsaya'),
+                'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS SAINS DAN TEKNOLOGI',
                 'is_admin' => false,
                 'is_rektorat' => false,

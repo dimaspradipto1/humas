@@ -97,6 +97,12 @@
             <th>Alasan Ditolak/Diterima</th>
             <td>{{ $pengajuan->alasan_ditolak }}</td>
           </tr>
+          @if ($pengajuan->nama_kegiatan == 'Desain')
+    <tr>
+        <th>Link Desain</th>
+        <td>{{ $pengajuan->link_desain }}</td>
+    </tr>
+@endif
         </table>
       </div>
     </div>

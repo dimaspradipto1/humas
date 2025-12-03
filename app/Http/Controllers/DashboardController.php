@@ -43,6 +43,7 @@ class DashboardController extends Controller
             $query->where('is_fikes', 1);
         })->count();
 
+
         return view('layouts.dashboard.index', [
             'pengajuan_rektorat' => $pengajuan_rektorat,
             'pengajuan_feb' => $pengajuan_feb,
@@ -52,6 +53,7 @@ class DashboardController extends Controller
             'publikasi_feb' => $publikasi_feb,
             'publikasi_fst' => $publikasi_fst,
             'publikasi_fikes' => $publikasi_fikes,
+           
         ]);
     }
 

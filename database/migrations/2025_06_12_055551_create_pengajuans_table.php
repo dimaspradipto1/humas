@@ -15,8 +15,6 @@ return new class extends Migration
         Schema::create('pengajuans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('tahun_akademik_id')->constrained()->cascadeOnDelete();
-            // $table->foreignId('unit_kegiatan_id')->constrained()->cascadeOnDelete();
             $table->string('nama_kegiatan');
             $table->date('tgl_awal');
             $table->date('tgl_selesai');
@@ -29,6 +27,8 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->string('tempat_kegiatan');
             $table->text('alasan_ditolak')->nullable();
+            $table->text('link_desain')->nullable();
+            $table->string('email_tujuan')->nullable();
             $table->timestamps();
         });
     }

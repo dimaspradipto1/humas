@@ -143,7 +143,7 @@
                                     <div class="mb-4">
                                         <div class="form-group">
                                             <label for="link_zoom" class="text-capitalize">link zoom <span class="text-danger">(jika ada)</span></label>
-                                            <textarea class="form-control" name="link_zoom" value="{{ old('link_zoom') }}" id="" rows="3" placeholder="Masukkan Link Zoom"></textarea>
+                                            <textarea class="form-control" name="link_zoom" value="{{ old('link_zoom') }}" id="" rows="3" placeholder="contoh: https://zoom.us/j/123456789"></textarea>
                                         </div>
                                     </div>
 
@@ -161,7 +161,7 @@
                                         </div>
                                         <div class="mb-4">
                                             <label for="email_tujuan" class="text-uppercase">email tujuan</label>
-                                            <input type="email" class="form-control" name="email_tujuan" value="{{ old('email_tujuan') }}">
+                                            <input type="email" class="form-control" name="email_tujuan" value="{{ old('email_tujuan') }}" placeholder="contoh: pengguna@gmail.com">
                                         </div>
                                     @endif
 

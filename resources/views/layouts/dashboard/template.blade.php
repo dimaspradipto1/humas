@@ -128,6 +128,9 @@
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
 
     @stack('scripts')
+    @push('style')
+        
+    @endpush
     <script>
         $(document).ready(function() {
             $('#yourTableId').DataTable({

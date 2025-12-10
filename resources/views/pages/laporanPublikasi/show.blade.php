@@ -247,7 +247,7 @@
     <!-- Letter Content Section -->
     <div class="letter-header">
         <h3 class="text-uppercase">laporan kegiatan humas dan publikasi</h3>
-        <h4>periode {{ $selectedPeriode }}</h4>
+        {{-- <h4>periode {{ $selectedPeriode }}</h4> --}}
         <h4>universitas ibnu sina</h4>
     </div>
 
@@ -255,7 +255,7 @@
         <table id="laporanPublikasi-table" class="laporan-table">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th style="text-align: center">No</th>
                     {{-- <th>Tahun Akademik</th> --}}
                     <th>Fakultas</th>
                     <th>Nama Kegiatan</th>
@@ -269,7 +269,7 @@
             <tbody>
                 @foreach ($laporanPublikasi as $key => $laporan)
                     <tr>
-                        <td>{{ $key + 1 }}</td>
+                        <td style="text-align: center">{{ $key + 1 }}</td>
                         {{-- <td>{{ $laporan->publikasi->tahunAkademik->tahun_akademik }}</td> --}}
                         <td class="fakultas">{{ $laporan->user->fakultas ?? 'N/A' }}</td>
                         <td>{{ $laporan->pengajuan->nama_kegiatan }}</td>
@@ -299,7 +299,7 @@
     <!-- Signature Section with Stamp -->
     <div class="signature-section">
         <div class="text" style="text-align: left; margin-top: 20px;">
-            <p style="margin: 0;">Batam, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}</p>
+            <p style="margin: 0;">Batam, {{ \Carbon\Carbon::now()->locale('id_ID')->isoFormat('D MMMM Y') }}</p>
             <p style="margin: 0;">Kabit Humas dan Publikasi</p>
             <div
                 style="display: flex; flex-direction: column; justify-content: left; align-items: center; margin-top: 15px;">

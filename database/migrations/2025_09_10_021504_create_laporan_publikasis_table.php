@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('publikasi_id')->constrained()->cascadeOnDelete();
             $table->foreignId('pengajuan_id')->constrained()->cascadeOnDelete();
+            $table->date('tgl_awal')->nullable();
+            $table->date('tgl_selesai')->nullable();
             $table->timestamps();
         });
     }

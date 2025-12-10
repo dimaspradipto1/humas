@@ -35,9 +35,14 @@
             <td>{{ $pengajuan->deskripsi_kegiatan }}</td>
         </tr>
         <tr>
-            <td><strong>Berikut ini adalah link desain:</strong></td>
+            <td><strong>Berikut ini adalah Link Desain</strong></td>
             <td>:</td>
             <td>{{ $pengajuan->link_desain }}</td>
+        </tr>
+         <tr>
+            <td>
+                <a href="{{ route('login') }}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; text-decoration: none; border-radius: 5px;">Silahkan Login</a>
+            </td>
         </tr>
     </table>
 

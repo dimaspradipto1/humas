@@ -56,11 +56,10 @@
         </tr>
         <tr>
             <td>
-                <a href="http://humas.test/" style="display: inline-block; background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; text-decoration: none; border-radius: 5px;">Silahkan Login</a>
+                <a href="{{ route('login') }}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; text-decoration: none; border-radius: 5px;">Silahkan Login</a>
             </td>
         </tr>
     </table>
 
 </body>
-
 </html>

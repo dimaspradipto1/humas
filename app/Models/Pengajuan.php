@@ -37,4 +37,9 @@ class Pengajuan extends Model
     {
         return $this->belongsTo(UnitKegiatan::class);
     }
+
+    public function laporanPublikasi()
+    {
+        return $this->hasOne(LaporanPublikasi::class);
+    }
 }

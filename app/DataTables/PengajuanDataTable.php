@@ -79,7 +79,7 @@ class PengajuanDataTable extends DataTable
      */
     public function query(Pengajuan $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('created_at', 'desc');
     }
 
     /**

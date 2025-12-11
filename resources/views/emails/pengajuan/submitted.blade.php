@@ -45,7 +45,7 @@
             <td>{{ $pengajuan->tempat_kegiatan }}</td>
         </tr>
         <tr>
-            <td><strong>Perlengkapan:</strong></td>
+            <td><strong>Kebutuhan:</strong></td>
             <td>:</td>
             <td>{{ $pengajuan->perlengkapan }}</td>
         </tr>

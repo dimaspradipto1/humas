@@ -25,7 +25,7 @@ class PengajuanController extends Controller
     public function index(PengajuanDataTable $dataTable)
     {
         $user = auth()->user();
-        
+
         // Inisialisasi semua variabel dengan 0
         $pendingPengajuanFEB = 0;
         $pendingPengajuanFIKES = 0;
@@ -33,20 +33,20 @@ class PengajuanController extends Controller
         $pendingPengajuanRektorat = 0;
         $diterimaPengajuanFEB = 0;
         $diterimaPengajuanFIKES = 0;
-        $diterimaPengajuanFST = 0;   
+        $diterimaPengajuanFST = 0;
         $diterimaPengajuanRektorat = 0;
         $ditolakPengajuanFEB = 0;
         $ditolakPengajuanFIKES = 0;
-        $ditolakPengajuanFST = 0;   
+        $ditolakPengajuanFST = 0;
         $ditolakPengajuanRektorat = 0;
-        
+
         // Cek fakultas user dan hitung pengajuan
         if ($user->is_feb) {
             $pendingPengajuanFEB = Pengajuan::where('status', 'pending')
                 ->whereHas('user', function ($query) {
                     $query->where('is_feb', true);
                 })->count();
-                
+
             $ditolakPengajuanFEB = Pengajuan::where('status', 'ditolak')
                 ->whereHas('user', function ($query) {
                     $query->where('is_feb', true);
@@ -55,13 +55,12 @@ class PengajuanController extends Controller
                 ->whereHas('user', function ($query) {
                     $query->where('is_feb', true);
                 })->count();
-                
         } elseif ($user->is_fikes) {
             $pendingPengajuanFIKES = Pengajuan::where('status', 'pending')
                 ->whereHas('user', function ($query) {
                     $query->where('is_fikes', true);
                 })->count();
-                
+
             $ditolakPengajuanFIKES = Pengajuan::where('status', 'ditolak')
                 ->whereHas('user', function ($query) {
                     $query->where('is_fikes', true);
@@ -70,7 +69,6 @@ class PengajuanController extends Controller
                 ->whereHas('user', function ($query) {
                     $query->where('is_fikes', true);
                 })->count();
-                
         } elseif ($user->is_fst) {
             $pendingPengajuanFST = Pengajuan::where('status', 'pending')
                 ->whereHas('user', function ($query) {
@@ -89,7 +87,7 @@ class PengajuanController extends Controller
                 ->whereHas('user', function ($query) {
                     $query->where('is_rektorat', true);
                 })->count();
-                
+
             $ditolakPengajuanRektorat = Pengajuan::where('status', 'ditolak')
                 ->whereHas('user', function ($query) {
                     $query->where('is_rektorat', true);
@@ -101,15 +99,15 @@ class PengajuanController extends Controller
         }
         // Kirim data ke view
         return $dataTable->render('pages.pengajuan.index', compact(
-            'pendingPengajuanFEB', 
+            'pendingPengajuanFEB',
             'ditolakPengajuanFEB',
             'diterimaPengajuanFEB',
-            'pendingPengajuanFIKES', 
+            'pendingPengajuanFIKES',
             'ditolakPengajuanFIKES',
             'diterimaPengajuanFIKES',
-            'pendingPengajuanFST', 
+            'pendingPengajuanFST',
             'ditolakPengajuanFST',
-            'diterimaPengajuanFST', 
+            'diterimaPengajuanFST',
             'pendingPengajuanRektorat',
             'ditolakPengajuanRektorat',
             'diterimaPengajuanRektorat'
@@ -147,6 +145,7 @@ class PengajuanController extends Controller
             'tempat_kegiatan'   => $data['tempat_kegiatan'],
             'alasan_ditolak'    => $data['alasan_ditolak'] ?? null,
             'email_tujuan'      => $data['email_tujuan'] ?? null,
+            'status'            => 'pending',
         ]);
 
         // Buat Publikasi terkait pengajuan yang baru
@@ -171,11 +170,19 @@ class PengajuanController extends Controller
             'pengajuan_id'  => $pengajuan->id,
         ]);
 
-       config(['mail.from.address' => auth()->user()->email]);
+        if (auth()->user()->is_admin && isset($data['email_tujuan'])) {
+            $emailTujuan = $data['email_tujuan'];  // Gunakan email_tujuan jika diisi
+        } else {
+            $emailTujuan = 'nepsterdms@gmail.com';  // Jika bukan admin atau email_tujuan tidak diisi, kirim ke email default
+        }
+
+
+        config(['mail.from.address' => auth()->user()->email]);
 
         // Kirim email setelah pengajuan berhasil
-        Mail::to('nepsterdms@gmail.com') 
+        Mail::to($emailTujuan)
             ->send(new PengajuanSubmitted($pengajuan));
+
 
         Alert::success('Success', 'Data berhasil ditambahkan dan email telah dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
         return redirect()->route('pengajuan.index');
@@ -205,112 +212,112 @@ class PengajuanController extends Controller
      */
 
     public function update(Request $request, Pengajuan $pengajuan)
-{
-    // Cek jika status pengajuan adalah 'ditolak', simpan alasan ditolak
-    if ($request->status == 'ditolak') {
-        $pengajuan->alasan_ditolak = $request->alasan_ditolak;
-    } elseif ($request->status == 'diterima') {
-        $pengajuan->alasan_ditolak = null; // Hapus alasan jika diterima
-    } else {
-        $pengajuan->alasan_ditolak = null; // Jika status bukan 'ditolak' atau 'diterima'
-    }
+    {
+        // Cek jika status pengajuan adalah 'ditolak', simpan alasan ditolak
+        if ($request->status == 'ditolak') {
+            $pengajuan->alasan_ditolak = $request->alasan_ditolak;
+        } elseif ($request->status == 'diterima') {
+            $pengajuan->alasan_ditolak = null; // Hapus alasan jika diterima
+        } else {
+            $pengajuan->alasan_ditolak = null; // Jika status bukan 'ditolak' atau 'diterima'
+        }
 
-    // Mengambil email tujuan dari input admin
-    $emailTujuan = $request->email_tujuan;
+        // Mengambil email tujuan dari input admin
+        $emailTujuan = $request->email_tujuan;
 
-    // Cek jika email tujuan valid
-    if ($emailTujuan && filter_var($emailTujuan, FILTER_VALIDATE_EMAIL)) {
-        $isEmailValid = true;
-    } else {
-        $isEmailValid = false;
-    }
+        // Cek jika email tujuan valid
+        if ($emailTujuan && filter_var($emailTujuan, FILTER_VALIDATE_EMAIL)) {
+            $isEmailValid = true;
+        } else {
+            $isEmailValid = false;
+        }
 
-    // Cek jika pengguna adalah admin
-    if (auth()->user()->is_admin) {
-        // Mengupdate data pengajuan
-        $data = $request->all();
-        $pengajuan->update($data);
+        // Cek jika pengguna adalah admin
+        if (auth()->user()->is_admin) {
+            // Mengupdate data pengajuan
+            $data = $request->all();
+            $pengajuan->update($data);
 
-        // Cek apakah laporanPublikasi ada dan update jika ada
-        if ($pengajuan->laporanPublikasi) {
-            // Jika tgl_awal atau tgl_selesai diupdate, update juga pada laporan_publikasi
-            if ($request->has('tgl_awal') || $request->has('tgl_selesai')) {
-                $pengajuan->laporanPublikasi->update([
-                    'tgl_awal'    => $request->tgl_awal ?? $pengajuan->tgl_awal,
-                    'tgl_selesai' => $request->tgl_selesai ?? $pengajuan->tgl_selesai,
+            // Cek apakah laporanPublikasi ada dan update jika ada
+            if ($pengajuan->laporanPublikasi) {
+                // Jika tgl_awal atau tgl_selesai diupdate, update juga pada laporan_publikasi
+                if ($request->has('tgl_awal') || $request->has('tgl_selesai')) {
+                    $pengajuan->laporanPublikasi->update([
+                        'tgl_awal'    => $request->tgl_awal ?? $pengajuan->tgl_awal,
+                        'tgl_selesai' => $request->tgl_selesai ?? $pengajuan->tgl_selesai,
+                    ]);
+                }
+            } else {
+                // Jika laporanPublikasi tidak ada, buat data laporanPublikasi baru
+                $pengajuan->laporanPublikasi()->create([
+                    'tgl_awal'    => $request->tgl_awal,
+                    'tgl_selesai' => $request->tgl_selesai,
                 ]);
             }
-        } else {
-            // Jika laporanPublikasi tidak ada, buat data laporanPublikasi baru
-            $pengajuan->laporanPublikasi()->create([
-                'tgl_awal'    => $request->tgl_awal,
-                'tgl_selesai' => $request->tgl_selesai,
-            ]);
-        }
 
-        // Mengirimkan email jika email valid
-        if ($isEmailValid) {
-            try {
-                Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
-                Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast();
-            } catch (\Exception $e) {
-                Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
+            // Mengirimkan email jika email valid
+            if ($isEmailValid) {
+                try {
+                    Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
+                    Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast();
+                } catch (\Exception $e) {
+                    Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
+                }
+            } else {
+                // Jika email tidak valid atau kosong, beri tahu pengguna
+                Alert::info('Info', 'Email tidak valid atau kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
             }
-        } else {
-            // Jika email tidak valid atau kosong, beri tahu pengguna
-            Alert::info('Info', 'Email tidak valid atau kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
+
+            return redirect()->route('kotak-masuk-pengajuan.index');
         }
 
-        return redirect()->route('kotak-masuk-pengajuan.index');
-    }
+        // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
+        elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
+            // Jika status bukan 'ditolak', ubah status menjadi 'pending'
+            if ($request->status != 'ditolak') {
+                $pengajuan->status = 'pending';
+            }
 
-    // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
-    elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
-        // Jika status bukan 'ditolak', ubah status menjadi 'pending'
-        if ($request->status != 'ditolak') {
-            $pengajuan->status = 'pending';
-        }
+            $data = $request->all();
+            $pengajuan->update($data);
 
-        $data = $request->all();
-        $pengajuan->update($data);
-
-        // Cek apakah laporanPublikasi ada dan update jika ada
-        if ($pengajuan->laporanPublikasi) {
-            // Jika tgl_awal atau tgl_selesai diupdate, update juga pada laporan_publikasi
-            if ($request->has('tgl_awal') || $request->has('tgl_selesai')) {
-                $pengajuan->laporanPublikasi->update([
-                    'tgl_awal'    => $request->tgl_awal ?? $pengajuan->tgl_awal,
-                    'tgl_selesai' => $request->tgl_selesai ?? $pengajuan->tgl_selesai,
+            // Cek apakah laporanPublikasi ada dan update jika ada
+            if ($pengajuan->laporanPublikasi) {
+                // Jika tgl_awal atau tgl_selesai diupdate, update juga pada laporan_publikasi
+                if ($request->has('tgl_awal') || $request->has('tgl_selesai')) {
+                    $pengajuan->laporanPublikasi->update([
+                        'tgl_awal'    => $request->tgl_awal ?? $pengajuan->tgl_awal,
+                        'tgl_selesai' => $request->tgl_selesai ?? $pengajuan->tgl_selesai,
+                    ]);
+                }
+            } else {
+                // Jika laporanPublikasi tidak ada, buat data laporanPublikasi baru
+                $pengajuan->laporanPublikasi()->create([
+                    'tgl_awal'    => $request->tgl_awal,
+                    'tgl_selesai' => $request->tgl_selesai,
                 ]);
             }
-        } else {
-            // Jika laporanPublikasi tidak ada, buat data laporanPublikasi baru
-            $pengajuan->laporanPublikasi()->create([
-                'tgl_awal'    => $request->tgl_awal,
-                'tgl_selesai' => $request->tgl_selesai,
-            ]);
-        }
 
-        // Mengirimkan email jika email valid
-        if ($isEmailValid) {
-            try {
-                Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
-                Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast()->timerProgressBar();
-            } catch (\Exception $e) {
-                Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
+            // Mengirimkan email jika email valid
+            if ($isEmailValid) {
+                try {
+                    Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
+                    Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast()->timerProgressBar();
+                } catch (\Exception $e) {
+                    Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
+                }
+            } else {
+                // Jika email tidak valid atau kosong, beri tahu pengguna
+                Alert::info('Info', 'Email kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
             }
-        } else {
-            // Jika email tidak valid atau kosong, beri tahu pengguna
-            Alert::info('Info', 'Email kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
+
+            // Redirect ke halaman pengajuan berdasarkan role
+            return redirect()->route('pengajuan.index');
         }
 
-        // Redirect ke halaman pengajuan berdasarkan role
-        return redirect()->route('pengajuan.index');
+        // Jika tidak ada role yang cocok
+        return redirect()->back()->with('error', 'Akses ditolak.');
     }
-
-    // Jika tidak ada role yang cocok
-    return redirect()->back()->with('error', 'Akses ditolak.');
-}
 
 
 

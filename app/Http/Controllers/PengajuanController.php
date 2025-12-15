@@ -211,6 +211,114 @@ class PengajuanController extends Controller
      * Update the specified resource in storage.
      */
 
+    // public function update(Request $request, Pengajuan $pengajuan)
+    // {
+    //     // Cek jika status pengajuan adalah 'ditolak', simpan alasan ditolak
+    //     if ($request->status == 'ditolak') {
+    //         $pengajuan->alasan_ditolak = $request->alasan_ditolak;
+    //     } elseif ($request->status == 'diterima') {
+    //         $pengajuan->alasan_ditolak = null; // Hapus alasan jika diterima
+    //     } else {
+    //         $pengajuan->alasan_ditolak = null; // Jika status bukan 'ditolak' atau 'diterima'
+    //     }
+
+    //     // Mengambil email tujuan dari input admin
+    //     $emailTujuan = $request->email_tujuan ?? auth()->user()->email;
+
+    //     // Cek jika email tujuan valid
+    //     if ($emailTujuan && filter_var($emailTujuan, FILTER_VALIDATE_EMAIL)) {
+    //         $isEmailValid = true;
+    //     } else {
+    //         $isEmailValid = false;
+    //     }
+
+    //     // Cek jika pengguna adalah admin
+    //     if (auth()->user()->is_admin) {
+    //         // Mengupdate data pengajuan
+    //         $data = $request->all();
+    //         $pengajuan->update($data);
+
+    //         // Cek apakah laporanPublikasi ada dan update jika ada
+    //         if ($pengajuan->laporanPublikasi) {
+    //             // Jika tgl_awal atau tgl_selesai diupdate, update juga pada laporan_publikasi
+    //             if ($request->has('tgl_awal') || $request->has('tgl_selesai')) {
+    //                 $pengajuan->laporanPublikasi->update([
+    //                     'tgl_awal'    => $request->tgl_awal ?? $pengajuan->tgl_awal,
+    //                     'tgl_selesai' => $request->tgl_selesai ?? $pengajuan->tgl_selesai,
+    //                 ]);
+    //             }
+    //         } else {
+    //             // Jika laporanPublikasi tidak ada, buat data laporanPublikasi baru
+    //             $pengajuan->laporanPublikasi()->create([
+    //                 'tgl_awal'    => $request->tgl_awal,
+    //                 'tgl_selesai' => $request->tgl_selesai,
+    //             ]);
+    //         }
+
+    //         // Mengirimkan email jika email valid
+    //         if ($isEmailValid) {
+    //             try {
+    //                 Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
+    //                 Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast();
+    //             } catch (\Exception $e) {
+    //                 Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
+    //             }
+    //         } else {
+    //             // Jika email tidak valid atau kosong, beri tahu pengguna
+    //             Alert::info('Info', 'Email tidak valid atau kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
+    //         }
+
+    //         return redirect()->route('kotak-masuk-pengajuan.index');
+    //     }
+
+    //     // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
+    //     elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
+    //         // Jika status bukan 'ditolak', ubah status menjadi 'pending'
+    //         if ($request->status != 'ditolak') {
+    //             $pengajuan->status = 'pending';
+    //         }
+
+    //         $data = $request->all();
+    //         $pengajuan->update($data);
+
+    //         // Cek apakah laporanPublikasi ada dan update jika ada
+    //         if ($pengajuan->laporanPublikasi) {
+    //             // Jika tgl_awal atau tgl_selesai diupdate, update juga pada laporan_publikasi
+    //             if ($request->has('tgl_awal') || $request->has('tgl_selesai')) {
+    //                 $pengajuan->laporanPublikasi->update([
+    //                     'tgl_awal'    => $request->tgl_awal ?? $pengajuan->tgl_awal,
+    //                     'tgl_selesai' => $request->tgl_selesai ?? $pengajuan->tgl_selesai,
+    //                 ]);
+    //             }
+    //         } else {
+    //             // Jika laporanPublikasi tidak ada, buat data laporanPublikasi baru
+    //             $pengajuan->laporanPublikasi()->create([
+    //                 'tgl_awal'    => $request->tgl_awal,
+    //                 'tgl_selesai' => $request->tgl_selesai,
+    //             ]);
+    //         }
+
+    //         // Mengirimkan email jika email valid
+    //         if ($isEmailValid) {
+    //             try {
+    //                 Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
+    //                 Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast()->timerProgressBar();
+    //             } catch (\Exception $e) {
+    //                 Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
+    //             }
+    //         } else {
+    //             // Jika email tidak valid atau kosong, beri tahu pengguna
+    //             Alert::info('Info', 'Email kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
+    //         }
+
+    //         // Redirect ke halaman pengajuan berdasarkan role
+    //         return redirect()->route('pengajuan.index');
+    //     }
+
+    //     // Jika tidak ada role yang cocok
+    //     return redirect()->back()->with('error', 'Akses ditolak.');
+    // }
+
     public function update(Request $request, Pengajuan $pengajuan)
     {
         // Cek jika status pengajuan adalah 'ditolak', simpan alasan ditolak
@@ -222,8 +330,8 @@ class PengajuanController extends Controller
             $pengajuan->alasan_ditolak = null; // Jika status bukan 'ditolak' atau 'diterima'
         }
 
-        // Mengambil email tujuan dari input admin
-        $emailTujuan = $request->email_tujuan;
+        // Mengambil email tujuan dari input admin, jika tidak diisi maka ambil dari email user yang login
+        $emailTujuan = $request->email_tujuan ?? $pengajuan->user->email;  // Mengambil email pengguna yang mengajukan
 
         // Cek jika email tujuan valid
         if ($emailTujuan && filter_var($emailTujuan, FILTER_VALIDATE_EMAIL)) {
@@ -258,7 +366,7 @@ class PengajuanController extends Controller
             // Mengirimkan email jika email valid
             if ($isEmailValid) {
                 try {
-                    Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
+                    Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));  // Kirim email ke tujuan yang sudah dipilih
                     Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast();
                 } catch (\Exception $e) {
                     Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
@@ -301,8 +409,8 @@ class PengajuanController extends Controller
             // Mengirimkan email jika email valid
             if ($isEmailValid) {
                 try {
-                    Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
-                    Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast()->timerProgressBar();
+                    Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));  // Kirim email ke tujuan yang sudah dipilih
+                    Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast();
                 } catch (\Exception $e) {
                     Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
                 }
@@ -311,7 +419,6 @@ class PengajuanController extends Controller
                 Alert::info('Info', 'Email kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
             }
 
-            // Redirect ke halaman pengajuan berdasarkan role
             return redirect()->route('pengajuan.index');
         }
 
@@ -319,131 +426,6 @@ class PengajuanController extends Controller
         return redirect()->back()->with('error', 'Akses ditolak.');
     }
 
-
-
-
-//     public function update(Request $request, Pengajuan $pengajuan)
-// {
-//     // Cek jika status pengajuan adalah 'ditolak', simpan alasan ditolak
-//     if ($request->status == 'ditolak') {
-//         $pengajuan->alasan_ditolak = $request->alasan_ditolak;
-//     } elseif ($request->status == 'diterima') {
-//         $pengajuan->alasan_ditolak = null; // Hapus alasan jika diterima
-//     } else {
-//         $pengajuan->alasan_ditolak = null; // Jika status bukan 'ditolak' atau 'diterima'
-//     }
-
-//     // Mengambil email tujuan dari input admin
-//     $emailTujuan = $request->email_tujuan;
-
-//     // Cek jika email tujuan valid
-//     if ($emailTujuan && filter_var($emailTujuan, FILTER_VALIDATE_EMAIL)) {
-//         $isEmailValid = true;
-//     } else {
-//         $isEmailValid = false;
-//     }
-
-//     // Cek jika pengguna adalah admin
-//     if (auth()->user()->is_admin) {
-//         // Mengupdate data pengajuan
-//         $data = $request->all();
-//         $pengajuan->update($data);
-
-//         // Mengirimkan email jika email valid
-//         if ($isEmailValid) {
-//             try {
-//                 Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
-//                 Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast();
-//             } catch (\Exception $e) {
-//                 Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
-//             }
-//         } else {
-//             // Jika email tidak valid atau kosong, beri tahu pengguna
-//             Alert::info('Info', 'Email tidak valid atau kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
-//         }
-
-//         return redirect()->route('kotak-masuk-pengajuan.index');
-//     }
-
-//     // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
-//     elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
-//         // Jika status bukan 'ditolak', ubah status menjadi 'pending'
-//         if ($request->status != 'ditolak') {
-//             $pengajuan->status = 'pending';
-//         }
-
-//         $data = $request->all();
-//         $pengajuan->update($data);
-
-//         // Mengirimkan email jika email valid
-//         if ($isEmailValid) {
-//             try {
-//                 Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
-//                 Alert::success('SUCCESS', 'Data berhasil diperbarui dan email telah dikirim.')->autoclose(2000)->toToast()->timerProgressBar();
-//             } catch (\Exception $e) {
-//                 Alert::error('Error', 'Email gagal dikirim, tetapi data berhasil diperbarui.')->toToast()->autoclose(3000)->timerProgressBar();
-//             }
-//         } else {
-//             // Jika email tidak valid atau kosong, beri tahu pengguna
-//             Alert::info('Info', 'Email kosong. Data berhasil diperbarui, tetapi email tidak dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
-//         }
-
-//         // Redirect ke halaman pengajuan berdasarkan role
-//         return redirect()->route('pengajuan.index');
-//     }
-
-//     // Jika tidak ada role yang cocok
-//     return redirect()->back()->with('error', 'Akses ditolak.');
-// }
-
-
-//     public function update(Request $request, Pengajuan $pengajuan)
-// {
-//     // Cek jika status pengajuan adalah 'ditolak', simpan alasan ditolak
-//     if ($request->status == 'ditolak') {
-//         $pengajuan->alasan_ditolak = $request->alasan_ditolak;
-//     } elseif ($request->status == 'diterima') {
-//         $pengajuan->alasan_ditolak = $request->alasan_ditolak;
-//     } else {
-//         $pengajuan->alasan_ditolak = null;
-//     }
-
-//     // Mengambil email tujuan dari input admin
-//     $emailTujuan = $request->email_tujuan;
-
-//     // Cek jika pengguna adalah admin
-//     if (auth()->user()->is_admin) {
-//         $data = $request->all();
-//         $pengajuan->update($data);
-
-//         // Mengirimkan email ke email tujuan yang diinputkan
-//         Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
-
-//         Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast();
-//         return redirect()->route('kotak-masuk-pengajuan.index');
-//     }
-//     // Cek jika pengguna adalah is_feb, is_fst, atau is_fikes
-//     elseif (auth()->user()->is_feb || auth()->user()->is_fst || auth()->user()->is_fikes) {
-//         // Jika status bukan 'ditolak', ubah status menjadi 'pending'
-//         if ($request->status != 'ditolak') {
-//             $pengajuan->status = 'pending';
-//         }
-
-//         $data = $request->all();
-//         $pengajuan->update($data);
-
-//         // Mengirimkan email ke email tujuan yang diinputkan
-//         Mail::to($emailTujuan)->send(new PengajuanUpdatedMail($pengajuan));
-
-//         Alert::success('SUCCESS', 'Data berhasil diperbarui')->autoclose(2000)->toToast()->timerProgressBar();
-
-//         // Redirect ke halaman pengajuan berdasarkan role
-//         return redirect()->route('pengajuan.index');
-//     }
-
-//     // Jika tidak ada role yang cocok
-//     return redirect()->back()->with('error', 'Akses ditolak.');
-// }
 
 
     /**

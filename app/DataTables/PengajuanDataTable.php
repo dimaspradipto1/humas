@@ -79,20 +79,18 @@ class PengajuanDataTable extends DataTable
      */
     public function query(Pengajuan $model): QueryBuilder
     {
+        // Mengurutkan berdasarkan 'created_at' secara menurun (terbaru di atas)
         return $model->newQuery()->orderBy('created_at', 'desc');
     }
 
-    /**
-     * Optional method if you want to use the html builder.
-     */
     public function html(): HtmlBuilder
     {
         return $this->builder()
             ->setTableId('pengajuan-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            //->dom('Bfrtip')
-            ->orderBy(1)
+            // Mengurutkan berdasarkan kolom 0, yang adalah 'created_at', secara menurun
+            ->orderBy(2, 'desc')  // Pastikan ini sesuai dengan kolom yang Anda urutkan, biasanya kolom kedua tgl_awal
             ->selectStyleSingle()
             ->parameters([
                 'scrollX' => true,
@@ -127,34 +125,18 @@ class PengajuanDataTable extends DataTable
             ]);
     }
 
-    /**
-     * Get the dataTable columns definition.
-     */
     public function getColumns(): array
     {
         return [
-            Column::make('DT_RowIndex')
-                ->title('No'),
-            Column::make('nama_kegiatan')
-                ->title('Nama Kegiatan')
-                ->addClass('text-start'),
+            Column::make('DT_RowIndex')->title('No'),
+            Column::make('nama_kegiatan')->title('Nama Kegiatan')->addClass('text-start'),
             Column::make('tgl_awal')->title('Tanggal Kegiatan')->width(20),
             Column::make('tgl_selesai')->title('Tanggal Selesai')->width(20),
-            Column::make('status')
-                ->title('Status Pengajuan'),
-            Column::make('user_id')
-                ->title('Submit Pengguna')
-                ->visible(auth()->user()->is_admin)
-                ->width(5),
-            Column::computed('action')
-                ->title('Aksi')
-                ->exportable(false)
-                ->printable(false)
-                ->width(40)
-                ->addClass('text-center'),
+            Column::make('status')->title('Status Pengajuan'),
+            Column::make('user_id')->title('Submit Pengguna')->visible(auth()->user()->is_admin)->width(5),
+            Column::computed('action')->title('Aksi')->exportable(false)->printable(false)->width(40)->addClass('text-center'),
         ];
     }
-
 
     /**
      * Get the filename for export.

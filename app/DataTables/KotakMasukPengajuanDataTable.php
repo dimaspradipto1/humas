@@ -76,7 +76,7 @@ class KotakMasukPengajuanDataTable extends DataTable
      */
     public function query(KotakMasukPengajuan $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('created_at', 'desc');
     }
 
     /**
@@ -89,7 +89,7 @@ class KotakMasukPengajuanDataTable extends DataTable
         ->columns($this->getColumns())
         ->minifiedAjax()
         // ->dom('Bfrtip')
-        ->orderBy(1)
+        ->orderBy(2, 'desc')
         ->selectStyleSingle()
         ->parameters([
             'scrollX' => true,

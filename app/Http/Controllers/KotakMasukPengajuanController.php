@@ -13,6 +13,27 @@ class KotakMasukPengajuanController extends Controller
      * Display a listing of the resource.
      */
 
+    // public function index(KotakMasukPengajuanDataTable $dataTable)
+    // {
+    //     // Hitung jumlah pengajuan dengan status 'pending'
+    //     $pendingPengajuan = Pengajuan::where('status', 'pending')->count();
+
+    //     // Hitung jumlah pengajuan dengan status 'ditolak'
+    //     $ditolakPengajuan = Pengajuan::where('status', 'ditolak')->count();
+
+    //     // Jika user adalah admin, simpan notifikasi di session
+    //     if (auth()->user()->is_admin) {
+    //         // Total notifikasi untuk admin (jumlah pengajuan pending + ditolak)
+    //         $totalNotifikasi = $pendingPengajuan;
+
+    //         // Simpan total notifikasi admin di session
+    //         session(['notifikasi_pengajuan_admin' => $totalNotifikasi]);
+    //     }
+
+
+    //     // Kirimkan jumlah pengajuan yang 'pending' dan 'ditolak' ke view
+    //     return $dataTable->render('pages.kotakMasukPengajuan.index', compact('pendingPengajuan', 'ditolakPengajuan'));
+    // }
     public function index(KotakMasukPengajuanDataTable $dataTable)
     {
         // Hitung jumlah pengajuan dengan status 'pending'
@@ -23,17 +44,17 @@ class KotakMasukPengajuanController extends Controller
 
         // Jika user adalah admin, simpan notifikasi di session
         if (auth()->user()->is_admin) {
-            // Total notifikasi untuk admin (jumlah pengajuan pending + ditolak)
+            // Total notifikasi untuk admin (jumlah pengajuan pending)
             $totalNotifikasi = $pendingPengajuan;
 
             // Simpan total notifikasi admin di session
             session(['notifikasi_pengajuan_admin' => $totalNotifikasi]);
         }
 
-
         // Kirimkan jumlah pengajuan yang 'pending' dan 'ditolak' ke view
         return $dataTable->render('pages.kotakMasukPengajuan.index', compact('pendingPengajuan', 'ditolakPengajuan'));
     }
+
 
 
     /**

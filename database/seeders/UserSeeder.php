@@ -87,7 +87,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'pengguna',
-                'email' => 'users@gmail.com',
+                'email' => 'dimaspradipto11@gmail.com',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS SAINS DAN TEKNOLOGI',
                 'is_admin' => false,

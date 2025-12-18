@@ -22,18 +22,72 @@ class PengajuanDataTable extends DataTable
      *
      * @param QueryBuilder $query Results from query() method.
      */
+    // public function dataTable(QueryBuilder $query): EloquentDataTable
+    // {
+    //     $user = auth()->user();
+    //     if ($user->is_admin) {
+    //         $query = Pengajuan::query();
+    //     } else if ($user->is_feb || $user->is_fst || $user->is_fikes || $user->is_rektorat) {
+    //         $query = Pengajuan::where('user_id', $user->id);
+    //     }
+
+    //     return (new EloquentDataTable($query))
+    //         ->addIndexColumn()
+    //         ->addColumn('DT_RowIndex', '')
+    //         ->addColumn('tgl_awal', function ($pengajuan) {
+    //             Carbon::setLocale('id');
+    //             return Carbon::parse($pengajuan->tgl_awal)->translatedFormat('l, d F Y');
+    //         })
+    //         ->editColumn('tgl_selesai', function ($pengajuan) {
+    //             Carbon::setLocale('id');
+    //             return Carbon::parse($pengajuan->tgl_selesai)->translatedFormat('l, d F Y');
+    //         })
+    //         ->editColumn('user_id', function ($pengajuan) use ($user) {
+    //             return $user->is_admin ? $pengajuan->user->name : '';
+    //         })
+    //         ->editColumn('status', function ($pengajuan) {
+    //             if ($pengajuan->status == 'pending') {
+    //                 return '<span class="badge bg-warning px-2 rounded-pill px-3 py-2">Pending <i class="fa-solid fa-spinner"></i></span>';
+    //             } elseif ($pengajuan->status == 'diterima') {
+    //                 return '<span class="badge bg-success text-white px-2 rounded-pill px-3 py-2">diterima <i class="fa-solid fa-check"></i></span>';
+    //             } elseif ($pengajuan->status == 'ditolak') {
+    //                 return '<span class="badge bg-danger text-white px-2 rounded-pill px-3 py-2">ditolak <i class="fa-solid fa-xmark"></i></span>';
+    //             }
+    //         })
+    //         ->addColumn('action', function ($pengajuan) use ($user) {
+
+    //             return '
+    //                 <a href="' . route('pengajuan.show', $pengajuan->id) . '" class="btn btn-sm btn-primary text-white px-3" ><i class="fa-solid fa-eye"></i></a>
+    //                 <a href="' . route('pengajuan.edit', $pengajuan->id) . '" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i></a>
+    //                 <form action="' . route('pengajuan.destroy', $pengajuan->id) . '" method="POST" style="display: inline">
+    //                     ' . csrf_field() . '
+    //                     ' . method_field('DELETE') . '
+    //                     <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i></button>
+    //                 </form>
+    //                 ';
+
+    //             return '
+    //             <a href="' . route('pengajuan.show', $pengajuan->id) . '" class="btn btn-sm btn-primary text-white px-3" ><i class="fa-solid fa-eye"></i></a>
+    //             ';
+    //         })
+    //         ->rawColumns(['action', 'tgl_awal', 'tgl_selesai', 'status', 'user_id'])
+    //         ->setRowId('DT_RowIndex');
+    // }
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $user = auth()->user();
+
+        // Kondisi untuk menentukan query berdasarkan tipe pengguna
         if ($user->is_admin) {
-            $query = Pengajuan::query();
+            $query = Pengajuan::query(); // Admin bisa melihat semua data
         } else if ($user->is_feb || $user->is_fst || $user->is_fikes || $user->is_rektorat) {
-            $query = Pengajuan::where('user_id', $user->id);
+            $query = Pengajuan::where('user_id', $user->id); // Pengguna biasa hanya bisa melihat pengajuan miliknya
         }
 
+        // Membuat objek EloquentDataTable
         return (new EloquentDataTable($query))
-            ->addIndexColumn()
-            ->addColumn('DT_RowIndex', '')
+            ->addIndexColumn() // Menambahkan kolom indeks
+            ->addColumn('DT_RowIndex', '') // Menambahkan kolom kosong untuk keperluan row index
             ->addColumn('tgl_awal', function ($pengajuan) {
                 Carbon::setLocale('id');
                 return Carbon::parse($pengajuan->tgl_awal)->translatedFormat('l, d F Y');
@@ -46,33 +100,35 @@ class PengajuanDataTable extends DataTable
                 return $user->is_admin ? $pengajuan->user->name : '';
             })
             ->editColumn('status', function ($pengajuan) {
+                // Menampilkan status pengajuan dengan badge yang berbeda
                 if ($pengajuan->status == 'pending') {
                     return '<span class="badge bg-warning px-2 rounded-pill px-3 py-2">Pending <i class="fa-solid fa-spinner"></i></span>';
                 } elseif ($pengajuan->status == 'diterima') {
-                    return '<span class="badge bg-success text-white px-2 rounded-pill px-3 py-2">diterima <i class="fa-solid fa-check"></i></span>';
+                    return '<span class="badge bg-success text-white px-2 rounded-pill px-3 py-2">Diterima <i class="fa-solid fa-check"></i></span>';
                 } elseif ($pengajuan->status == 'ditolak') {
-                    return '<span class="badge bg-danger text-white px-2 rounded-pill px-3 py-2">ditolak <i class="fa-solid fa-xmark"></i></span>';
+                    return '<span class="badge bg-danger text-white px-2 rounded-pill px-3 py-2">Ditolak <i class="fa-solid fa-xmark"></i></span>';
                 }
             })
             ->addColumn('action', function ($pengajuan) use ($user) {
+                // Kolom aksi yang bisa dilihat oleh admin dan pengguna yang berhak
+                $action = '<a href="' . route('pengajuan.show', $pengajuan->id) . '" class="btn btn-sm btn-primary text-white px-3"><i class="fa-solid fa-eye"></i></a>';
 
-                return '
-                    <a href="' . route('pengajuan.show', $pengajuan->id) . '" class="btn btn-sm btn-primary text-white px-3" ><i class="fa-solid fa-eye"></i></a>
-                    <a href="' . route('pengajuan.edit', $pengajuan->id) . '" class="btn btn-sm btn-warning text-white px-3" ><i class="fa-solid fa-pen-to-square"></i></a>
+                if ($user->is_admin) {
+                    $action .= '
+                    <a href="' . route('pengajuan.edit', $pengajuan->id) . '" class="btn btn-sm btn-warning text-white px-3"><i class="fa-solid fa-pen-to-square"></i></a>
                     <form action="' . route('pengajuan.destroy', $pengajuan->id) . '" method="POST" style="display: inline">
                         ' . csrf_field() . '
                         ' . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confrm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i></button>
-                    </form>
-                    ';
+                        <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confirm(\'Yakin ingin menghapus data ini?\')"><i class="fa-solid fa-trash-can"></i></button>
+                    </form>';
+                }
 
-                return '
-                <a href="' . route('pengajuan.show', $pengajuan->id) . '" class="btn btn-sm btn-primary text-white px-3" ><i class="fa-solid fa-eye"></i></a>
-                ';
+                return $action;
             })
-            ->rawColumns(['action', 'tgl_awal', 'tgl_selesai', 'status', 'user_id'])
-            ->setRowId('DT_RowIndex');
+            ->rawColumns(['action', 'tgl_awal', 'tgl_selesai', 'status', 'user_id']) // Menyertakan kolom dengan HTML dalam hasil
+            ->setRowId('DT_RowIndex'); // Mengatur ID untuk setiap baris
     }
+
 
     /**
      * Get the query source of dataTable.

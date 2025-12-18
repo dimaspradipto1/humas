@@ -12,28 +12,6 @@ class KotakMasukPengajuanController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-    // public function index(KotakMasukPengajuanDataTable $dataTable)
-    // {
-    //     // Hitung jumlah pengajuan dengan status 'pending'
-    //     $pendingPengajuan = Pengajuan::where('status', 'pending')->count();
-
-    //     // Hitung jumlah pengajuan dengan status 'ditolak'
-    //     $ditolakPengajuan = Pengajuan::where('status', 'ditolak')->count();
-
-    //     // Jika user adalah admin, simpan notifikasi di session
-    //     if (auth()->user()->is_admin) {
-    //         // Total notifikasi untuk admin (jumlah pengajuan pending + ditolak)
-    //         $totalNotifikasi = $pendingPengajuan;
-
-    //         // Simpan total notifikasi admin di session
-    //         session(['notifikasi_pengajuan_admin' => $totalNotifikasi]);
-    //     }
-
-
-    //     // Kirimkan jumlah pengajuan yang 'pending' dan 'ditolak' ke view
-    //     return $dataTable->render('pages.kotakMasukPengajuan.index', compact('pendingPengajuan', 'ditolakPengajuan'));
-    // }
     public function index(KotakMasukPengajuanDataTable $dataTable)
     {
         // Hitung jumlah pengajuan dengan status 'pending'
@@ -42,20 +20,23 @@ class KotakMasukPengajuanController extends Controller
         // Hitung jumlah pengajuan dengan status 'ditolak'
         $ditolakPengajuan = Pengajuan::where('status', 'ditolak')->count();
 
-        // Jika user adalah admin, simpan notifikasi di session
+        // Hitung jumlah pengajuan dengan status 'diterima'
+        $diterimaPengajuan = Pengajuan::where('status', 'diterima')->count();
+
+        // Jika user adalah admin, simpan notifikasi di session hanya jika ada pengajuan pending
         if (auth()->user()->is_admin) {
             // Total notifikasi untuk admin (jumlah pengajuan pending)
-            $totalNotifikasi = $pendingPengajuan;
-
-            // Simpan total notifikasi admin di session
-            session(['notifikasi_pengajuan_admin' => $totalNotifikasi]);
+            if ($pendingPengajuan > 0) {
+                session(['notifikasi_pengajuan_admin' => $pendingPengajuan]);
+            } else {
+                // Hapus session jika tidak ada pengajuan pending
+                session()->forget('notifikasi_pengajuan_admin');
+            }
         }
 
-        // Kirimkan jumlah pengajuan yang 'pending' dan 'ditolak' ke view
-        return $dataTable->render('pages.kotakMasukPengajuan.index', compact('pendingPengajuan', 'ditolakPengajuan'));
+        // Kirimkan jumlah pengajuan yang 'pending', 'ditolak', dan 'diterima' ke view
+        return $dataTable->render('pages.kotakMasukPengajuan.index', compact('pendingPengajuan', 'ditolakPengajuan', 'diterimaPengajuan'));
     }
-
-
 
     /**
      * Show the form for creating a new resource.

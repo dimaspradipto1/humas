@@ -54,12 +54,10 @@
                                         <label for="nama_mahasiswa" class="text-capitalize">nama kegiatan</label>
                                         <select name="nama_kegiatan" id="nama_kegiatan" class="form-select single">
                                             <option>Pilih Nama Kegiatan</option>
-                                            <option>====================================================</option>
                                             <option value="Desain">Desain</option>
                                             <option value="Dokumentasi">Dokumentasi</option>
                                             <option value="Publikasi">Publikasi</option>
                                             <option value="Tamu Undangan">Tamu Undangan</option>
-                                            <option>====================================================</option>
                                             </select>
                                         {{-- <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" rows="3">{{ old('nama_kegiatan') }}</textarea> --}}
                                         {{-- <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
@@ -113,12 +111,10 @@
                                         <label for="unit_kegiatan" class="text-capitalize">unit kegiatan</label>
                                         <select name="unit_kegiatan" id="unit_kegiatan" class="form-select single">
                                             <option>Pilih Unit Kegiatan</option>
-                                            <option>==========================</option>
                                             @foreach ($unitKegiatan as $unit)      
                                                 <option value="{{ $unit->unit_kegiatan }}"
                                                     {{ request('unit_kegiatan') == $unit->unit_kegiatan ? 'selected' : '' }}>{{ $unit->unit_kegiatan }}</option>
                                             @endforeach
-                                            <option>==========================</option>
                                         </select>
                                     </div>
 

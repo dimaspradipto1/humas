@@ -22,97 +22,253 @@ class PengajuanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(PengajuanDataTable $dataTable)
-    {
-        $user = auth()->user();
+    // public function index(PengajuanDataTable $dataTable)
+    // {
+    //     $user = auth()->user();
 
-        // Inisialisasi semua variabel dengan 0
-        $pendingPengajuanFEB = 0;
-        $pendingPengajuanFIKES = 0;
-        $pendingPengajuanFST = 0;
-        $pendingPengajuanRektorat = 0;
-        $diterimaPengajuanFEB = 0;
-        $diterimaPengajuanFIKES = 0;
-        $diterimaPengajuanFST = 0;
-        $diterimaPengajuanRektorat = 0;
-        $ditolakPengajuanFEB = 0;
-        $ditolakPengajuanFIKES = 0;
-        $ditolakPengajuanFST = 0;
-        $ditolakPengajuanRektorat = 0;
+    //     // Inisialisasi semua variabel dengan 0
+    //     $pendingPengajuanFEB = 0;
+    //     $pendingPengajuanFIKES = 0;
+    //     $pendingPengajuanFST = 0;
+    //     $pendingPengajuanRektorat = 0;
+    //     $diterimaPengajuanFEB = 0;
+    //     $diterimaPengajuanFIKES = 0;
+    //     $diterimaPengajuanFST = 0;
+    //     $diterimaPengajuanRektorat = 0;
+    //     $ditolakPengajuanFEB = 0;
+    //     $ditolakPengajuanFIKES = 0;
+    //     $ditolakPengajuanFST = 0;
+    //     $ditolakPengajuanRektorat = 0;
 
-        // Cek fakultas user dan hitung pengajuan
-        if ($user->is_feb) {
-            $pendingPengajuanFEB = Pengajuan::where('status', 'pending')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_feb', true);
-                })->count();
+    //     // Cek fakultas user dan hitung pengajuan
+    //     if ($user->is_feb) {
+    //         $pendingPengajuanFEB = Pengajuan::where('status', 'pending')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_feb', true);
+    //             })->count();
 
-            $ditolakPengajuanFEB = Pengajuan::where('status', 'ditolak')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_feb', true);
-                })->count();
-            $diterimaPengajuanFEB = Pengajuan::where('status', 'diterima')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_feb', true);
-                })->count();
-        } elseif ($user->is_fikes) {
-            $pendingPengajuanFIKES = Pengajuan::where('status', 'pending')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_fikes', true);
-                })->count();
+    //         $ditolakPengajuanFEB = Pengajuan::where('status', 'ditolak')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_feb', true);
+    //             })->count();
+    //         $diterimaPengajuanFEB = Pengajuan::where('status', 'diterima')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_feb', true);
+    //             })->count();
+    //     } elseif ($user->is_fikes) {
+    //         $pendingPengajuanFIKES = Pengajuan::where('status', 'pending')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_fikes', true);
+    //             })->count();
 
-            $ditolakPengajuanFIKES = Pengajuan::where('status', 'ditolak')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_fikes', true);
-                })->count();
-            $diterimaPengajuanFIKES = Pengajuan::where('status', 'diterima')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_fikes', true);
-                })->count();
-        } elseif ($user->is_fst) {
-            $pendingPengajuanFST = Pengajuan::where('status', 'pending')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_fst', true);
-                })->count();
-            $ditolakPengajuanFST = Pengajuan::where('status', 'ditolak')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_fst', true);
-                })->count();
-            $diterimaPengajuanFST = Pengajuan::where('status', 'diterima')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_fst', true);
-                })->count();
-        } elseif ($user->is_rektorat) {
-            $pendingPengajuanRektorat = Pengajuan::where('status', 'pending')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_rektorat', true);
-                })->count();
+    //         $ditolakPengajuanFIKES = Pengajuan::where('status', 'ditolak')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_fikes', true);
+    //             })->count();
+    //         $diterimaPengajuanFIKES = Pengajuan::where('status', 'diterima')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_fikes', true);
+    //             })->count();
+    //     } elseif ($user->is_fst) {
+    //         $pendingPengajuanFST = Pengajuan::where('status', 'pending')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_fst', true);
+    //             })->count();
+    //         $ditolakPengajuanFST = Pengajuan::where('status', 'ditolak')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_fst', true);
+    //             })->count();
+    //         $diterimaPengajuanFST = Pengajuan::where('status', 'diterima')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_fst', true);
+    //             })->count();
+    //     } elseif ($user->is_rektorat) {
+    //         $pendingPengajuanRektorat = Pengajuan::where('status', 'pending')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_rektorat', true);
+    //             })->count();
 
-            $ditolakPengajuanRektorat = Pengajuan::where('status', 'ditolak')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_rektorat', true);
-                })->count();
-            $diterimaPengajuanRektorat = Pengajuan::where('status', 'diterima')
-                ->whereHas('user', function ($query) {
-                    $query->where('is_rektorat', true);
-                })->count();
-        }
-        // Kirim data ke view
-        return $dataTable->render('pages.pengajuan.index', compact(
-            'pendingPengajuanFEB',
-            'ditolakPengajuanFEB',
-            'diterimaPengajuanFEB',
-            'pendingPengajuanFIKES',
-            'ditolakPengajuanFIKES',
-            'diterimaPengajuanFIKES',
-            'pendingPengajuanFST',
-            'ditolakPengajuanFST',
-            'diterimaPengajuanFST',
-            'pendingPengajuanRektorat',
-            'ditolakPengajuanRektorat',
-            'diterimaPengajuanRektorat'
-        ));
+    //         $ditolakPengajuanRektorat = Pengajuan::where('status', 'ditolak')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_rektorat', true);
+    //             })->count();
+    //         $diterimaPengajuanRektorat = Pengajuan::where('status', 'diterima')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_rektorat', true);
+    //             })->count();
+    //     }
+    //     // Kirim data ke view
+    //     return $dataTable->render('pages.pengajuan.index', compact(
+    //         'pendingPengajuanFEB',
+    //         'ditolakPengajuanFEB',
+    //         'diterimaPengajuanFEB',
+    //         'pendingPengajuanFIKES',
+    //         'ditolakPengajuanFIKES',
+    //         'diterimaPengajuanFIKES',
+    //         'pendingPengajuanFST',
+    //         'ditolakPengajuanFST',
+    //         'diterimaPengajuanFST',
+    //         'pendingPengajuanRektorat',
+    //         'ditolakPengajuanRektorat',
+    //         'diterimaPengajuanRektorat'
+    //     ));
+    // }
+    // public function index(PengajuanDataTable $dataTable)
+    // {
+    //     $user = auth()->user();
+
+    //     // Inisialisasi variabel untuk menyimpan jumlah pengajuan berdasarkan status
+    //     $pendingPengajuanFST = $pendingPengajuanFEB = $pendingPengajuanFIKES = $pendingPengajuanRektorat = 0;
+    //     $diterimaPengajuanFST = $diterimaPengajuanFEB = $diterimaPengajuanFIKES = $diterimaPengajuanRektorat = 0;
+    //     $ditolakPengajuanFST = $ditolakPengajuanFEB = $ditolakPengajuanFIKES = $ditolakPengajuanRektorat = 0;
+
+    //     // Hitung jumlah pengajuan berdasarkan status dan fakultas pengguna
+    //     if ($user->is_feb) {
+    //         $pendingPengajuanFEB = Pengajuan::where('status', 'pending')->whereHas('user', fn($query) => $query->where('is_feb', true))->count();
+    //         $ditolakPengajuanFEB = Pengajuan::where('status', 'ditolak')->whereHas('user', fn($query) => $query->where('is_feb', true))->count();
+    //         $diterimaPengajuanFEB = Pengajuan::where('status', 'diterima')->whereHas('user', fn($query) => $query->where('is_feb', true))->count();
+    //     }
+    //     if ($user->is_fikes) {
+    //         $pendingPengajuanFIKES = Pengajuan::where('status', 'pending')->whereHas('user', fn($query) => $query->where('is_fikes', true))->count();
+    //         $ditolakPengajuanFIKES = Pengajuan::where('status', 'ditolak')->whereHas('user', fn($query) => $query->where('is_fikes', true))->count();
+    //         $diterimaPengajuanFIKES = Pengajuan::where('status', 'diterima')->whereHas('user', fn($query) => $query->where('is_fikes', true))->count();
+    //     }
+    //     if ($user->is_fst) {
+    //         $pendingPengajuanFST = Pengajuan::where('status', 'pending')->whereHas('user', fn($query) => $query->where('is_fst', true))->count();
+    //         $ditolakPengajuanFST = Pengajuan::where('status', 'ditolak')->whereHas('user', fn($query) => $query->where('is_fst', true))->count();
+    //         $diterimaPengajuanFST = Pengajuan::where('status', 'diterima')->whereHas('user', fn($query) => $query->where('is_fst', true))->count();
+    //     }
+    //     if ($user->is_rektorat) {
+    //         $pendingPengajuanRektorat = Pengajuan::where('status', 'pending')->whereHas('user', fn($query) => $query->where('is_rektorat', true))->count();
+    //         $ditolakPengajuanRektorat = Pengajuan::where('status', 'ditolak')->whereHas('user', fn($query) => $query->where('is_rektorat', true))->count();
+    //         $diterimaPengajuanRektorat = Pengajuan::where('status', 'diterima')->whereHas('user', fn($query) => $query->where('is_rektorat', true))->count();
+    //     }
+
+    //     // Simpan notifikasi berdasarkan status pengajuan ke dalam session
+    //     if ($user->is_feb) {
+    //         session(['notifikasi_pengajuan_feb' => $pendingPengajuanFEB]);
+    //         session(['notifikasi_pengajuan_feb_diterima' => $diterimaPengajuanFEB]);
+    //         session(['notifikasi_pengajuan_feb_ditolak' => $ditolakPengajuanFEB]);
+    //     }
+    //     if ($user->is_fikes) {
+    //         session(['notifikasi_pengajuan_fikes' => $pendingPengajuanFIKES]);
+    //         session(['notifikasi_pengajuan_fikes_diterima' => $diterimaPengajuanFIKES]);
+    //         session(['notifikasi_pengajuan_fikes_ditolak' => $ditolakPengajuanFIKES]);
+    //     }
+    //     if ($user->is_fst) {
+    //         session(['notifikasi_pengajuan_fst' => $pendingPengajuanFST]);
+    //         session(['notifikasi_pengajuan_fst_diterima' => $diterimaPengajuanFST]);
+    //         session(['notifikasi_pengajuan_fst_ditolak' => $ditolakPengajuanFST]);
+    //     }
+    //     if ($user->is_rektorat) {
+    //         session(['notifikasi_pengajuan_rektorat' => $pendingPengajuanRektorat]);
+    //         session(['notifikasi_pengajuan_rektorat_diterima' => $diterimaPengajuanRektorat]);
+    //         session(['notifikasi_pengajuan_rektorat_ditolak' => $ditolakPengajuanRektorat]);
+    //     }
+
+    //     // Kirim data ke tampilan
+    //     return $dataTable->render('pages.pengajuan.index', compact(
+    //         'pendingPengajuanFEB',
+    //         'ditolakPengajuanFEB',
+    //         'diterimaPengajuanFEB',
+    //         'pendingPengajuanFIKES',
+    //         'ditolakPengajuanFIKES',
+    //         'diterimaPengajuanFIKES',
+    //         'pendingPengajuanFST',
+    //         'ditolakPengajuanFST',
+    //         'diterimaPengajuanFST',
+    //         'pendingPengajuanRektorat',
+    //         'ditolakPengajuanRektorat',
+    //         'diterimaPengajuanRektorat'
+    //     ));
+    // }
+
+   public function index(PengajuanDataTable $dataTable)
+{
+    $user = auth()->user();
+
+    // Inisialisasi variabel untuk menyimpan jumlah pengajuan berdasarkan status dan fakultas pengguna
+    $pendingPengajuanFST = $pendingPengajuanFEB = $pendingPengajuanFIKES = $pendingPengajuanRektorat = 0;
+    $diterimaPengajuanFST = $diterimaPengajuanFEB = $diterimaPengajuanFIKES = $diterimaPengajuanRektorat = 0;
+    $ditolakPengajuanFST = $ditolakPengajuanFEB = $ditolakPengajuanFIKES = $ditolakPengajuanRektorat = 0;
+
+    // Hitung jumlah pengajuan berdasarkan status dan fakultas pengguna
+    if ($user->is_feb) {
+        $pendingPengajuanFEB = Pengajuan::where('status', 'pending')->whereHas('user', fn($query) => $query->where('is_feb', true))->count();
+        $ditolakPengajuanFEB = Pengajuan::where('status', 'ditolak')->whereHas('user', fn($query) => $query->where('is_feb', true))->count();
+        $diterimaPengajuanFEB = Pengajuan::where('status', 'diterima')->whereHas('user', fn($query) => $query->where('is_feb', true))->count();
     }
+    if ($user->is_fikes) {
+        $pendingPengajuanFIKES = Pengajuan::where('status', 'pending')->whereHas('user', fn($query) => $query->where('is_fikes', true))->count();
+        $ditolakPengajuanFIKES = Pengajuan::where('status', 'ditolak')->whereHas('user', fn($query) => $query->where('is_fikes', true))->count();
+        $diterimaPengajuanFIKES = Pengajuan::where('status', 'diterima')->whereHas('user', fn($query) => $query->where('is_fikes', true))->count();
+    }
+    if ($user->is_fst) {
+        $pendingPengajuanFST = Pengajuan::where('status', 'pending')->whereHas('user', fn($query) => $query->where('is_fst', true))->count();
+        $ditolakPengajuanFST = Pengajuan::where('status', 'ditolak')->whereHas('user', fn($query) => $query->where('is_fst', true))->count();
+        $diterimaPengajuanFST = Pengajuan::where('status', 'diterima')->whereHas('user', fn($query) => $query->where('is_fst', true))->count();
+    }
+    if ($user->is_rektorat) {
+        $pendingPengajuanRektorat = Pengajuan::where('status', 'pending')->whereHas('user', fn($query) => $query->where('is_rektorat', true))->count();
+        $ditolakPengajuanRektorat = Pengajuan::where('status', 'ditolak')->whereHas('user', fn($query) => $query->where('is_rektorat', true))->count();
+        $diterimaPengajuanRektorat = Pengajuan::where('status', 'diterima')->whereHas('user', fn($query) => $query->where('is_rektorat', true))->count();
+    }
+
+    // Menghapus semua session notifikasi yang lama (reset session)
+    session()->forget('notifikasi_pengajuan_pending');
+    session()->forget('notifikasi_pengajuan_ditolak');
+    session()->forget('notifikasi_pengajuan_diterima');
+    session()->forget('notifikasi_pengajuan_feb');
+    session()->forget('notifikasi_pengajuan_feb_diterima');
+    session()->forget('notifikasi_pengajuan_feb_ditolak');
+    session()->forget('notifikasi_pengajuan_fikes');
+    session()->forget('notifikasi_pengajuan_fikes_diterima');
+    session()->forget('notifikasi_pengajuan_fikes_ditolak');
+    session()->forget('notifikasi_pengajuan_fst');
+    session()->forget('notifikasi_pengajuan_fst_diterima');
+    session()->forget('notifikasi_pengajuan_fst_ditolak');
+    session()->forget('notifikasi_pengajuan_rektorat');
+    session()->forget('notifikasi_pengajuan_rektorat_diterima');
+    session()->forget('notifikasi_pengajuan_rektorat_ditolak');
+
+    // Simpan data pengajuan di session untuk admin
+    if ($user->is_admin) {
+        // Admin melihat semua pengajuan, tidak terbatas pada fakultas tertentu
+        $pendingPengajuan = Pengajuan::where('status', 'pending')->count();
+        $ditolakPengajuan = Pengajuan::where('status', 'ditolak')->count();
+        $diterimaPengajuan = Pengajuan::where('status', 'diterima')->count();
+
+        // Simpan semua pengajuan di session untuk admin
+        session([
+            'notifikasi_pengajuan_pending' => $pendingPengajuan,
+            'notifikasi_pengajuan_ditolak' => $ditolakPengajuan,
+            'notifikasi_pengajuan_diterima' => $diterimaPengajuan
+        ]);
+    }
+
+    // Simpan data pengajuan di session untuk fakultas tertentu
+    session([
+        'notifikasi_pengajuan_feb' => $pendingPengajuanFEB,
+        'notifikasi_pengajuan_feb_diterima' => $diterimaPengajuanFEB,
+        'notifikasi_pengajuan_feb_ditolak' => $ditolakPengajuanFEB,
+        'notifikasi_pengajuan_fikes' => $pendingPengajuanFIKES,
+        'notifikasi_pengajuan_fikes_diterima' => $diterimaPengajuanFIKES,
+        'notifikasi_pengajuan_fikes_ditolak' => $ditolakPengajuanFIKES,
+        'notifikasi_pengajuan_fst' => $pendingPengajuanFST,
+        'notifikasi_pengajuan_fst_diterima' => $diterimaPengajuanFST,
+        'notifikasi_pengajuan_fst_ditolak' => $ditolakPengajuanFST,
+        'notifikasi_pengajuan_rektorat' => $pendingPengajuanRektorat,
+        'notifikasi_pengajuan_rektorat_diterima' => $diterimaPengajuanRektorat,
+        'notifikasi_pengajuan_rektorat_ditolak' => $ditolakPengajuanRektorat
+    ]);
+
+    return $dataTable->render('pages.pengajuan.index');
+}
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.

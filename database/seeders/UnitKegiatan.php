@@ -29,6 +29,11 @@ class UnitKegiatan extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'unit_kegiatan' => 'Rektorat',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         foreach ($unitKegiatan as $unitKegiatan) {

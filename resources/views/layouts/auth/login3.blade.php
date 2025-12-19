@@ -16,12 +16,8 @@
         type="text/css" />
     <link rel="icon" type="img/png" href="https://assets.siakadcloud.com/public/uis-favicon.png" sizes="16x16" />
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://assets.siakadcloud.com/assets/v1/js/external/html5shiv.js"></script>
-    <script src="https://assets.siakadcloud.com/assets/v1/js/external/respond.min.js"></script>
-    <![endif]-->
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style type="text/css">
         .login-page .form-box .univ-identity-box {
@@ -35,11 +31,10 @@
             }
         }
     </style>
-    <style type="text/css">
+
+    <style data-aos="zoom-in" type="text/css">
         html,
         body {
-            /* background: #f2f2f2 url('{{ asset('volt/assets/img/humas2.jpg') }}') no-repeat center center fixed;
-            background-size: cover; */
             background: #f2f2f2 url('https://assets.siakadcloud.com/assets/v1/img/pattern/pat_04.png') repeat;
         }
 
@@ -140,8 +135,6 @@
             justify-content: center;
         }
     </style>
-    <style type="text/css">
-    </style>
 </head>
 
 <body class="login-page">
@@ -156,60 +149,65 @@
                         <h3 class="no-margin"><b>Universitas Ibnu Sina</b></h3>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 form-login" align="center">
+                <div data-aos="fade-left" data-aos-duration="1000" class="col-lg-5 col-md-6 col-sm-6 col-xs-12 form-login" align="center">
                     <img src="https://assets.siakadcloud.com/uploads/uis/logoaplikasi/156.jpg" class="logo"
                         style="margin-bottom: 30px;">
                     <b>
-                        <span class="text-center text-uppercase" style="font-size:20px; font-weight: 600; display: block">masuk</span>
+                        <span class="text-center text-uppercase"
+                            style="font-size:20px; font-weight: 600; display: block">masuk</span>
                     </b>
                     <p style="margin-bottom: 15px;">
                         Nikmati kemudahan mengakses semua layanan Humas dan Publikasi Universitas
                         Ibnu Sina.
                     </p>
                     <form action="{{ route('loginproses') }}" method="POST">
-              @csrf
+                        @csrf
 
-              <div class="alert alert-danger alert-dismissable temp-error-xhr" style="display:none;">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span id="error-msg"></span>
-              </div>
+                        <div class="alert alert-danger alert-dismissable temp-error-xhr" style="display:none;">
+                            <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">&times;</button>
+                            <span id="error-msg"></span>
+                        </div>
 
-              <div class="login">
-                {{--  <a href="#" class="btn btn-default btn-block" style="font-weight: 600;">
+                        <div class="login">
+                            {{--  <a href="#" class="btn btn-default btn-block" style="font-weight: 600;">
                   <img src="https://quantum.sevima.com/assets/images/logo-google.svg" alt=""> Masuk dengan
                   Google
                 </a>  --}}
-                
-                <div class="title-login-email">
-                  <span class="title-line"></span>
-                  {{--  <p class="title-text">atau lanjutkan dengan</p>  --}}
-                </div>
 
-                <div class="form-group" style="text-align: left">
-                  <span><strong>Email</strong></span><span style="color:red">*</span>
+                            <div class="title-login-email">
+                                <span class="title-line"></span>
+                                {{--  <p class="title-text">atau lanjutkan dengan</p>  --}}
+                            </div>
 
-                  <input type="text" name="login" value="{{ old('login') }}" id="email" class="form-control input-line"
-                    placeholder="Masukkan email yang terdaftar" required="true" autocomplete="off" />
-                </div>
+                            <div class="form-group" style="text-align: left">
+                                <span><strong>Email</strong></span><span style="color:red">*</span>
 
-                <div class="form-group" style="text-align: left; margin-bottom: -5px;">
-                  <span><strong>Password</strong></span><span style="color:red">*</span>
-                  <div class="password">
+                                <input type="text" name="login" value="{{ old('login') }}" id="email"
+                                    class="form-control input-line" placeholder="Masukkan email yang terdaftar"
+                                    required="true" autocomplete="off" />
+                            </div>
 
-                    <input type="password" id="password" name="password" class="form-control input-line"
-                      placeholder="Masukkan password" required="true" autocomplete="off" />
-                    <span id="iconshow" name="iconshow" onClick="showPass()" class=" showbtn fa fa-eye-slash"></span>
-                  </div>
-                </div>
+                            <div class="form-group" style="text-align: left; margin-bottom: -5px;">
+                                <span><strong>Password</strong></span><span style="color:red">*</span>
+                                <div class="password">
 
-                {{--  <a style="font-size: 13px; padding: 0px 0px 25px 0px;text-decoration-line: underline;font-weight: 600;"
+                                    <input type="password" id="password" name="password"
+                                        class="form-control input-line" placeholder="Masukkan password" required="true"
+                                        autocomplete="off" />
+                                    <span id="iconshow" name="iconshow" onClick="showPass()"
+                                        class=" showbtn fa fa-eye-slash"></span>
+                                </div>
+                            </div>
+
+                            {{--  <a style="font-size: 13px; padding: 0px 0px 25px 0px;text-decoration-line: underline;font-weight: 600;"
                   href="{{ route('forgotpassword') }}" class="text-center pull-right">Lupa kata sandi?</a>  --}}
-                <div class="form-group" style="margin-top: 20pt;" align="center">
-                  <button type="submit" data-type="login"
-                    class="btn btn-flat btn-primary btn-block btn-login">Masuk</button>
-                </div>
+                            <div class="form-group" style="margin-top: 20pt;" align="center">
+                                <button type="submit" data-type="login"
+                                    class="btn btn-flat btn-primary btn-block btn-login">Masuk</button>
+                            </div>
 
-            </form>
+                    </form>
                 </div>
                 <input type="hidden" name="__token" value="ODk2MzVlMTdlZDBjY2NiNGYzZTU2OWUzZjE5Yjg2Yjk=">
                 <input type="hidden" name="_token" id="token">
@@ -305,6 +303,10 @@
                 detail?.flush();
             })
         });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
     </script>
 
 </body>

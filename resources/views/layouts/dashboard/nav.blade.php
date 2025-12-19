@@ -39,312 +39,6 @@
                             <a href="#"
                                 class="text-center text-primary fw-bold border-bottom border-light py-3">Notifications</a>
 
-                            @if ($notifikasiPengajuan['pending'] ?? 0 > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small class="text-warning">{{ $notifikasiPengajuan['pending'] }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                            <p>Nama kegiatan:
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if ($notifikasiPengajuan['ditolak'] ?? 0 > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'ditolak']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Ditolak</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small class="text-danger">{{ $notifikasiPengajuan['ditolak'] }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                            <p>Nama kegiatan:
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if ($notifikasiPengajuan['diterima'] ?? 0 > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'diterima']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Diterima</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small class="text-success">{{ $notifikasiPengajuan['diterima'] }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                            <p>Nama kegiatan:
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            <a href="{{ route('pengajuan.index') }}"
-                                class="dropdown-item text-center fw-bold rounded-bottom py-3">
-                                <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                                    <path fill-rule="evenodd"
-                                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                View all
-                            </a>
-                        </div>
-                    </div>
-                </li> --}}
-
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link text-dark notification-bell {{ $hasNotifications ? 'unread' : '' }} dropdown-toggle"
-                        data-unread-notifications="{{ $hasNotifications ? 'true' : 'false' }}" href="#"
-                        role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                        <svg class="icon icon-sm text-gray-900" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                            </path>
-                        </svg>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-center mt-2 py-0">
-                        <div class="list-group list-group-flush">
-                            <a href="#"
-                                class="text-center text-primary fw-bold border-bottom border-light py-3">Notifications</a>
-
-                            @if (session('notifikasi_pengajuan_feb') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending FEB</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_feb') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if (session('notifikasi_pengajuan_feb_diterima') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'diterima']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Diterima FEB</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-success">{{ session('notifikasi_pengajuan_feb_diterima') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if (session('notifikasi_pengajuan_feb_ditolak') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'ditolak']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Ditolak FEB</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-danger">{{ session('notifikasi_pengajuan_feb_ditolak') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            <!-- Repeat similar sections for other faculties like FIKES, FST, Rektorat -->
-                            <!-- Example for FIKES: -->
-                            @if (session('notifikasi_pengajuan_fikes') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending FIKES</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_fikes') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-                            @if (session('notifikasi_pengajuan_fikes_diterima') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'diterima']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Diterima FIKES</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_fikes') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-                            @if (session('notifikasi_pengajuan_fikes_ditolak') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'ditolak']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Ditolak FIKES</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_fikes') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-                             <!-- Example for FST: -->
-                             @if (session('notifikasi_pengajuan_fst') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending FST</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_fst') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if (session('notifikasi_pengajuan_fst_ditolak') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'ditolak']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Ditolak FST</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_fst') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if (session('notifikasi_pengajuan_fst_ditolak') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'ditolak']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Ditolak FST</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_fst') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            <!-- Link for viewing all -->
-                            <a href="{{ route('pengajuan.index') }}"
-                                class="dropdown-item text-center fw-bold rounded-bottom py-3">
-                                <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                                    <path fill-rule="evenodd"
-                                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                View all
-                            </a>
-                        </div>
-                    </div>
-                </li> --}}
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link text-dark notification-bell {{ $hasNotifications ? 'unread' : '' }} dropdown-toggle"
-                        data-unread-notifications="{{ $hasNotifications ? 'true' : 'false' }}" href="#"
-                        role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                        <svg class="icon icon-sm text-gray-900" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                            </path>
-                        </svg>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-center mt-2 py-0">
-                        <div class="list-group list-group-flush">
-                            <a href="#"
-                                class="text-center text-primary fw-bold border-bottom border-light py-3">Notifications</a>
-
                             <!-- Admin Notifications -->
                             @if (session('notifikasi_pengajuan_pending') > 0)
                                 <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
@@ -505,9 +199,186 @@
                             </a>
                         </div>
                     </div>
+                </li> --}}
+
+                @php
+                    $notif = session('pengajuan_notif', []);
+                    $user = auth()->user();
+
+                    // Scope mengikuti role yang login
+                    $scope = null;
+
+                    if (!empty($user->is_admin)) {
+                        $scope = 'admin';
+                    } elseif (!empty($user->is_feb)) {
+                        $scope = 'feb';
+                    } elseif (!empty($user->is_fst)) {
+                        $scope = 'fst';
+                    } elseif (!empty($user->is_fikes)) {
+                        $scope = 'fikes';
+                    } elseif (!empty($user->is_rektorat)) {
+                        $scope = 'rektorat';
+                    }
+
+                    $pending = $scope ? data_get($notif, "$scope.pending", 0) : 0;
+                    $diterima = $scope ? data_get($notif, "$scope.diterima", 0) : 0;
+                    $ditolak = $scope ? data_get($notif, "$scope.ditolak", 0) : 0;
+
+                    $totalNotif = $pending + $diterima + $ditolak;
+                    $hasNotifications = $totalNotif > 0;
+
+                    // Label judul sesuai scope
+                    $scopeLabel = match ($scope) {
+                        'admin' => 'All Faculties',
+                        'feb' => 'FEB',
+                        'fst' => 'FST',
+                        'fikes' => 'FIKES',
+                        'rektorat' => 'Rektorat',
+                        default => '',
+                    };
+                @endphp
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-dark notification-bell {{ $hasNotifications ? 'unread' : '' }} dropdown-toggle"
+                        data-unread-notifications="{{ $hasNotifications ? 'true' : 'false' }}" href="#"
+                        role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"
+                        style="position: relative;">
+                        <svg class="icon icon-sm text-gray-900" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
+                            </path>
+                        </svg>
+
+                        {{-- Badge total kecil di icon bell (opsional tapi keren) --}}
+                        @if ($totalNotif > 0)
+                            <span class="bell-badge">{{ $totalNotif }}</span>
+                        @endif
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-center mt-2 py-0">
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="text-center text-primary fw-bold border-bottom border-light py-3">
+                                Notifications
+                            </a>
+
+                            {{-- PENDING --}}
+                            @if ($pending > 0)
+                                <a href="{{ route('kotak-masuk-pengajuan.index', ['status' => 'pending']) }}"
+                                    class="list-group-item list-group-item-action border-bottom">
+                                    <div class="row align-items-center">
+                                        <div class="col ps-0 ms-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h4 class="h6 mb-0 text-small">
+                                                        Pengajuan Pending {{ $scopeLabel }}
+                                                    </h4>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-warning">{{ $pending }} Pengajuan</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endif
+
+                            {{-- DITERIMA --}}
+                            @if ($diterima > 0)
+                                <a href="{{ route('kotak-masuk-pengajuan.index', ['status' => 'diterima']) }}"
+                                    class="list-group-item list-group-item-action border-bottom">
+                                    <div class="row align-items-center">
+                                        <div class="col ps-0 ms-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h4 class="h6 mb-0 text-small">
+                                                        Pengajuan Diterima {{ $scopeLabel }}
+                                                    </h4>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-success">{{ $diterima }} Pengajuan</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endif
+
+                            {{-- DITOLAK --}}
+                            @if ($ditolak > 0)
+                                <a href="{{ route('kotak-masuk-pengajuan.index', ['status' => 'ditolak']) }}"
+                                    class="list-group-item list-group-item-action border-bottom">
+                                    <div class="row align-items-center">
+                                        <div class="col ps-0 ms-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h4 class="h6 mb-0 text-small">
+                                                        Pengajuan Ditolak {{ $scopeLabel }}
+                                                    </h4>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-danger">{{ $ditolak }} Pengajuan</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endif
+
+                            {{-- Jika tidak ada notif --}}
+                            @if (!$hasNotifications)
+                                <div class="list-group-item border-bottom">
+                                    <div class="text-center text-muted py-3">
+                                        Tidak ada notifikasi terbaru
+                                    </div>
+                                </div>
+                            @endif
+
+                            <a href="{{ route('pengajuan.index') }}"
+                                class="dropdown-item text-center fw-bold rounded-bottom py-3">
+                                <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd"
+                                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                View all
+                            </a>
+                        </div>
+                    </div>
                 </li>
 
+                <style>
+                    /* badge kecil di bell */
+                    .bell-badge {
+                        position: absolute;
+                        top: -30px;
+                        right: -10px;
 
+                        min-width: 18px;
+                        height: 18px;
+                        padding: 0 5px;
+
+                        background-color: #f0ad4e;
+                        /* warning */
+                        color: #fff;
+
+                        border-radius: 999px;
+                        font-size: 11px;
+                        font-weight: 700;
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        line-height: 1;
+                        z-index: 20;
+
+                        /* opsional biar ada efek “nempel” */
+                        box-shadow: 0 0 0 2px #fff;
+                    }
+                </style>
 
                 {{--  dropdown user  --}}
                 <li class="nav-item dropdown ms-lg-3">

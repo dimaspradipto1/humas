@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\Checkrole;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Middleware\NotifikasiPengajuanMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -38,6 +39,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\SharePengajuanNotif::class,
+            \App\Http\Middleware\NotifikasiPengajuanMiddleware::class,
         ],
 
         'api' => [
@@ -67,5 +69,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkrole' => Checkrole::class,
+        'notifikasi-pengajuan' => NotifikasiPengajuanMiddleware::class,
     ];
 }

@@ -123,7 +123,7 @@
                     </div>
                     <h2 class="h5 my-4">Location</h2>
                     <div class="row">
-                        <div class="col-sm-6 mb-3">
+                        <div class="col-sm-12 mb-3">
                             <div class="form-group">
                                 <label for="address">Address</label>
                                 <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="3">{{ old('alamat') ?? $pegawai->alamat }}</textarea>

@@ -57,11 +57,8 @@
                                             <option value="Desain">Desain</option>
                                             <option value="Dokumentasi">Dokumentasi</option>
                                             <option value="Publikasi">Publikasi</option>
-                                            <option value="Tamu Undangan">Tamu Undangan</option>
-                                            </select>
-                                        {{-- <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" rows="3">{{ old('nama_kegiatan') }}</textarea> --}}
-                                        {{-- <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
-                                            class="form-control" id="nama_kegiatan"> --}}
+                                            <option value="Tamu Undangan">Tamu</option>
+                                        </select>
                                     </div>
 
                                     <div class="row mb-4">
@@ -111,9 +108,10 @@
                                         <label for="unit_kegiatan" class="text-capitalize">unit kegiatan</label>
                                         <select name="unit_kegiatan" id="unit_kegiatan" class="form-select single">
                                             <option>Pilih Unit Kegiatan</option>
-                                            @foreach ($unitKegiatan as $unit)      
+                                            @foreach ($unitKegiatan as $unit)
                                                 <option value="{{ $unit->unit_kegiatan }}"
-                                                    {{ request('unit_kegiatan') == $unit->unit_kegiatan ? 'selected' : '' }}>{{ $unit->unit_kegiatan }}</option>
+                                                    {{ request('unit_kegiatan') == $unit->unit_kegiatan ? 'selected' : '' }}>
+                                                    {{ $unit->unit_kegiatan }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -123,29 +121,33 @@
                                         <div class="form-group">
                                             <label for="deskripsi_kegiatan" class="text-capitalize">deskripsi
                                                 kegiatan</label>
-                                            <textarea class="form-control" name="deskripsi_kegiatan" value="{{ old('deskripsi_kegiatan') }}" id=""
-                                                rows="3" placeholder="Masukkan Deskripsi Kegiatan"></textarea>
+                                            <textarea class="form-control" id="deskripsi_kegiatan" name="deskripsi_kegiatan"
+                                                value="{{ old('deskripsi_kegiatan') }}" rows="3"
+                                                placeholder="Masukkan Deskripsi Kegiatan"></textarea>
                                         </div>
                                     </div>
                                     <div class="mb-4">
                                         <div class="form-group">
-                                            <label for="deskripsi_kegiatan" class="text-capitalize">Kebutuhan
+                                            <label for="perlengkapan" class="text-capitalize">Kebutuhan
                                                 perlengkapan</label>
-                                            <textarea class="form-control" name="perlengkapan" value="{{ old('perlengkapan') }}" id=""
-                                                rows="3" placeholder="Masukkan Kebutuhan Perlengkapan"></textarea>
+                                            <textarea class="form-control" id="perlengkapan" name="perlengkapan"
+                                                value="{{ old('perlengkapan') }}" rows="3"
+                                                placeholder="Masukkan Kebutuhan Perlengkapan"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="mb-4">
                                         <div class="form-group">
-                                            <label for="link_zoom" class="text-capitalize">link zoom <span class="text-danger">(jika ada)</span></label>
-                                            <textarea class="form-control" name="link_zoom" value="{{ old('link_zoom') }}" id="" rows="3" placeholder="contoh: https://zoom.us/j/123456789"></textarea>
+                                            <label for="link_zoom" class="text-capitalize">link zoom <span
+                                                    class="text-danger">(jika ada)</span></label>
+                                            <textarea class="form-control" name="link_zoom" value="{{ old('link_zoom') }}" id="" rows="3"
+                                                placeholder="contoh: https://zoom.us/j/123456789"></textarea>
                                         </div>
                                     </div>
 
                                     @if (Auth::user()->is_admin)
                                         <div class="mb-4">
-                                            <label for="status" class="text-uppercase">status</label>
+                                            <label for="status" class="text-capitalize">status</label>
                                             <div class="form-group">
                                                 <select class="form-control form-control-sm" name="status"
                                                     id="status">
@@ -156,12 +158,15 @@
                                             </div>
                                         </div>
                                         <div class="mb-4">
-                                            <label for="email_tujuan" class="text-uppercase">email tujuan</label>
-                                            <input type="email" class="form-control" name="email_tujuan" value="{{ old('email_tujuan') }}" placeholder="contoh: pengguna@gmail.com">
+                                            <label for="email_tujuan" class="text-capitalize">Email yang ditujukan kepada
+                                                pemberi tugas</label>
+                                            <input type="email" class="form-control" name="email_tujuan"
+                                                value="{{ old('email_tujuan') }}"
+                                                placeholder="contoh: pengguna@gmail.com">
                                         </div>
                                     @endif
 
-                                    
+
                                 </div>
                             </div>
 
@@ -184,3 +189,16 @@
             </div>
         </div>
     @endsection
+
+    @push('scripts')
+        <script>
+            CKEDITOR.replace('deskripsi_kegiatan', {
+                versionCheck: false
+            });
+        </script>
+        <script>
+            CKEDITOR.replace('perlengkapan', {
+                versionCheck: false
+            });
+        </script>
+    @endpush

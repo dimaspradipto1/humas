@@ -110,7 +110,6 @@ class PengajuanDataTable extends DataTable
             ->setTableId('pengajuan-table')
             ->columns($this->getColumns())
 
-            // ✅ penting: bawa parameter status ke request ajax datatables
             // ->minifiedAjax([
             //     'data' => 'function(d){ d.status = "' . e($status) . '"; }'
             // ])

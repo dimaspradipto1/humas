@@ -30,7 +30,7 @@
     <link rel="icon" type="image/png" sizes="16x16"
         href="{{ asset('volt/assets/img/favicon/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ asset('volt/assets/img/favicon/site.webmanifest') }}">
-    <link rel="mask-icon" href="{{ asset('volt/assets/img/favicon/safari-pinned-tab.svg') }}" color="#ffffff">
+    <link rel="mask-icon" href="{{ asset('volt/assets/img/favicon/favicon-16x16.png') }}" color="#ffffff">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
@@ -44,8 +44,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
 
     @stack('style')
-
-
 </head>
 
 <body>
@@ -84,13 +82,13 @@
 
     <!-- Core -->
     <script src="{{ asset('volt/vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset('/volt/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('volt/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Vendor JS -->
     <script src="{{ asset('volt/vendor/onscreen/dist/on-screen.umd.min.js') }}"></script>
 
     <!-- Slider -->
-    <script src="{{ asset('volt/vendor/nouislider/distribute/nouislider.min.js') }}"></script>
+    <script src="{{ asset('volt/vendor/nouislider/dist/nouislider.min.js') }}"></script>
 
     <!-- Smooth scroll -->
     <script src="{{ asset('volt/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js') }}"></script>
@@ -126,6 +124,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
+    {{-- ckeditor --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.16.2/ckeditor.js"></script>
 
     @stack('scripts')
     @stack('style')
@@ -184,8 +184,6 @@
 
         });
     </script>
-        
-
 </body>
 
 </html>

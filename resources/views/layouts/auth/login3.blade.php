@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Informasi Akademik</title>
+    <title>SIHUMAS-LOGIN</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta name="description"
         content="siAkad Cloud solusi terbaik Perguruan Tinggi. Langsung Bisa Digunakan, Tidak Ribet dan Pelaporan Beres.">
@@ -149,14 +149,11 @@
                         <h3 class="no-margin"><b>Universitas Ibnu Sina</b></h3>
                     </div>
                 </div>
-                <div data-aos="fade-left" data-aos-duration="1000" class="col-lg-5 col-md-6 col-sm-6 col-xs-12 form-login" align="center">
+                <div data-aos="zoom-in" data-aos-duration="1000"
+                    class="col-lg-5 col-md-6 col-sm-6 col-xs-12 form-login" align="center">
                     <img src="https://assets.siakadcloud.com/uploads/uis/logoaplikasi/156.jpg" class="logo"
                         style="margin-bottom: 30px;">
-                    <b>
-                        <span class="text-center text-uppercase"
-                            style="font-size:20px; font-weight: 600; display: block">masuk</span>
-                    </b>
-                    <p style="margin-bottom: 15px;">
+                    <p>
                         Nikmati kemudahan mengakses semua layanan Humas dan Publikasi Universitas
                         Ibnu Sina.
                     </p>
@@ -170,10 +167,11 @@
                         </div>
 
                         <div class="login">
-                            {{--  <a href="#" class="btn btn-default btn-block" style="font-weight: 600;">
-                  <img src="https://quantum.sevima.com/assets/images/logo-google.svg" alt=""> Masuk dengan
-                  Google
-                </a>  --}}
+                            {{-- <a href="#" class="btn btn-default btn-block" style="font-weight: 600;">
+                                <img src="https://quantum.sevima.com/assets/images/logo-google.svg" alt="">
+                                Masuk dengan
+                                Google
+                            </a> --}}
 
                             <div class="title-login-email">
                                 <span class="title-line"></span>
@@ -200,8 +198,8 @@
                                 </div>
                             </div>
 
-                            {{--  <a style="font-size: 13px; padding: 0px 0px 25px 0px;text-decoration-line: underline;font-weight: 600;"
-                  href="{{ route('forgotpassword') }}" class="text-center pull-right">Lupa kata sandi?</a>  --}}
+                            {{-- <a style="font-size: 13px; padding: 0px 0px 25px 0px;text-decoration-line: underline;font-weight: 600;"
+                                href="{{ route('forgotpassword') }}" class="text-center pull-right">Lupa kata sandi?</a> --}}
                             <div class="form-group" style="margin-top: 20pt;" align="center">
                                 <button type="submit" data-type="login"
                                     class="btn btn-flat btn-primary btn-block btn-login">Masuk</button>

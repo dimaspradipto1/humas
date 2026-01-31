@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'operator rektorat',
-                'email' => 'rektorat@gmail.com',
+                'email' => 'rektorat@uis.ac.id',
                 'password' => Hash::make('password'),
                 'fakultas'=>'REKTORAT',
                 'is_admin' => false,
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'operator Feb',
-                'email' => 'feb@gmail.com',
+                'email' => 'feb@uis.ac.id',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS EKONOMI DAN BISNIS',
                 'is_admin' => false,
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'operator FST',
-                'email' => 'fst@gmail.com',
+                'email' => 'fst@uis.ac.id',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS SAINS DAN TEKNOLOGI',
                 'is_admin' => false,
@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'operator Fikes',
-                'email' => 'fikes@gmail.com',
+                'email' => 'fikes@uis.ac.id',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS ILMU KESEHATAN',
                 'is_admin' => false,
@@ -87,7 +87,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'pengguna',
-                'email' => 'dimaspradipto11@gmail.com',
+                'email' => 'dimas@uis.ac.id',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS SAINS DAN TEKNOLOGI',
                 'is_admin' => false,

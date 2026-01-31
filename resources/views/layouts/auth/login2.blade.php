@@ -25,7 +25,6 @@
     <meta property="twitter:description"
         content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
 
-
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('volt/assets/img/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32"
@@ -46,13 +45,11 @@
     <!-- Volt CSS -->
     <link type="text/css" href="{{ asset('volt/css/volt.css') }}" rel="stylesheet">
 
-
 </head>
 
 <body>
 
     <main>
-
         <!-- Section -->
         <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
             <div class="container">
@@ -72,7 +69,13 @@
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h3">Sign in to our Humas</h1>
+                                <img src="https://assets.siakadcloud.com/uploads/uis/logoaplikasi/156.jpg"
+                                    class="logo" style="margin-bottom: 10px;">
+                                <p>
+                                    Nikmati kemudahan mengakses semua layanan Humas dan Publikasi Universitas
+                                    Ibnu Sina.
+                                </p>
+                                <hr>
                             </div>
                             <form action="{{ route('loginproses') }}" class="mt-4" method="POST">
                                 @csrf
@@ -91,10 +94,10 @@
                                                 </path>
                                             </svg>
                                         </span>
-                                        <input type="email" name="email" value="{{ old('email') }}"
-                                            class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="example@gmail.com" id="email" autofocus required>
-                                        @error('email')
+                                        <input type="email" name="login" value="{{ old('login') }}"
+                                            class="form-control @error('login') is-invalid @enderror"
+                                            placeholder="example@gmail.com" id="login" autofocus required>
+                                        @error('login')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -134,10 +137,10 @@
                                     <button type="submit" class="btn btn-gray-800">Sign in</button>
                                 </div>
                             </form>
-                            <div class="mt-3 mb-4 text-center">
+                            {{-- <div class="mt-3 mb-4 text-center">
                                 <span class="fw-normal">or login with</span>
-                            </div>
-                            <div class="d-flex justify-content-center my-4">
+                            </div> --}}
+                            {{-- <div class="d-flex justify-content-center my-4">
                                 <a href="#" class="btn btn-icon-only btn-pill btn-outline-gray-500 me-2"
                                     aria-label="facebook button" title="facebook button">
                                     <svg class="icon icon-xxs" aria-hidden="true" focusable="false"
@@ -168,13 +171,13 @@
                                         </path>
                                     </svg>
                                 </a>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center mt-4">
+                            </div> --}}
+                            {{-- <div class="d-flex justify-content-center align-items-center mt-4">
                                 <span class="fw-normal">
                                     Not registered?
                                     <a href="./sign-up.html" class="fw-bold">Create account</a>
                                 </span>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

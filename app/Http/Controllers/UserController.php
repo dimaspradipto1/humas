@@ -42,29 +42,29 @@ class UserController extends Controller
         $data['is_fikes'] = false;
         $data['is_users'] = false;
         $data['password'] = bcrypt($request->password);
-        $data['remember_token']=Str::random(60);
+        $data['remember_token'] = Str::random(60);
 
         // Set fakultas status
-    switch ($request->fakultas) {
-        case 'UNIVERISTAS IBNU SINA':
-            $data['is_admin'] = true;
-            break;
-        case 'FAKULTAS SAINS DAN TEKNOLOGI':
-            $data['is_fst'] = true;
-            break;
-        case 'FAKULTAS EKONOMI DAN BISNIS':
-            $data['is_feb'] = true; // Assuming Fakultas Ilmu Komputer is in FST
-            break;
-        case 'FAKULTAS ILMU KESEHATAN':
-            $data['is_fikes'] = true; // Assuming Sastra is for rectorate
-            break;
-        case 'REKTORAT':
-            $data['is_rektorat'] = true; // Assuming Hukum is for rectorate
-            break;
-        default:
-            $data['is_users'] = true; // Set to default if no match
-            break;
-    }
+        switch ($request->fakultas) {
+            case 'UNIVERISTAS IBNU SINA':
+                $data['is_admin'] = true;
+                break;
+            case 'FAKULTAS SAINS DAN TEKNOLOGI':
+                $data['is_fst'] = true;
+                break;
+            case 'FAKULTAS EKONOMI DAN BISNIS':
+                $data['is_feb'] = true; // Assuming Fakultas Ilmu Komputer is in FST
+                break;
+            case 'FAKULTAS ILMU KESEHATAN':
+                $data['is_fikes'] = true; // Assuming Sastra is for rectorate
+                break;
+            case 'REKTORAT':
+                $data['is_rektorat'] = true; // Assuming Hukum is for rectorate
+                break;
+            default:
+                $data['is_users'] = true; // Set to default if no match
+                break;
+        }
 
         User::create($data);
         return redirect()->route('users.index');
@@ -91,27 +91,27 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-       $user= User::findOrfail($id);
+        $user = User::findOrfail($id);
 
-       $user -> update([
-            'is_admin' =>$request->has('is_admin') ? 1:0,
-            'is_rektorat' => $request->has('is_rektorat') ? 1:0,
-            'is_feb' => $request->has('is_feb') ? 1:0,
-            'is_fst' => $request->has('is_fst') ? 1:0,
-            'is_fikes' => $request->has('is_fikes') ? 1:0,
-            'is_users' => $request->has('is_users') ? 1:0,
-       ]);
+        $user->update([
+            'is_admin' => $request->has('is_admin') ? 1 : 0,
+            'is_rektorat' => $request->has('is_rektorat') ? 1 : 0,
+            'is_feb' => $request->has('is_feb') ? 1 : 0,
+            'is_fst' => $request->has('is_fst') ? 1 : 0,
+            'is_fikes' => $request->has('is_fikes') ? 1 : 0,
+            'is_users' => $request->has('is_users') ? 1 : 0,
+        ]);
 
-       $updateData =[
+        $updateData = [
             'name' => $request->name ?? '',
             'email' => $request->email ?? '',
-       ];
+        ];
 
-       if($request->has('password')){
+        if ($request->has('password')) {
             $updateData['password'] = $request->password;
-       }
+        }
 
-       $user->update($updateData);
+        $user->update($updateData);
         return redirect()->route('users.index');
     }
 
@@ -131,7 +131,7 @@ class UserController extends Controller
         $users = User::findOrFail($id);
         return view('pages.users.updatePassword', compact('users'));
     }
-    
+
     public function updatePassword(Request $request, $id)
     {
         $user = User::findOrFail($id);

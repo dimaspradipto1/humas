@@ -1,6 +1,5 @@
 @extends('layouts.dashboard.template')
 
-
 @section('content')
 <div class="py-4">
     <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
@@ -35,16 +34,13 @@
   <div class="card border-0 shadow mb-4">
     <div class="card-body">
       <div class="table-responsive">
-        {{ $dataTable->table([
-          'style' => 'width:100%; overflow-x: auto'
-        ]) 
-        }}
+        {{ $dataTable->table(['style' => 'width:100%; overflow-x: auto']) }}
       </div>
-      
     </div>
   </div>
 @endsection
 
 @push('scripts')
+    {{-- {!! str_replace('http:', 'https:', $dataTable->scripts()) !!} --}}
     {!! $dataTable->scripts() !!}
 @endpush

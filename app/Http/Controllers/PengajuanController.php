@@ -132,7 +132,7 @@ class PengajuanController extends Controller
         if (auth()->user()->is_admin && isset($data['email_tujuan'])) {
             $emailTujuan = $data['email_tujuan'];  // Gunakan email_tujuan jika diisi
         } else {
-            $emailTujuan = 'nepsterdms@gmail.com';  // Jika bukan admin atau email_tujuan tidak diisi, kirim ke email default
+            $emailTujuan = 'humasuis@gmail.com';  // Jika bukan admin atau email_tujuan tidak diisi, kirim ke email default
         }
 
 

@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
             <div class="d-flex align-items-center">
                 <!-- Search form -->
-                <form class="navbar-search form-inline" id="navbar-search-main">
+                {{-- <form class="navbar-search form-inline" id="navbar-search-main">
                     <div class="input-group input-group-merge search-bar">
                         <span class="input-group-text" id="topbar-addon">
                             <svg class="icon icon-xs" x-description="Heroicon name: solid/search"
@@ -17,190 +17,12 @@
                         <input type="text" class="form-control" id="topbarInputIconLeft" placeholder="Search"
                             aria-label="Search" aria-describedby="topbar-addon">
                     </div>
-                </form>
+                </form> --}}
                 <!-- / Search form -->
             </div>
 
             <!-- Navbar links -->
             <ul class="navbar-nav align-items-center">
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link text-dark notification-bell {{ $hasNotifications ? 'unread' : '' }} dropdown-toggle"
-                        data-unread-notifications="{{ $hasNotifications ? 'true' : 'false' }}" href="#"
-                        role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                        <svg class="icon icon-sm text-gray-900" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                            </path>
-                        </svg>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-center mt-2 py-0">
-                        <div class="list-group list-group-flush">
-                            <a href="#"
-                                class="text-center text-primary fw-bold border-bottom border-light py-3">Notifications</a>
-
-                            <!-- Admin Notifications -->
-                            @if (session('notifikasi_pengajuan_pending') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending (All Faculties)
-                                                    </h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_pending') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if (session('notifikasi_pengajuan_diterima') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'diterima']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Diterima (All Faculties)
-                                                    </h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-success">{{ session('notifikasi_pengajuan_diterima') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if (session('notifikasi_pengajuan_ditolak') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'ditolak']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Ditolak (All Faculties)
-                                                    </h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-danger">{{ session('notifikasi_pengajuan_ditolak') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            <!-- Fakultas Notifications -->
-                            @if (session('notifikasi_pengajuan_feb') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending FEB</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_feb') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            <!-- Repeat for FIKES, FST, Rektorat -->
-                            @if (session('notifikasi_pengajuan_fikes') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending FIKES</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_fikes') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if (session('notifikasi_pengajuan_fst') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending FST</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_fst') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-
-                            @if (session('notifikasi_pengajuan_rektorat') > 0)
-                                <a href="{{ route('pengajuan.index', ['status' => 'pending']) }}"
-                                    class="list-group-item list-group-item-action border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col ps-0 ms-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h4 class="h6 mb-0 text-small">Pengajuan Pending Rektorat</h4>
-                                                </div>
-                                                <div class="text-end">
-                                                    <small
-                                                        class="text-warning">{{ session('notifikasi_pengajuan_rektorat') }}
-                                                        Pengajuan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif  
-
-                            <!-- Link for viewing all -->
-                            <a href="{{ route('pengajuan.index') }}"
-                                class="dropdown-item text-center fw-bold rounded-bottom py-3">
-                                <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                                    <path fill-rule="evenodd"
-                                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                View all
-                            </a>
-                        </div>
-                    </div>
-                </li> --}}
-
                 @php
                     $notif = session('pengajuan_notif', []);
                     $user = auth()->user();
@@ -208,7 +30,7 @@
                     // Scope mengikuti role yang login
                     $scope = null;
 
-                    if (!empty($user->is_admin)) {
+                    if (!empty($user->is_admin) || !empty($user->is_staffbaak)) {
                         $scope = 'admin';
                     } elseif (!empty($user->is_feb)) {
                         $scope = 'feb';
@@ -250,7 +72,6 @@
                             </path>
                         </svg>
 
-                        {{-- Badge total kecil di icon bell (opsional tapi keren) --}}
                         @if ($totalNotif > 0)
                             <span class="bell-badge">{{ $totalNotif }}</span>
                         @endif
@@ -334,7 +155,7 @@
                                 </div>
                             @endif
 
-                            <a href="{{ route('pengajuan.index') }}"
+                            <a href="{{ route('kotak-masuk-pengajuan.index') }}"
                                 class="dropdown-item text-center fw-bold rounded-bottom py-3">
                                 <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -343,40 +164,47 @@
                                         d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                View all
+                                lihat semua pemberitahuan
                             </a>
                         </div>
                     </div>
                 </li>
 
                 <style>
-                    /* badge kecil di bell */
+                    /* Icon Bel Notification */
+                    .notification-bell {
+                        position: relative;
+                        display: inline-block;
+                    }
+
+                    /* Badge Notification */
                     .bell-badge {
                         position: absolute;
                         top: -30px;
                         right: -10px;
-
                         min-width: 18px;
                         height: 18px;
                         padding: 0 5px;
-
                         background-color: #f0ad4e;
-                        /* warning */
                         color: #fff;
-
-                        border-radius: 999px;
+                        border-radius: 50%;
                         font-size: 11px;
                         font-weight: 700;
-
                         display: flex;
                         align-items: center;
                         justify-content: center;
-
                         line-height: 1;
                         z-index: 20;
-
-                        /* opsional biar ada efek “nempel” */
                         box-shadow: 0 0 0 2px #fff;
+
+                        /* Responsif untuk perangkat mobile */
+                        @media (max-width: 767px) {
+                            top: -8px;
+                            right: 15px;
+                            min-width: 16px;
+                            height: 16px;
+                            font-size: 10px;
+                        }
                     }
                 </style>
 
@@ -385,25 +213,29 @@
                     <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="media d-flex align-items-center">
+                            @php
+                                $pegawai = Auth::user()->pegawai;
+                            @endphp
                             <img class="avatar rounded-circle" alt="Image placeholder"
-                                src="{{ asset('volt/assets/img/team/avatar-grey.png') }}">
+                                src="{{ $pegawai && $pegawai->foto ? asset('storage/' . $pegawai->foto) : asset('volt/assets/img/team/avatar-grey.png') }}">
                             <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                 <span class="mb-0 font-small fw-bold text-gray-900">{{ Auth::user()->name }}</span>
                             </div>
                         </div>
                     </a>
                     <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center"
+                            href="{{ route('pegawai.index', Auth::user()->id) }}">
                             <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            Settings
+                            Data Pegawai
                         </a>
                         <a class="dropdown-item d-flex align-items-center"
-                            href="https://api.whatsapp.com/send?phone=628228373681&text=Hello!%20I%20would%20like%20to%20get%20in%20touch%20with%20you."
+                            href="https://api.whatsapp.com/send?phone=6289523712219&text=Hello!%20I%20would%20like%20to%20get%20in%20touch%20with%20you."
                             target="_blank" rel="noopener noreferrer">
                             <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">

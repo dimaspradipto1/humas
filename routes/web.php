@@ -4,6 +4,7 @@ use App\Models\Aktivitas;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PublikasiController;
@@ -47,4 +48,5 @@ Route::middleware(['auth', 'checkrole'])->group(function () {
     Route::get('/laporan-publikasi', [LaporanPublikasiController::class, 'index'])->name('laporan-publikasi.index');
     Route::get('/laporan-publikasi/show', [LaporanPublikasiController::class, 'show'])->name('laporan-publikasi.show');
     Route::resource('/unit-kegiatan', UnitKegiatanController::class);
+    Route::resource('/pegawai', PegawaiController::class);
 });

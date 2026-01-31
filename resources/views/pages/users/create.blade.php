@@ -62,59 +62,12 @@
 
                 <div class="mb-4">
                   <label for="password" class="text-uppercase">password</label>
-                  <input type="text" class="form-control" name="password" value="{{old('password')}}">
+                  <input type="password" class="form-control" name="password" value="{{old('password')}}">
                 </div>
 
               </div>
             </div>
-            {{-- <div class="form-group row">
-              <label class="col-sm-2 col-form-label">STATUS</label>
-              <div class="col-sm-10">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="true" id="checkbox-mahasiswa" name="is_admin">
-                  <label class="form-check-label text-uppercase" >
-                    admin
-                  </label>
-                </div>
-
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="true" id="checkbox-admin" name="is_rektorat">
-                  <label class="form-check-label text-uppercase" >
-                    admin rektorat
-                  </label>
-                </div>
-
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="true" id="checkbox-dosen" name="is_feb">
-                  <label class="form-check-label text-uppercase">
-                    admin feb
-                  </label>
-                </div>
-
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="true" id="checkbox-admin" name="is_fst" >
-                  <label class="form-check-label text-uppercase">
-                    admin fst
-                  </label>
-                </div>
-
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="true" id="checkbox-wakil-dekan-I" name="is_fikes">
-                  <label class="form-check-label text-uppercase">
-                    admin fikes
-                  </label>
-                </div>
-
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="true" id="checkbox-wakil-dekan-II" name="is_users">
-                  <label class="form-check-label text-uppercase">
-                    pengguna
-                  </label>
-                </div>
-
-              </div>
-            </div> --}}
-            <button class="btn btn-gray-800 d-inline-flex align-items-center me-2 aria-haspopup="true"
+            <button type="submit" class="btn btn-gray-800 d-inline-flex align-items-center me-2 aria-haspopup="true"
               aria-expanded="false">
               <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">

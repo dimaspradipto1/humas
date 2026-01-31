@@ -36,14 +36,14 @@
       <div class="table-responsive" >
         <table class="table table-bordered">
           <tr>
-            <th>Tahun Akademik</th>
+            {{-- <th>Tahun Akademik</th>
             <td class="badge bg-primary text-uppercase font-weight-bolder text-white mx-3 my-2 badge-xl">
                 @foreach($tahunAkademik as $tahun)
                     @if($tahun->id == $pengajuan->tahun_akademik_id)
                         {{ $tahun->tahun_akademik }}
                     @endif
                 @endforeach
-            </td>
+            </td> --}}
           </tr>
           <tr>
             <th>Nama Kegiatan</th>

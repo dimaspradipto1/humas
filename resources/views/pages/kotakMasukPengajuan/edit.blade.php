@@ -125,7 +125,7 @@
                                 SUBMIT
                             </button>
 
-                            <a href="{{ route('pengajuan.index') }}" class="btn btn-sm btn-danger px-2 py-2">BACK <i
+                            <a href="{{ route('kotak-masuk-pengajuan.index') }}" class="btn btn-sm btn-danger px-2 py-2">BACK <i
                                     class="fa-solid fa-right-from-bracket"></i></a>
                         </div>
                     </form>

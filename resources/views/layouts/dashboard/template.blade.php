@@ -67,7 +67,7 @@
     @include('layouts.dashboard.sidebar')
 
     <main class="content">
-        
+
         <!-- navbar -->
         @include('layouts.dashboard.nav')
         @include('sweetalert::alert')
@@ -137,53 +137,7 @@
         });
     </script>
 
-    <script>
-        new Chartist.Line('.line-chart', {
-            labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
-            series: [
-                [12, 9, 7, 8, 5, 10, 15],
-                [2, 1, 3.5, 7, 3, 5, 10],
-                [1, 3, 4, 5, 6, 7, 8],
-                [10, 30, 43, 25, 16, 20, 25],
-            ]
-        }, {
-            fullWidth: true,
-            chartPadding: {
-                right: 40
-            },
-            plugins: [
-                Chartist.plugins.tooltip()
-            ]
-        });
-    </script>
 
-    <script>
-        var data = {
-            series: [10, 40, 10, 20], // Data yang digunakan pada chart
-        };
-
-        var sum = function(a, b) {
-            return a + b;
-        };
-
-        new Chartist.Pie('.pie-chart', data, {
-            labelInterpolationFnc: function(value) {
-                return Math.round(value / data.series.reduce(sum) * 100) +
-                    '%'; // Menampilkan persentase pada label
-            },
-            low: 0,
-            high: 8,
-            donut: true, // Menambahkan efek donut (lubang di tengah)
-            donutSolid: true, // Lubang donut solid
-            fullWidth: false, // Tidak menggunakan full width
-            showLabel: true, // Menampilkan label
-            plugins: [
-                Chartist.plugins.tooltip() // Tooltip untuk menampilkan info saat hover
-            ],
-            chartPadding: 0, // Menghilangkan padding agar lebih pas
-
-        });
-    </script>
 </body>
 
 </html>

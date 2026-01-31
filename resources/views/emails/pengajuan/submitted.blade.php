@@ -22,17 +22,19 @@
         <tr>
             <td><strong>Tanggal Mulai/Waktu:</strong></td>
             <td>:</td>
-            <td>{{ \Carbon\Carbon::parse($pengajuan->tgl_awal)->locale('id')->format('d F Y') }} / {{ $pengajuan->jam_kegiatan }} WIB</td>
+            <td>{{ \Carbon\Carbon::parse($pengajuan->tgl_awal)->locale('id')->format('d F Y') }} /
+                {{ $pengajuan->jam_kegiatan }} WIB</td>
         </tr>
         <tr>
             <td><strong>Tanggal Selesai/Waktu:</strong></td>
             <td>:</td>
-            <td>{{ \Carbon\Carbon::parse($pengajuan->tgl_selesai)->locale('id')->format('d F Y') }} / {{ $pengajuan->waktu_selesai }} WIB</td>
+            <td>{{ \Carbon\Carbon::parse($pengajuan->tgl_selesai)->locale('id')->format('d F Y') }} /
+                {{ $pengajuan->waktu_selesai }} WIB</td>
         </tr>
         <tr>
             <td><strong>Deskripsi:</strong></td>
             <td>:</td>
-            <td>{{ $pengajuan->deskripsi_kegiatan }}</td>
+            <td>{{ strip_tags($pengajuan->deskripsi_kegiatan) }}</td>
         </tr>
         <tr>
             <td><strong>Unit Kegiatan:</strong></td>
@@ -47,7 +49,7 @@
         <tr>
             <td><strong>Kebutuhan:</strong></td>
             <td>:</td>
-            <td>{{ $pengajuan->perlengkapan }}</td>
+            <td>{{ strip_tags($pengajuan->perlengkapan) }}</td>
         </tr>
         <tr>
             <td><strong>Link Zoom:</strong></td>
@@ -56,10 +58,13 @@
         </tr>
         <tr>
             <td>
-                <a href="{{ route('login') }}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; text-decoration: none; border-radius: 5px;">Silahkan Login</a>
+                <a href="{{ route('login') }}"
+                    style="display: inline-block; background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; text-decoration: none; border-radius: 5px;">Silahkan
+                    Login</a>
             </td>
         </tr>
     </table>
 
 </body>
+
 </html>

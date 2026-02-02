@@ -7,6 +7,8 @@ use App\Models\Pengajuan;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -62,12 +64,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with('notifikasiPengajuan', $notifikasiPengajuan);
             $view->with('hasNotifications', $hasNotifications); // Kirim status notifikasi
         });
+
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
+
+        Paginator::useBootstrap();
     }
-
-    // if (config('app.env') === 'production') {
-        //     URL::forceScheme('https');
-        // }
-
-        // Menambahkan paginator dengan Bootstrap
-        // Paginator::useBootstrap();
 }

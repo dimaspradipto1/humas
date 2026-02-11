@@ -41,8 +41,8 @@
 
 @push('scripts')
     @if(app()->environment('production'))
-    {!! str_replace('http:', 'https:', $dataTable->scripts()) !!}
+      {!! str_replace('http:', 'https:', $dataTable->scripts()) !!}
     @else
-    {!! $dataTable->scripts() !!}
+      {!! $dataTable->scripts() !!}
     @endif
 @endpush

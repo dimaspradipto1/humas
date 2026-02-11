@@ -22,7 +22,7 @@ class UnitKegiatanController extends Controller
      */
     public function create()
     {
-        return view('pages.unitkegiatan.create');
+        return view('pages.unitKegiatan.create');
     }
 
     /**
@@ -51,7 +51,7 @@ class UnitKegiatanController extends Controller
      */
     public function edit(UnitKegiatan $unitKegiatan)
     {
-        return view('pages.unitkegiatan.edit', compact('unitKegiatan'));
+        return view('pages.unitKegiatan.edit', compact('unitKegiatan'));
     }
 
     /**

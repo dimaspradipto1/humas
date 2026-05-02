@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function login()
     {
-        return view('layouts.auth.login3');
+        return view('layouts.auth.login');
     }
 
     public function logout()

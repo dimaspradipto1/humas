@@ -14,7 +14,7 @@ class UnitKegiatanController extends Controller
      */
     public function index(UnitKegiatanDataTable $unitKegiatanDataTable)
     {
-        return $unitKegiatanDataTable->render('pages.unitkegiatan.index');
+        return $unitKegiatanDataTable->render('pages.unitKegiatan.index');
     }
 
     /**

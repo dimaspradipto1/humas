@@ -12,6 +12,7 @@ use App\Http\Controllers\UnitKegiatanController;
 use App\Http\Controllers\TahunAkademikController;
 use App\Http\Controllers\LaporanPublikasiController;
 use App\Http\Controllers\KotakMasukPengajuanController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +50,6 @@ Route::middleware(['auth', 'checkrole'])->group(function () {
     Route::get('/laporan-publikasi/show', [LaporanPublikasiController::class, 'show'])->name('laporan-publikasi.show');
     Route::resource('/unit-kegiatan', UnitKegiatanController::class);
     Route::resource('/pegawai', PegawaiController::class);
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
 });

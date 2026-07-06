@@ -48,6 +48,11 @@
                 </div>
 
                 <div class="mb-4">
+                  <label for="no_wa" class="text-uppercase">Nomor WhatsApp</label>
+                  <input type="text" name="no_wa" value="{{old('no_wa')}}" class="form-control" id="no_wa" placeholder="Contoh: 6285363572448">
+                </div>
+
+                <div class="mb-4">
                   <label for="email" class="text-uppercase">fakultas</label>
                   <select name="fakultas" class="form-control" id="fakultas">
                     <option >PILIH</option>

@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'admin humas dan publikasi',
                 'email' => 'admin@gmail.com',
+                'no_wa' => '6282283736481',
                 'password' => Hash::make('password'),
                 'fakultas' => 'UNIVERSITAS IBNU SINA',
                 'is_admin' => true,
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'operator rektorat',
                 'email' => 'rektorat@uis.ac.id',
+                'no_wa' => '',
                 'password' => Hash::make('password'),
                 'fakultas'=>'REKTORAT',
                 'is_admin' => false,
@@ -46,6 +48,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'operator Feb',
                 'email' => 'feb@uis.ac.id',
+                'no_wa' => '',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS EKONOMI DAN BISNIS',
                 'is_admin' => false,
@@ -60,6 +63,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'operator FST',
                 'email' => 'fst@uis.ac.id',
+                'no_wa' => '6285363572448',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS SAINS DAN TEKNOLOGI',
                 'is_admin' => false,
@@ -74,6 +78,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'operator Fikes',
                 'email' => 'fikes@uis.ac.id',
+                'no_wa' => '',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS ILMU KESEHATAN',
                 'is_admin' => false,
@@ -88,6 +93,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'pengguna',
                 'email' => 'dimas@uis.ac.id',
+                'no_wa' => '',
                 'password' => Hash::make('password'),
                 'fakultas'=>'FAKULTAS SAINS DAN TEKNOLOGI',
                 'is_admin' => false,

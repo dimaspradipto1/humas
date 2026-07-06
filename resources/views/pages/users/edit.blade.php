@@ -47,7 +47,11 @@
                 <div class="mb-4">
                   <label for="email" class="text-uppercase">Email</label>
                   <input type="email" name="email" value="{{old('email') ?? $user->email}}" class="form-control" id="email">
+                </div>
 
+                <div class="mb-4">
+                  <label for="no_wa" class="text-uppercase">Nomor WhatsApp</label>
+                  <input type="text" name="no_wa" value="{{old('no_wa') ?? $user->no_wa}}" class="form-control" id="no_wa" placeholder="Contoh: 6285363572448">
                 </div>
 
                 {{-- <div class="mb-4">

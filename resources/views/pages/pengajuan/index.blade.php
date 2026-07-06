@@ -45,4 +45,23 @@
     @else
       {!! $dataTable->scripts() !!}
     @endif
+
+    @if(session('wa_redirect_url'))
+        <script>
+            Swal.fire({
+                title: 'Pengajuan Berhasil!',
+                text: 'Silakan klik tombol di bawah untuk mengirim pesan WhatsApp ke Admin.',
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#25D366',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fa-brands fa-whatsapp me-2"></i>Kirim ke WA Admin',
+                cancelButtonText: 'Lewati'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.open("{{ session('wa_redirect_url') }}", '_blank');
+                }
+            });
+        </script>
+    @endif
 @endpush

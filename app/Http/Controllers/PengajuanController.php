@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Mail;
 use App\DataTables\PengajuanDataTable;
 use App\Http\Requests\PengajuanRequest;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Setting;
+use App\Services\WhatsAppService;
+use Carbon\Carbon;
 
 class PengajuanController extends Controller
 {
@@ -143,7 +146,28 @@ class PengajuanController extends Controller
             ->send(new PengajuanSubmitted($pengajuan));
 
 
-        Alert::success('Success', 'Data berhasil ditambahkan dan email telah dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
+        // Kirim notifikasi WhatsApp (Manual Redirect) jika nomor WA admin terisi
+        $waAdmin = Setting::getValue('admin_whatsapp');
+        if ($waAdmin) {
+            $waTemplate = Setting::getValue('wa_message_template', '');
+            
+            // Format pesan
+            $waMessage = strtr($waTemplate, [
+                '{nama_kegiatan}' => $pengajuan->nama_kegiatan,
+                '{tgl_awal}' => Carbon::parse($pengajuan->tgl_awal)->translatedFormat('d F Y'),
+                '{tgl_selesai}' => Carbon::parse($pengajuan->tgl_selesai)->translatedFormat('d F Y'),
+                '{tempat_kegiatan}' => $pengajuan->tempat_kegiatan,
+                '{nama_user}' => auth()->user()->name,
+                '{no_wa_user}' => auth()->user()->no_wa ?? '-',
+            ]);
+
+            $waUrl = 'https://wa.me/' . $waAdmin . '?text=' . urlencode($waMessage);
+            session()->flash('wa_redirect_url', $waUrl);
+            Alert::success('Success', 'Data berhasil ditambahkan. Meneruskan ke WhatsApp Admin...')->toToast()->autoclose(3000)->timerProgressBar();
+        } else {
+            Alert::success('Success', 'Data berhasil ditambahkan dan email telah dikirim.')->toToast()->autoclose(3000)->timerProgressBar();
+        }
+
         return redirect()->route('pengajuan.index');
     }
 

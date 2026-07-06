@@ -997,6 +997,18 @@
                       </a>
                   </li>
               @endif
+              
+              @if (Auth::user()->is_admin)
+                  <li class="nav-item {{ request()->routeIs('settings.index') ? 'active' : '' }}">
+                      <a href="{{ route('settings.index') }}" class="nav-link">
+                          <span class="sidebar-icon">
+                              <i class="fa-solid fa-gears" style="font-size: 20px; width: 20px; text-align: center;"></i>
+                          </span>
+                          <span class="sidebar-text text-capitalize">Pengaturan WA</span>
+                      </a>
+                  </li>
+              @endif
+
               <li role="separator" class="dropdown-divider mt-4 mb-3 bs-white-rgb"></li>
           </ul>
       </div>

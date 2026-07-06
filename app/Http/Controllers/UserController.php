@@ -34,6 +34,7 @@ class UserController extends Controller
     {
         $data['name'] = $request->name;
         $data['email'] = $request->email;
+        $data['no_wa'] = $request->no_wa;
         $data['fakultas'] = $request->fakultas;
         $data['is_admin'] = false;
         $data['is_rektorat'] = false;
@@ -105,6 +106,7 @@ class UserController extends Controller
         $updateData = [
             'name' => $request->name ?? '',
             'email' => $request->email ?? '',
+            'no_wa' => $request->no_wa ?? '',
         ];
 
         if ($request->has('password')) {
